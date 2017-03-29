@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Febree</string>
+    <string name="title_activity_main">Febree</string>
+    <string name="nav_home">Домой</string>
+    <string name="nav_completed">Сделанные</string>
+    <string name="nav_news">Новости</string>
+
+
+    // [FOR WELCOME FRAGMENT]
+    <string name="agree">Соглашусь</string>
+    <string name="disagree">Не соглашусь</string>
+    
+    // [FOR INTRODUCING FRAGMENT]
+    <string name="introducing_text">
+        Сейчас вы пройдете короткий тест, состоящий из 10 вопросов.\n
+        По итогу его прохождения, мы поймем размеры
+        вашей текущей зоны комфорта и предложим вам наиболее оптимальные задания.\n
+        Спасибо.
+    </string>
+    <string name="understood">Понял</string>
+    <string name="hello">Привет</string>
+
+
+    // [QUESTIONS]
+    <string name="question_1">За последний квартал вы познакомились с кем-нибудь, кого не знали раньше</string>
+    <string name="question_2">Вы часто меняете привычные вещи. Например, дорогу на работу</string>
+    <string name="question_3">У вас есть/была вторая половинка</string>
+    <string name="question_4">Вы часто берете на себя ответственность в важных делах</string>
+    <string name="question_5">В целом, вы довольно быстро принимаете решения</string>
+    <string name="question_6">Если вы заблудились в городе, вы легко можете спросить у незнакомого
+    человека направление</string>
+    <string name="question_7">Вы легко прямо сейчас можете отказаться от использования мобильного
+    телефона</string>
+    <string name="question_8">Вы часто переезжаете/меняете свою работу</string>
+    <string name="question_9">Вы знаете минимум 2 языка на разговорном уровне</string>
+    <string name="question_10">Вы часто путешествуете</string>
+</resources>

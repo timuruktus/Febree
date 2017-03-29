@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/introducingBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/introduction_background" />
+
+        <TextView
+            android:id="@+id/introducingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:alpha="0"
+            android:background="@drawable/intro_text_background"
+            android:padding="10dp"
+            android:text="@string/introducing_text"
+            android:textAlignment="center"
+            android:textColor="@color/space_white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/hello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/introducingText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="64dp"
+            android:alpha="0"
+            android:text="@string/hello"
+            android:textColor="@color/space_white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+
+        <Button
+            android:id="@+id/understoodBut"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="75dp"
+            android:alpha="0"
+            android:backgroundTint="@color/understoodButColor"
+            android:text="@string/understood"
+            android:textColor="@android:color/background_light" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:foreground="#1e000000"
+            app:srcCompat="@color/space_transparent" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:foreground="#1e000000"
+            app:srcCompat="@color/space_transparent" />
+    </RelativeLayout>
+</LinearLayout>
