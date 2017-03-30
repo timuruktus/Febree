@@ -1,6 +1,5 @@
 package ru.timuruktus.febree;
 
-public interface BaseModel {
+public interface BaseModel extends EventCallbackListener  {
 
-    void eventCallback(BaseEvent e);
 }

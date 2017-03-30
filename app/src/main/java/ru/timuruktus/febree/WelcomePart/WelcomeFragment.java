@@ -23,11 +23,12 @@ import java.util.ArrayList;
 import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.ContentPart.TaskFragment;
+import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.MainPart.EChangeFragment;
 import ru.timuruktus.febree.R;
 
-public class WelcomeFragment extends BaseFragment implements View.OnClickListener {
+public class WelcomeFragment extends BaseFragment implements View.OnClickListener{
 
 
     public View rootView;
@@ -58,6 +59,7 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
         question.setText(questions[counter]);
         stepIndicator = (StepIndicator) rootView.findViewById(R.id.step_indicator);
         stepIndicator.setClickable(false);
+
 
         return rootView;
     }

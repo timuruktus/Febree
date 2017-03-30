@@ -34,4 +34,14 @@
     <string name="question_8">Вы часто переезжаете/меняете свою работу</string>
     <string name="question_9">Вы знаете минимум 2 языка на разговорном уровне</string>
     <string name="question_10">Вы часто путешествуете</string>
+
+    // [TASK]
+    <string name="task_current_text">Твое текущее задание</string>
+    <string name="task_cancel_button">Невозможно выполнить</string>
+    <string name="task_complete_button">Задание выполнено!</string>
+    <string name="people_completed">Людей выполнило: </string>
+    <string name="task_difficulty">Сложность задания: </string>
+    <string name="difficulty_low">Легкая </string>
+    <string name="difficulty_medium">Средняя </string>
+    <string name="difficulty_high">Высокая </string>
 </resources>

@@ -45,8 +45,8 @@ public class IntroducingFragment extends BaseFragment implements View.OnClickLis
         introducingText.setTypeface(Typeface.createFromAsset(context.getAssets(),
                 "OpenSans.ttf"));
         startAnim(hello, 0);
-        startAnim(introducingText, 2000);
-        startAnim(understoodBut, 3000);
+        startAnim(introducingText, 1000);
+        startAnim(understoodBut, 2000);
         understoodBut.setOnClickListener(this);
         return rootView;
     }

@@ -5,7 +5,7 @@ import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements EventCallbackListener  {
 
     @Override
     public void onResume(){
@@ -13,5 +13,4 @@ public abstract class BaseFragment extends Fragment {
         //EventBus.getDefault().post(new EOnFragmentChanged(this));
     }
 
-    public abstract void eventCallback(BaseEvent event);
 }
