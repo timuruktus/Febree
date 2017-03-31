@@ -26,6 +26,7 @@ import ru.timuruktus.febree.LocalPart.AGetNonPassedTasks;
 import ru.timuruktus.febree.LocalPart.AGetTaskById;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.LocalPart.Task;
+import ru.timuruktus.febree.MainPart.MainActivity;
 import ru.timuruktus.febree.ProjectUtils.Utils;
 import ru.timuruktus.febree.R;
 

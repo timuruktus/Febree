@@ -66,4 +66,9 @@
     задание. Помните, что программу нет смысла обманывать.</string>
     <string name="sure_dialog_ok">Я выполнил задание</string>
 
+    // [FOR BOTTOM MENU TOAST]
+    <string name="you_need_3_tasks">Выполните 3 задания, чтобы открыть доступ (В разработке)</string>
+    <string name="you_need_2_tasks">Выполните 2 задания, чтобы открыть доступ (В разработке)</string>
+    <string name="you_need_1_tasks">Выполните 1 задание, чтобы открыть доступ (В разработке)</string>
+
 </resources>

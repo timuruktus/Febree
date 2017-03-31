@@ -17,6 +17,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.backendless.Backendless;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentContainer = (RelativeLayout) this.findViewById(R.id.content);
         configureToolbar();
         loadFirstFragment();
+        configureBottomNav();
 
     }
 
@@ -120,14 +122,23 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
                     return true;
                 case R.id.navigation_dashboard:
-
-                    return true;
+                    if(Settings.getLevelsDone(MainActivity.this) < 1){
+                        Toast.makeText(MainActivity.this, R.string.you_need_1_tasks,
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        // TODO
+                    }
+                    return false;
                 case R.id.navigation_news:
-
-                    return true;
+                    if(Settings.getLevelsDone(MainActivity.this) < 3){
+                        Toast.makeText(MainActivity.this, R.string.you_need_3_tasks,
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        // TODO
+                    }
+                    return false;
             }
             return false;
         }
