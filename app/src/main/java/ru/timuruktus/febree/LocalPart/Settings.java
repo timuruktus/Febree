@@ -53,6 +53,11 @@ public class Settings implements BaseModel {
         writeIntValue(context, APP_PREFERENCES_POINTS, points);
     }
 
+    public static void changePoints(Context context, int change){
+        int points = getPoints(context);
+        setPoints(context, points + change);
+    }
+
     public static int getPoints(Context context){
         return getIntValue(context, APP_PREFERENCES_POINTS);
     }

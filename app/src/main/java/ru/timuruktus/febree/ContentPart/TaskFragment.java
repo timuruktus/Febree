@@ -1,10 +1,11 @@
 package ru.timuruktus.febree.ContentPart;
 
-import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,8 +62,12 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
         EventBus.getDefault().post(new AGetNonPassedTasks(pickRandomTaskListener));
     }
 
-    private void taskCompleted(){
+    private void taskComplete(){
 
+    }
+
+    private void taskSkip(){
+        EventBus.getDefault().post(new AGetTaskById(Settings.getTaskId(context), skipTaskListener));
     }
 
     private ArrayList<Task> getTasksByLevel(ArrayList<Task> tasks){
@@ -133,8 +138,48 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
         }
     };
 
+    EventCallbackListener skipTaskListener = new EventCallbackListener() {
+        @Override
+        public void eventCallback(BaseEvent event) {
+            if(event instanceof AGetTaskById){
+                AGetTaskById currentEvent = (AGetTaskById) event;
+                Task currentTask = currentEvent.getTask();
+                currentTask.setPassed(true);
+                currentTask.save();
+                Settings.incrementLevelsSkipped(context);
+                pickRandomTask();
+            }
+        }
+    };
+
+    public DialogInterface.OnClickListener getCancelButOKListener(){
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                taskSkip();
+            }
+        };
+    }
+
     @Override
     public void onClick(View v) {
+        int id = v.getId();
+        if(id == R.id.cancelButton){
+            showCancelDialog();
+        }
+    }
 
+    public void showCancelDialog(){
+        String text = context.getResources().getString(R.string.cancel_dialog_text);
+        String title = context.getResources().getString(R.string.cancel_dialog_title);
+        String buttonTextOk = context.getResources().getString(R.string.cancel_dialog_ok);
+        String buttonTextCancel = context.getResources().getString(R.string.cancel_dialog_cancel);
+        AlertDialog.Builder ad = new AlertDialog.Builder(context);
+        ad.setTitle(title);
+        ad.setMessage(text);
+        ad.setPositiveButton(buttonTextOk, getCancelButOKListener());
+        ad.setNegativeButton(buttonTextCancel, null);
+        ad.create();
+        ad.show();
     }
 }

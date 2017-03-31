@@ -25,6 +25,7 @@ public class DataBase implements BaseModel {
     @Subscribe
     public void saveAllTasks(ESaveAllTasks event){
         ArrayList<Task> tasks = event.getTasks();
+        // TODO: Изменить это позже. Делать итерации через tasks и проверять совпадение uniqueid и version
         for(Task currentTask : tasks){
             currentTask.save();
             Log.d("mytag", "DataBase.saveAllTasks() task saved");
