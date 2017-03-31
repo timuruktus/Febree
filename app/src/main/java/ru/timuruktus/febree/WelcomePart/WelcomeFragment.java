@@ -79,7 +79,7 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
             for(int i : answers){
                 totalPoints += i;
             }
-            if(totalPoints > 8){
+            if(totalPoints > 7){
                 Settings.setLevel(rootView.getContext(), Settings.MEDIUM_LEVEL);
             }else{
                 Settings.setLevel(rootView.getContext(), Settings.LOW_LEVEL);
