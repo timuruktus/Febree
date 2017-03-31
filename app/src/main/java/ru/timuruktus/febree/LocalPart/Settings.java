@@ -155,8 +155,4 @@ public class Settings implements BaseModel {
         return settings.getBoolean(path, defaultValue);
     }
 
-    @Override
-    public void eventCallback(BaseEvent event) {
-
-    }
 }

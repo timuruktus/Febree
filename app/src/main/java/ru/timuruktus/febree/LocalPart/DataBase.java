@@ -1,5 +1,7 @@
 package ru.timuruktus.febree.LocalPart;
 
+import android.util.Log;
+
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
@@ -25,38 +27,34 @@ public class DataBase implements BaseModel {
         ArrayList<Task> tasks = event.getTasks();
         for(Task currentTask : tasks){
             currentTask.save();
+            Log.d("mytag", "DataBase.saveAllTasks() task saved");
         }
     }
 
     @Subscribe
     public void taskCompleted(ETaskCompleted event){
-        int id = event.getUniqueId();
-        List<Task> tempList = Select.from(Task.class)
-                .where(Condition.prop("unique_id").eq(id))
-                .list();
-        Task currentTask = tempList.get(0);
-        currentTask.setPassed(true);
-        currentTask.save();
+        Task task = event.getTask();
+        task.setPassed(true);
+        task.save();
     }
 
     @Subscribe
-    public void getAllNonPassedTasks(EGetNonPassedTasks event){
+    public void getAllNonPassedTasks(AGetNonPassedTasks event){
         List<Task> tempList = Select.from(Task.class)
-                .where(Condition.prop("passed").eq(false))
+                .where(Condition.prop("passed").eq(0))
                 .list();
         event.setTasks((ArrayList<Task>) tempList);
         event.callback();
     }
 
-    public static Task getTaskById(int id){
+    @Subscribe
+    public void getTaskById(AGetTaskById event){
+        int id = event.getTaskId();
         List<Task> tempList = Select.from(Task.class)
                 .where(Condition.prop("unique_id").eq(id))
                 .list();
-        return tempList.get(0);
+        event.setTask(tempList.get(0));
+        event.callback();
     }
 
-    @Override
-    public void eventCallback(BaseEvent e) {
-
-    }
 }

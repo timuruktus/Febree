@@ -4,18 +4,23 @@ import com.orm.SugarRecord;
 
 public class Task extends SugarRecord {
 
-    int level;
-    String text;
-    boolean passed;
-    int points;
-    int uniqueId;
+    private int level;
+    private String text;
+    private boolean passed;
+    private int points;
+    private int uniqueId;
+    private int version;
 
-    public Task(int level, String text, boolean passed, int points, int uniqueId) {
+    public Task(int level, String text, boolean passed, int points, int uniqueId, int version) {
         this.level = level;
         this.text = text;
         this.passed = passed;
         this.points = points;
         this.uniqueId = uniqueId;
+        this.version = version;
+    }
+
+    public Task() {
     }
 
     public int getUniqueId() {
@@ -57,5 +62,14 @@ public class Task extends SugarRecord {
     public void setPoints(int points) {
         this.points = points;
     }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
 
 }

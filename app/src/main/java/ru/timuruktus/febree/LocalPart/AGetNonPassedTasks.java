@@ -2,16 +2,15 @@ package ru.timuruktus.febree.LocalPart;
 
 import java.util.ArrayList;
 
+import ru.timuruktus.febree.AsyncEvent;
 import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.EventCallbackListener;
 
 
-public class EGetNonPassedTasks implements BaseEvent {
+public class AGetNonPassedTasks extends AsyncEvent {
 
-    EventCallbackListener listener;
-
-    public EGetNonPassedTasks(EventCallbackListener listener) {
-        this.listener = listener;
+    public AGetNonPassedTasks(EventCallbackListener listener) {
+        super(listener);
     }
 
     public ArrayList<Task> getTasks() {
@@ -24,9 +23,4 @@ public class EGetNonPassedTasks implements BaseEvent {
 
     ArrayList<Task> tasks = new ArrayList<>();
 
-
-    @Override
-    public void callback() {
-        listener.eventCallback(this);
-    }
 }

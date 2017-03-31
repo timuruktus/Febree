@@ -22,9 +22,4 @@ public class ESaveAllTasks implements BaseEvent {
     }
 
 
-
-    @Override
-    public void callback() {
-
-    }
 }

@@ -19,6 +19,7 @@
     </string>
     <string name="understood">Понял</string>
     <string name="hello">Привет</string>
+    <string name="no_internet_start">Для первого запука необходимо подключение к сети</string>
 
 
     // [QUESTIONS]

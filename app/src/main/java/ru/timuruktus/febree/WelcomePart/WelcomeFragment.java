@@ -36,7 +36,6 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
     ArrayList<Integer> answers = new ArrayList<>();
     public TextView question;
     public Button agreeBut, disagreeBut;
-    public ImageView welcomeBackground;
     private int counter = 0;
     StepIndicator stepIndicator;
 
@@ -47,7 +46,6 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
         rootView =
                 inflater.inflate(R.layout.welcome_fragment, container, false);
 
-        welcomeBackground = (ImageView) rootView.findViewById(R.id.welcomeBackground);
         questions = getResources().getStringArray(R.array.questions);
         question = (TextView) rootView.findViewById(R.id.question);
         question.setTypeface(Typeface.createFromAsset(rootView.getContext().getAssets(),
@@ -59,7 +57,6 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
         question.setText(questions[counter]);
         stepIndicator = (StepIndicator) rootView.findViewById(R.id.step_indicator);
         stepIndicator.setClickable(false);
-
 
         return rootView;
     }
@@ -82,7 +79,7 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
             for(int i : answers){
                 totalPoints += i;
             }
-            if(totalPoints > 7){
+            if(totalPoints > 8){
                 Settings.setLevel(rootView.getContext(), Settings.MEDIUM_LEVEL);
             }else{
                 Settings.setLevel(rootView.getContext(), Settings.LOW_LEVEL);
@@ -91,8 +88,4 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
-    @Override
-    public void eventCallback(BaseEvent event) {
-
-    }
 }

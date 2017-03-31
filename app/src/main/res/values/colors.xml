@@ -7,9 +7,9 @@
     <color name="introductionBackEnd">#2B8BCC</color>
     <color name="introductionTextBack">#bf003174</color>
     <color name="understoodButColor">#40ddfc</color>
-    <color name="taskBackgroundLow">#58f56b</color>
-    <color name="taskBackgroundMedium">#e8f558</color>
-    <color name="taskBackgroundHigh">#ef5350</color>
+    <color name="taskDifficultyLow">#34b144</color>
+    <color name="taskDifficultyMedium">#9ea72f</color>
+    <color name="taskDifficultyHigh">#9e2c28</color>
     <color name="taskBackStart">#563edf</color>
     <color name="taskBackEnd">#30D2AC</color>
 </resources>

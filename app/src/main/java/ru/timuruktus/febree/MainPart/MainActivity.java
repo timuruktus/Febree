@@ -7,8 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
@@ -40,32 +40,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainPresenter mainPresenter = new MainPresenter(this);
         Backendless.initApp(this, YOUR_APP_ID, YOUR_SECRET_KEY, APP_VERSION);
+        initAllListeners();
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        fragmentContainer = (RelativeLayout)
-                this.findViewById(R.id.content);
+        fragmentContainer = (RelativeLayout) this.findViewById(R.id.content);
         configureToolbar();
         loadFirstFragment();
-        initAllListeners();
+
     }
 
     private void initAllListeners(){
+        MainPresenter mainPresenter = new MainPresenter(this);
         DataBase dataBase = new DataBase();
         BackendlessWeb backendlessWeb = new BackendlessWeb();
     }
 
     private void loadFirstFragment(){
         if(Settings.isFirstOpened(this)){
-            openWelcomeFragment();
+            openIntroducingFragment();
+            Log.d("mytag", "MainActivity.loadFirstFragment() introducingFragment opened");
         }else{
             openHomeFragment();
+            Log.d("mytag", "MainActivity.loadFirstFragment() homeFragment opened");
         }
     }
 
-    private void openWelcomeFragment(){
+    private void openIntroducingFragment(){
         getSupportActionBar().hide();
         setContentFullscreen();
         EventBus.getDefault().post(new EChangeFragment(new IntroducingFragment(), DONT_ADD_TO_BACKSTACK,
@@ -97,15 +99,14 @@ public class MainActivity extends AppCompatActivity {
     private void configureBottomNav(){
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setVisibility(View.INVISIBLE);
     }
 
     private void configureToolbar(){
         //getActionBar().setHideOnContentScrollEnabled(true);
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.toolbar);
-        TextView toolbar = (TextView) findViewById(R.id.toolbarText);
-        toolbar.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Regular.ttf"));
+        TextView toolbarText = (TextView) findViewById(R.id.toolbarText);
+        toolbarText.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Regular.ttf"));
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

@@ -1,28 +1,23 @@
 package ru.timuruktus.febree.GlobalEvents;
 
 import ru.timuruktus.febree.BaseEvent;
+import ru.timuruktus.febree.LocalPart.Task;
 
 
 public class ETaskCompleted implements BaseEvent {
 
-    private int uniqueId;
+    private Task task;
 
-    public ETaskCompleted(int uniqueId) {
-        this.uniqueId = uniqueId;
+    public ETaskCompleted(Task task) {
+        this.task = task;
     }
 
-    public int getUniqueId() {
-        return uniqueId;
+    public Task getTask() {
+        return task;
     }
 
-    public void setUniqueId(int uniqueId) {
-        this.uniqueId = uniqueId;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
-
-
-    @Override
-    public void callback() {
-
-    }
 }

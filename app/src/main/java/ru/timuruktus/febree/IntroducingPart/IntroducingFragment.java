@@ -11,13 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
 import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.MainPart.EChangeFragment;
+import ru.timuruktus.febree.ProjectUtils.Utils;
 import ru.timuruktus.febree.R;
+import ru.timuruktus.febree.WebPart.EDownloadAllTasksAndCache;
 import ru.timuruktus.febree.WelcomePart.WelcomeFragment;
 
 import static ru.timuruktus.febree.MainPart.MainPresenter.*;
@@ -65,13 +68,15 @@ public class IntroducingFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.understoodBut){
-            EventBus.getDefault().post(new EChangeFragment(new WelcomeFragment(), DONT_ADD_TO_BACKSTACK,
-                    HIDE_TOOLBAR, HIDE_MENU));
+            if(Utils.isOnline()) {
+                EventBus.getDefault().post(new EChangeFragment(new WelcomeFragment(), DONT_ADD_TO_BACKSTACK,
+                        HIDE_TOOLBAR, HIDE_MENU));
+                EventBus.getDefault().post(new EDownloadAllTasksAndCache());
+            }else{
+                Toast.makeText(rootView.getContext(), R.string.no_internet_start, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
-    @Override
-    public void eventCallback(BaseEvent event) {
 
-    }
 }

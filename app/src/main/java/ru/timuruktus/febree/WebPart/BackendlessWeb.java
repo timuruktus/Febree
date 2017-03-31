@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseModel;
-import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.LocalPart.ESaveAllTasks;
 import ru.timuruktus.febree.LocalPart.Task;
 
@@ -27,12 +26,14 @@ public class BackendlessWeb implements BaseModel{
     }
 
     @Subscribe
-    public void downloadAllTasks(EDownloadAllTasks event){
+    public void downloadAllTasks(EDownloadAllTasksAndCache event){
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
+        Log.d("mytag", "BackendlessWeb.downloadAllTasks() event handled");
         Backendless.Persistence.of(Task.class).find(dataQuery,
                 new AsyncCallback<BackendlessCollection<Task>>(){
                     @Override
                     public void handleResponse(BackendlessCollection<Task> foundTasks) {
+                        Log.d("mytag", "BackendlessWeb.downloadAllTasks().handleResponse() tasks got");
                         ArrayList<Task> tasks = (ArrayList<Task>) foundTasks.getCurrentPage();
                         EventBus.getDefault().post(new ESaveAllTasks(tasks));
                     }
@@ -43,9 +44,4 @@ public class BackendlessWeb implements BaseModel{
                 });
     }
 
-
-    @Override
-    public void eventCallback(BaseEvent e) {
-
-    }
 }

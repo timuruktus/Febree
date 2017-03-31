@@ -18,6 +18,7 @@ public class MainPresenter implements BasePresenter {
 
     private MainActivity mainActivity;
     private FragmentTransaction fragmentTransaction;
+    private FragmentManager fragmentManager;
     public static final boolean DONT_ADD_TO_BACKSTACK = false;
     public static final boolean ADD_TO_BACKSTACK = true;
     public static final boolean HIDE_MENU = true;
@@ -28,18 +29,18 @@ public class MainPresenter implements BasePresenter {
     public MainPresenter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         EventBus.getDefault().register(this);
+        fragmentManager = mainActivity.getFragmentManager();
     }
 
     @Subscribe
     public void changeFragment(EChangeFragment event){
         Fragment fragment = event.getFragment();
-        FragmentManager fragmentManager = mainActivity.getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         if(event.isAddToBackStack()) {
             fragmentTransaction.addToBackStack(null);
         }
-        setNewFragment(fragment);
         fragmentTransaction.setTransition(TRANSIT_FRAGMENT_FADE);
+        setNewFragment(fragment);
         hideToolbar(event.isHideToolbar());
         hideNavigationMenu(event.isHideMenu());
         fragmentTransaction.commit();
@@ -65,9 +66,4 @@ public class MainPresenter implements BasePresenter {
         fragmentTransaction.replace(R.id.content, fragment);
     }
 
-
-    @Override
-    public void eventCallback(BaseEvent event) {
-
-    }
 }

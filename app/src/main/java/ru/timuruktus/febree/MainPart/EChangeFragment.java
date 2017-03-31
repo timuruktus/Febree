@@ -6,7 +6,9 @@ import android.os.Bundle;
 import java.util.HashMap;
 import java.util.Set;
 
-public class EChangeFragment {
+import ru.timuruktus.febree.BaseEvent;
+
+public class EChangeFragment implements BaseEvent {
 
     private Bundle bundle;
     private Fragment fragment;
