@@ -7,19 +7,19 @@ import ru.timuruktus.febree.EventCallbackListener;
 
 public class AGetTaskById extends AsyncEvent {
 
-    private int taskId;
+    private long taskId;
     private Task task;
 
-    public AGetTaskById(int taskId, EventCallbackListener listener) {
+    public AGetTaskById(long taskId, EventCallbackListener listener) {
         super(listener);
         this.taskId = taskId;
     }
 
-    public int getTaskId() {
+    public long getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(int taskId) {
+    public void setTaskId(long taskId) {
         this.taskId = taskId;
     }
 

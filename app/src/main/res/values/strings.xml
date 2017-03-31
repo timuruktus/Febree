@@ -49,9 +49,21 @@
     // [FOR CANCEL DIALOG]
     <string name="cancel_dialog_title">Вы уверены?</string>
     <string name="cancel_dialog_text">Используйте это только в том случае, если НИКАК не можете
-    пройти задачу, или её цель уже была сделана. Помните, что вы используете программу ради себя.
+    пройти задачу, или её цель уже была сделана. Помните, что Вы используете программу ради себя.
         Мы настоятельно не рекомендуем нажимать "Я уверен"</string>
     <string name="cancel_dialog_ok">Я уверен</string>
     <string name="cancel_dialog_cancel">Отменить</string>
+
+    // [WHEN YOU COMPLETED ALL TASKS!!]
+    <string name="all_dialog_title">Поздравляем!</string>
+    <string name="all_dialog_text">Вы прошли все задания! Ваша зона комфорта невероятно велика!
+    Если вы хотите продолжить развиваться- обновить базу данных можно в настройках</string>
+    <string name="all_dialog_ok">ОК</string>
+
+    // [FOR SURE DIALOG]
+    <string name="sure_dialog_title">Вы уверены?</string>
+    <string name="sure_dialog_text">Не используйте эту кнопку, если на самом деле не выполнили
+    задание. Помните, что программу нет смысла обманывать.</string>
+    <string name="sure_dialog_ok">Я выполнил задание</string>
 
 </resources>

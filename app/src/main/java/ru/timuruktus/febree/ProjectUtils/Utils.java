@@ -3,8 +3,11 @@ package ru.timuruktus.febree.ProjectUtils;
 import android.content.Context;
 
 import java.io.IOException;
+import java.util.Date;
 
 public class Utils {
+
+    public static final long WEEK_IN_SECONDS = 604800;
 
     private static int convertDpToPx(int pixels, Context context){
         float dp = context.getResources().getDisplayMetrics().density;
@@ -21,5 +24,11 @@ public class Utils {
         catch (InterruptedException e){ e.printStackTrace(); }
 
         return false;
+    }
+
+    public static long getCurrentTimeInSeconds(){
+        Date currentDate = new Date(System.currentTimeMillis());
+        long time = currentDate.getTime();
+        return time;
     }
 }

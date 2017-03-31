@@ -50,7 +50,7 @@ public class DataBase implements BaseModel {
 
     @Subscribe
     public void getTaskById(AGetTaskById event){
-        int id = event.getTaskId();
+        long id = event.getTaskId();
         List<Task> tempList = Select.from(Task.class)
                 .where(Condition.prop("unique_id").eq(id))
                 .list();

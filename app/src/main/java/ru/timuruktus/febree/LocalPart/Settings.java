@@ -3,8 +3,8 @@ package ru.timuruktus.febree.LocalPart;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseModel;
+import ru.timuruktus.febree.ProjectUtils.Utils;
 
 public class Settings implements BaseModel {
 
@@ -15,10 +15,16 @@ public class Settings implements BaseModel {
     private static final String APP_PREFERENCES_LEVELS_DONE = "levelsDone";
     private static final String APP_PREFERENCES_LEVELS_SKIPPED = "levelsSkipped";
     private static final String APP_PREFERENCES_CURRENT_TASK_ID = "currentTaskId";
+    private static final String APP_PREFERENCES_LAST_TASK_TIME = "lastTaskTime";
     private static SharedPreferences settings;
-    public static final int LOW_LEVEL = 0;
-    public static final int MEDIUM_LEVEL = 1;
-    public static final int HIGH_LEVEL = 2;
+
+    public static final long LOW_LEVEL = 0;
+    public static final long MEDIUM_LEVEL = 1;
+    public static final long HIGH_LEVEL = 2;
+
+    public static final long LOW_LIMIT = 199;
+    public static final long MEDIUM_LIMIT = 399;
+    public static final long HIGH_LIMIT = 999;
 
 
     /*
@@ -37,75 +43,116 @@ public class Settings implements BaseModel {
     UNDER THIS LINE- SET AND CHANGING LEVELS METHODS
      */
 
-    public static void setLevel(Context context, int level){
+    public static void setLevel(Context context, long level){
         writeIntValue(context, APP_PREFERENCES_LEVEL, level);
     }
 
-    public static int getLevel(Context context){
-        return getIntValue(context, APP_PREFERENCES_LEVEL);
+    public static void increaseLevel(Context context){
+        long level = getLevel(context);
+        writeIntValue(context, APP_PREFERENCES_LEVEL, level + 1);
     }
+
+    public static long getLevel(Context context){
+        return getLongValue(context, APP_PREFERENCES_LEVEL);
+    }
+
 
     /*
     UNDER THIS LINE- USER POINTS METHODS
      */
 
-    public static void setPoints(Context context, int points){
+    public static void setPoints(Context context, long points){
         writeIntValue(context, APP_PREFERENCES_POINTS, points);
     }
 
-    public static void changePoints(Context context, int change){
-        int points = getPoints(context);
+    public static void changePoints(Context context, long change){
+        long points = getPoints(context);
         setPoints(context, points + change);
     }
 
-    public static int getPoints(Context context){
-        return getIntValue(context, APP_PREFERENCES_POINTS);
+    public static long getCurrentLimit(Context context){
+        long currentLevel = getLevel(context);
+        if(currentLevel == HIGH_LEVEL){
+            return HIGH_LIMIT;
+        }else if(currentLevel == MEDIUM_LEVEL){
+            return MEDIUM_LIMIT;
+        }else{
+            return LOW_LIMIT;
+        }
     }
+
+    public static long getPoints(Context context){
+        return getLongValue(context, APP_PREFERENCES_POINTS);
+    }
+
+
 
     /*
     UNDER THIS LINE- DONE LEVELS METHODS
      */
 
-    public static void setLevelsDone(Context context, int levels){
+    public static void setLevelsDone(Context context, long levels){
         writeIntValue(context, APP_PREFERENCES_LEVELS_DONE, levels);
     }
 
     public static void incrementLevelsDone(Context context){
-        int level = getLevelsDone(context);
+        long level = getLevelsDone(context);
         writeIntValue(context, APP_PREFERENCES_LEVELS_DONE, ++level);
     }
 
-    public static int getLevelsDone(Context context){
-        return getIntValue(context, APP_PREFERENCES_LEVELS_DONE);
+    public static long getLevelsDone(Context context){
+        return getLongValue(context, APP_PREFERENCES_LEVELS_DONE);
     }
 
     /*
     UNDER THIS LINE- SKIPPED LEVELS METHODS
      */
 
-    public static void setLevelsSkipped(Context context, int levels){
+    public static void setLevelsSkipped(Context context, long levels){
         writeIntValue(context, APP_PREFERENCES_LEVELS_SKIPPED, levels);
     }
 
     public static void incrementLevelsSkipped(Context context){
-        int level = getLevelsSkipped(context);
+        long level = getLevelsSkipped(context);
         writeIntValue(context, APP_PREFERENCES_LEVELS_SKIPPED, ++level);
     }
 
-    public static int getLevelsSkipped(Context context){
-        return getIntValue(context, APP_PREFERENCES_LEVELS_SKIPPED);
+    public static long getLevelsSkipped(Context context){
+        return getLongValue(context, APP_PREFERENCES_LEVELS_SKIPPED);
     }
 
     /*
     UNDER THIS LINE- TASK ID METHODS
      */
 
-    public static void setTaskId(Context context, int uniqueId){
+    public static void setTaskId(Context context, long uniqueId){
         writeIntValue(context, APP_PREFERENCES_CURRENT_TASK_ID, uniqueId);
     }
 
-    public static int getTaskId(Context context){
-        return getIntValue(context, APP_PREFERENCES_CURRENT_TASK_ID);
+    public static long getTaskId(Context context){
+        return getLongValue(context, APP_PREFERENCES_CURRENT_TASK_ID);
+    }
+
+    /*
+    UNDER THIS LINE- TASKS TIME METHODS
+     */
+
+    public static void setLastTaskTime(Context context, long sec){
+        writeIntValue(context, APP_PREFERENCES_LAST_TASK_TIME, sec);
+    }
+
+    public static long getTimeBetweenLastAndCurrentTask(Context context){
+        long lastTaskTime = getLastTaskTime(context);
+        long answer = Utils.getCurrentTimeInSeconds() - lastTaskTime;
+        if(answer <= 0){
+            return 704800;
+        }else{
+            return answer;
+        }
+    }
+
+    public static long getLastTaskTime(Context context){
+        return getLongValue(context, APP_PREFERENCES_LAST_TASK_TIME);
     }
 
     /*
@@ -119,10 +166,10 @@ public class Settings implements BaseModel {
         editor.apply();
     }
 
-    private static void writeIntValue(Context context, String path, int value){
+    private static void writeIntValue(Context context, String path, long value){
         settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(path, value);
+        editor.putLong(path, value);
         editor.apply();
     }
 
@@ -142,13 +189,13 @@ public class Settings implements BaseModel {
         return settings.getString(path, defaultValue);
     }
 
-    private static int getIntValue(Context context, String path){
-        return getIntValue(context, path, 0);
+    private static long getLongValue(Context context, String path){
+        return getLongValue(context, path, 0);
     }
 
-    private static int getIntValue(Context context, String path, int defaultValue){
+    private static long getLongValue(Context context, String path, long defaultValue){
         settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        return settings.getInt(path, defaultValue);
+        return settings.getLong(path, defaultValue);
     }
 
     private static boolean getBooleanValue(Context context, String path){
