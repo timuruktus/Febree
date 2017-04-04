@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -25,14 +26,21 @@ import com.backendless.Backendless;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.ContentPart.TaskFragment;
+import ru.timuruktus.febree.DoneTasksPart.DoneTasksFragment;
+import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.IntroducingPart.IntroducingFragment;
+import ru.timuruktus.febree.LocalPart.AGetTaskById;
 import ru.timuruktus.febree.LocalPart.DataBase;
 import ru.timuruktus.febree.LocalPart.Settings;
+import ru.timuruktus.febree.LocalPart.Task;
 import ru.timuruktus.febree.R;
+import ru.timuruktus.febree.VisualisationPart.VisualisationFragment;
 import ru.timuruktus.febree.WebPart.BackendlessWeb;
 
 import static ru.timuruktus.febree.MainPart.MainPresenter.*;
+import static ru.timuruktus.febree.ProjectUtils.Utils.DAY_IN_SECOND;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,7 +62,12 @@ public class MainActivity extends AppCompatActivity {
         configureToolbar();
         loadFirstFragment();
         configureBottomNav();
+        configureCurrentTaskPoints();
 
+    }
+
+    private void configureCurrentTaskPoints(){
+        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(this), configureCurrentTaskListener));
     }
 
     private void initAllListeners(){
@@ -113,6 +126,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.toolbar);
         TextView toolbarText = (TextView) findViewById(R.id.toolbarText);
         toolbarText.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Regular.ttf"));
+        getSupportActionBar().hide();
+    }
+
+    private long daysAfterLastTask(){
+        return Settings.getTimeBetweenLastTaskAndCurrentTime(this) / DAY_IN_SECOND;
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -122,27 +140,50 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    EventBus.getDefault().post(new EChangeFragment(new TaskFragment(),
+                            ADD_TO_BACKSTACK, DONT_HIDE_MENU));
                     return true;
                 case R.id.navigation_dashboard:
+
                     if(Settings.getLevelsDone(MainActivity.this) < 1){
                         Toast.makeText(MainActivity.this, R.string.you_need_1_tasks,
                                 Toast.LENGTH_SHORT).show();
+                        return false;
                     }else{
-                        // TODO
+                        EventBus.getDefault().post(new EChangeFragment(new DoneTasksFragment(),
+                                ADD_TO_BACKSTACK, DONT_HIDE_MENU));
+                        return true;
                     }
-                    return false;
-                case R.id.navigation_news:
-                    if(Settings.getLevelsDone(MainActivity.this) < 3){
+
+                case R.id.navigation_visualisation:
+                    if(Settings.getLevelsDone(MainActivity.this) < 0){
                         Toast.makeText(MainActivity.this, R.string.you_need_3_tasks,
                                 Toast.LENGTH_SHORT).show();
+                        return false;
                     }else{
-                        // TODO
+                        EventBus.getDefault().post(new EChangeFragment(new VisualisationFragment(),
+                                ADD_TO_BACKSTACK, DONT_HIDE_MENU));
+                        return true;
                     }
-                    return false;
+
             }
             return false;
         }
 
+    };
+
+    EventCallbackListener configureCurrentTaskListener = new EventCallbackListener() {
+        @Override
+        public void eventCallback(BaseEvent event) {
+            if(event instanceof AGetTaskById){
+                AGetTaskById currentEvent = (AGetTaskById) event;
+                Task currentTask = currentEvent.getTask();
+                if(currentTask.getPoints() - daysAfterLastTask() >= 0) {
+                    currentTask.setPoints(currentTask.getPoints() - daysAfterLastTask());
+                    currentTask.save();
+                }
+            }
+        }
     };
 
 }

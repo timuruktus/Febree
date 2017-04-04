@@ -1,17 +1,13 @@
 package ru.timuruktus.febree.WelcomePart;
 
-import android.animation.ValueAnimator;
-import android.app.Fragment;
-import android.graphics.Color;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.layer_net.stepindicator.StepIndicator;
@@ -20,10 +16,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 
-import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.ContentPart.TaskFragment;
-import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.MainPart.EChangeFragment;
 import ru.timuruktus.febree.R;
@@ -38,6 +32,7 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
     public Button agreeBut, disagreeBut;
     private int counter = 0;
     StepIndicator stepIndicator;
+    private Context context;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -45,6 +40,7 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
         rootView =
                 inflater.inflate(R.layout.welcome_fragment, container, false);
+        context = rootView.getContext();
 
         questions = getResources().getStringArray(R.array.questions);
         question = (TextView) rootView.findViewById(R.id.question);
@@ -74,15 +70,17 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
             question.setText(questions[counter]);
             stepIndicator.setCurrentStepPosition(counter);
         }else{
-            Settings.setFirstOpened(rootView.getContext(), false);
+            Settings.setFirstOpened(context, false);
             int totalPoints = 0;
             for(int i : answers){
                 totalPoints += i;
             }
             if(totalPoints > 7){
-                Settings.setLevel(rootView.getContext(), Settings.MEDIUM_LEVEL);
+                Settings.setLevel(context, Settings.MEDIUM_LEVEL);
+                Settings.setPoints(context, 500);
             }else{
-                Settings.setLevel(rootView.getContext(), Settings.LOW_LEVEL);
+                Settings.setLevel(context, Settings.EASY_LEVEL);
+                Settings.setPoints(context, 0);
             }
             EventBus.getDefault().post(new EChangeFragment(new TaskFragment(), false, false, false));
         }

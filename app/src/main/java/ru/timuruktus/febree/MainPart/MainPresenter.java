@@ -35,23 +35,17 @@ public class MainPresenter implements BasePresenter {
     @Subscribe
     public void changeFragment(EChangeFragment event){
         Fragment fragment = event.getFragment();
+        if(fragment.equals(getCurrentFragment())) return;
         fragmentTransaction = fragmentManager.beginTransaction();
-        if(event.isAddToBackStack()) {
-            fragmentTransaction.addToBackStack(null);
-        }
+        if(event.isAddToBackStack()) fragmentTransaction.addToBackStack(null);
         fragmentTransaction.setTransition(TRANSIT_FRAGMENT_FADE);
         setNewFragment(fragment);
-        hideToolbar(event.isHideToolbar());
         hideNavigationMenu(event.isHideMenu());
         fragmentTransaction.commit();
     }
 
-    private void hideToolbar(boolean hide){
-        if(hide){
-            mainActivity.getSupportActionBar().hide();
-        }else{
-            mainActivity.getSupportActionBar().show();
-        }
+    private Fragment getCurrentFragment(){
+       return mainActivity.getFragmentManager().findFragmentById(R.id.content);
     }
 
     private void hideNavigationMenu(boolean hide){

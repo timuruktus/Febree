@@ -7,20 +7,22 @@ public class Task extends SugarRecord {
     private int level;
     private String text;
     private boolean passed;
-    private int points;
+    private long points;
     private int uniqueId;
     private int version;
+    private boolean skipped;
 
-    public Task(int level, String text, boolean passed, int points, int uniqueId, int version) {
+    public Task() {
+    }
+
+    public Task(int level, String text, boolean passed, long points, int uniqueId, int version, boolean skipped) {
         this.level = level;
         this.text = text;
         this.passed = passed;
         this.points = points;
         this.uniqueId = uniqueId;
         this.version = version;
-    }
-
-    public Task() {
+        this.skipped = skipped;
     }
 
     public int getUniqueId() {
@@ -55,11 +57,11 @@ public class Task extends SugarRecord {
         this.passed = passed;
     }
 
-    public int getPoints() {
+    public long getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(long points) {
         this.points = points;
     }
 
@@ -70,6 +72,15 @@ public class Task extends SugarRecord {
     public void setVersion(int version) {
         this.version = version;
     }
+
+    public boolean isSkipped() {
+        return skipped;
+    }
+
+    public void setSkipped(boolean skipped) {
+        this.skipped = skipped;
+    }
+
 
 
 }

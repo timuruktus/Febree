@@ -7,9 +7,16 @@
     <color name="introductionBackEnd">#2B8BCC</color>
     <color name="introductionTextBack">#bf003174</color>
     <color name="understoodButColor">#40ddfc</color>
-    <color name="taskDifficultyLow">#34b144</color>
+
+    <color name="taskDifficultyEasy">#34b144</color>
     <color name="taskDifficultyMedium">#9ea72f</color>
-    <color name="taskDifficultyHigh">#9e2c28</color>
+    <color name="taskDifficultyHard">#9e2c28</color>
+    <color name="taskDifficultyEasyLight">#7ca682</color>
+    <color name="taskDifficultyMediumLight">#9c9f76</color>
+    <color name="taskDifficultyHardLight">#997573</color>
+    <color name="graphBackground">#FFCCCCCC</color>
+
     <color name="taskBackStart">#563edf</color>
     <color name="taskBackEnd">#30D2AC</color>
+    <color name="visualisation_part_backbround">#e3e3e3</color>
 </resources>

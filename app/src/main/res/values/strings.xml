@@ -3,7 +3,7 @@
     <string name="title_activity_main">Febree</string>
     <string name="nav_home">Домой</string>
     <string name="nav_completed">Сделанные</string>
-    <string name="nav_news">Новости</string>
+    <string name="nav_visualisation">Графика</string>
 
 
     // [FOR WELCOME FRAGMENT]
@@ -67,8 +67,34 @@
     <string name="sure_dialog_ok">Я выполнил задание</string>
 
     // [FOR BOTTOM MENU TOAST]
-    <string name="you_need_3_tasks">Выполните 3 задания, чтобы открыть доступ (В разработке)</string>
-    <string name="you_need_2_tasks">Выполните 2 задания, чтобы открыть доступ (В разработке)</string>
-    <string name="you_need_1_tasks">Выполните 1 задание, чтобы открыть доступ (В разработке)</string>
+    <string name="you_need_3_tasks">Выполните 3 задания, чтобы открыть доступ </string>
+    <string name="you_need_2_tasks">Выполните 2 задания, чтобы открыть доступ </string>
+    <string name="you_need_1_tasks">Выполните 1 задание, чтобы открыть доступ </string>
+
+    // [FOR DONE TASK]
+    <string name="done_task_title">Вы выполнили это задание: </string>
+    <string name="done_task_great">Вы молодец!</string>
+
+    // [FOR VISUALISATION]
+    <string name="easy_task">Легкий уровень</string>
+    <string name="medium_task">Средний уровень</string>
+    <string name="hard_task">Сложный уровень</string>
+    <string name="current_points">Ваше текущее количество очков: </string>
+    <string name="tasks">Задания</string>
+    <string name="completed">Выполненных</string>
+    <string name="skipped">Пропущенных</string>
+    <string name="graph_completed_tasks">График выполнения задач</string>
+
+    // [FOR DIALOGS AFTER COMPLETE TASKS]
+    <string name="after_1_task">Ну вот. Вы прошли первое задание :) Надеюсь, Вы сделали это честно.
+    Теперь вы можете просматривать пройденые задания. Для этого есть вкладка в меню снизу</string>
+    <string name="after_2_task">Отлично! Скажу ещё кое-что. После прохождения заданий Вы получаете очки.
+    Их количество варьируется от сложности задания</string>
+    <string name="after_3_task">Окей, Вы уже прошли  три задания!
+    Настало время открыть новую вкладку в меню</string>
+    <string name="after_5_task">Привет ещё раз. А ты знал, что чем дольше ты выполняешь
+    задание, тем меньше очков получаешь? Теперь знаешь :)</string>
+    <string name="after_7_task">По мере вашего прохождения, Я буду давать Вам ещё
+    несколько подсказок, советов и рекомендаций :) Не теряйте</string>
 
 </resources>

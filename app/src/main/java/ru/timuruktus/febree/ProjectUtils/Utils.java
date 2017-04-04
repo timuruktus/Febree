@@ -8,6 +8,7 @@ import java.util.Date;
 public class Utils {
 
     public static final long WEEK_IN_SECONDS = 604800;
+    public static final long DAY_IN_SECOND = 86400;
 
     private static int convertDpToPx(int pixels, Context context){
         float dp = context.getResources().getDisplayMetrics().density;

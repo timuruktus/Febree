@@ -18,13 +18,13 @@ public class Settings implements BaseModel {
     private static final String APP_PREFERENCES_LAST_TASK_TIME = "lastTaskTime";
     private static SharedPreferences settings;
 
-    public static final long LOW_LEVEL = 0;
+    public static final long EASY_LEVEL = 0;
     public static final long MEDIUM_LEVEL = 1;
-    public static final long HIGH_LEVEL = 2;
+    public static final long HARD_LEVEL = 2;
 
-    public static final long LOW_LIMIT = 199;
-    public static final long MEDIUM_LIMIT = 399;
-    public static final long HIGH_LIMIT = 999;
+    public static final long EASY_LIMIT = 499;
+    public static final long MEDIUM_LIMIT = 999;
+    public static final long HARD_LIMIT = 10000;
 
 
     /*
@@ -44,12 +44,12 @@ public class Settings implements BaseModel {
      */
 
     public static void setLevel(Context context, long level){
-        writeIntValue(context, APP_PREFERENCES_LEVEL, level);
+        writeLongValue(context, APP_PREFERENCES_LEVEL, level);
     }
 
     public static void increaseLevel(Context context){
         long level = getLevel(context);
-        writeIntValue(context, APP_PREFERENCES_LEVEL, level + 1);
+        writeLongValue(context, APP_PREFERENCES_LEVEL, level + 1);
     }
 
     public static long getLevel(Context context){
@@ -62,7 +62,7 @@ public class Settings implements BaseModel {
      */
 
     public static void setPoints(Context context, long points){
-        writeIntValue(context, APP_PREFERENCES_POINTS, points);
+        writeLongValue(context, APP_PREFERENCES_POINTS, points);
     }
 
     public static void changePoints(Context context, long change){
@@ -72,12 +72,12 @@ public class Settings implements BaseModel {
 
     public static long getCurrentLimit(Context context){
         long currentLevel = getLevel(context);
-        if(currentLevel == HIGH_LEVEL){
-            return HIGH_LIMIT;
+        if(currentLevel == HARD_LEVEL){
+            return HARD_LIMIT;
         }else if(currentLevel == MEDIUM_LEVEL){
             return MEDIUM_LIMIT;
         }else{
-            return LOW_LIMIT;
+            return EASY_LIMIT;
         }
     }
 
@@ -92,12 +92,12 @@ public class Settings implements BaseModel {
      */
 
     public static void setLevelsDone(Context context, long levels){
-        writeIntValue(context, APP_PREFERENCES_LEVELS_DONE, levels);
+        writeLongValue(context, APP_PREFERENCES_LEVELS_DONE, levels);
     }
 
     public static void incrementLevelsDone(Context context){
         long level = getLevelsDone(context);
-        writeIntValue(context, APP_PREFERENCES_LEVELS_DONE, ++level);
+        writeLongValue(context, APP_PREFERENCES_LEVELS_DONE, ++level);
     }
 
     public static long getLevelsDone(Context context){
@@ -109,12 +109,12 @@ public class Settings implements BaseModel {
      */
 
     public static void setLevelsSkipped(Context context, long levels){
-        writeIntValue(context, APP_PREFERENCES_LEVELS_SKIPPED, levels);
+        writeLongValue(context, APP_PREFERENCES_LEVELS_SKIPPED, levels);
     }
 
     public static void incrementLevelsSkipped(Context context){
         long level = getLevelsSkipped(context);
-        writeIntValue(context, APP_PREFERENCES_LEVELS_SKIPPED, ++level);
+        writeLongValue(context, APP_PREFERENCES_LEVELS_SKIPPED, ++level);
     }
 
     public static long getLevelsSkipped(Context context){
@@ -125,11 +125,11 @@ public class Settings implements BaseModel {
     UNDER THIS LINE- TASK ID METHODS
      */
 
-    public static void setTaskId(Context context, long uniqueId){
-        writeIntValue(context, APP_PREFERENCES_CURRENT_TASK_ID, uniqueId);
+    public static void setCurrentTaskId(Context context, long uniqueId){
+        writeLongValue(context, APP_PREFERENCES_CURRENT_TASK_ID, uniqueId);
     }
 
-    public static long getTaskId(Context context){
+    public static long getCurrentTaskId(Context context){
         return getLongValue(context, APP_PREFERENCES_CURRENT_TASK_ID);
     }
 
@@ -138,10 +138,10 @@ public class Settings implements BaseModel {
      */
 
     public static void setLastTaskTime(Context context, long sec){
-        writeIntValue(context, APP_PREFERENCES_LAST_TASK_TIME, sec);
+        writeLongValue(context, APP_PREFERENCES_LAST_TASK_TIME, sec);
     }
 
-    public static long getTimeBetweenLastAndCurrentTask(Context context){
+    public static long getTimeBetweenLastTaskAndCurrentTime(Context context){
         long lastTaskTime = getLastTaskTime(context);
         long answer = Utils.getCurrentTimeInSeconds() - lastTaskTime;
         if(answer <= 0){
@@ -166,7 +166,7 @@ public class Settings implements BaseModel {
         editor.apply();
     }
 
-    private static void writeIntValue(Context context, String path, long value){
+    private static void writeLongValue(Context context, String path, long value){
         settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putLong(path, value);

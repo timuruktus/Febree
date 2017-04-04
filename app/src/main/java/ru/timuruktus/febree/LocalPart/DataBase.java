@@ -40,12 +40,23 @@ public class DataBase implements BaseModel {
     }
 
     @Subscribe
-    public void getAllNonPassedTasks(AGetNonPassedTasks event){
-        List<Task> tempList = Select.from(Task.class)
-                .where(Condition.prop("passed").eq(0))
-                .list();
-        event.setTasks((ArrayList<Task>) tempList);
+    public void getAllPassedTasks(AGetPassedTasks event){
+        event.setTasks(getTaskByPassed(1));
         event.callback();
+    }
+
+    @Subscribe
+    public void getAllNonPassedTasks(AGetNonPassedTasks event){
+        event.setTasks(getTaskByPassed(0));
+        event.callback();
+    }
+
+    private ArrayList<Task> getTaskByPassed(int passed){
+        return (ArrayList<Task>) Select.from(Task.class)
+                .where(Condition.prop("passed").eq(passed))
+                .where(Condition.prop("unique_id").notEq(-1))
+                .where(Condition.prop("skipped").notEq(1))
+                .list();
     }
 
     @Subscribe

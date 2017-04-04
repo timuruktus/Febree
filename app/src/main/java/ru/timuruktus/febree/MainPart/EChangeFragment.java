@@ -13,13 +13,17 @@ public class EChangeFragment implements BaseEvent {
     private Bundle bundle;
     private Fragment fragment;
     private boolean addToBackStack;
-    private boolean hideToolbar;
     private boolean hideMenu;
 
-    public EChangeFragment(Fragment fragment, boolean addToBackStack, boolean hideToolbar, boolean hideMenu){
+    public EChangeFragment(Fragment fragment, boolean addToBackStack, boolean deprecated, boolean hideMenu){
         this.fragment = fragment;
         this.addToBackStack = addToBackStack;
-        this.hideToolbar = hideToolbar;
+        this.hideMenu = hideMenu;
+    }
+
+    public EChangeFragment(Fragment fragment, boolean addToBackStack, boolean hideMenu){
+        this.fragment = fragment;
+        this.addToBackStack = addToBackStack;
         this.hideMenu = hideMenu;
     }
 
@@ -61,14 +65,6 @@ public class EChangeFragment implements BaseEvent {
 
     public void setBundle(Bundle bundle) {
         this.bundle = bundle;
-    }
-
-    public boolean isHideToolbar() {
-        return hideToolbar;
-    }
-
-    public void setHideToolbar(boolean hideToolbar) {
-        this.hideToolbar = hideToolbar;
     }
 
     public boolean isHideMenu() {
