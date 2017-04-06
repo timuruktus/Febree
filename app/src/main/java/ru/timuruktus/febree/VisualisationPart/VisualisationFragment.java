@@ -51,7 +51,7 @@ public class VisualisationFragment extends BaseFragment {
 
         Resources resources = rootView.getResources();
 
-        setPercantages();
+        setPercentages();
 
         models.add(new ArcProgressStackView.Model(resources.getString(R.string.hard_task),
                 hardPercentage,
@@ -93,7 +93,7 @@ public class VisualisationFragment extends BaseFragment {
         }
     }
 
-    private void setPercantages(){
+    private void setPercentages(){
         if(Settings.getLevel(context) == Settings.EASY_LEVEL){
             easyPercentage = Settings.getPoints(context) * 100 / Settings.getCurrentLimit(context);
             mediumPercentage = 0;

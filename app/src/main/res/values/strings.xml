@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">Febree</string>
     <string name="title_activity_main">Febree</string>
+
+    // [BOT NAV MENU]
     <string name="nav_home">Домой</string>
     <string name="nav_completed">Сделанные</string>
-    <string name="nav_visualisation">Графика</string>
+    <string name="nav_visualisation">Статистика</string>
+    <string name="nav_materials">Материалы</string>
+    <string name="nav_more">Дополнительно</string>
+
+    // [POPUP MENU]
+    <string name="popup_reload_DB">Обновить базу</string>
+    <string name="needed_to_internet">Для обновления базы требуется интернет соединение</string>
 
 
     // [FOR WELCOME FRAGMENT]
@@ -50,7 +58,7 @@
     <string name="cancel_dialog_title">Вы уверены?</string>
     <string name="cancel_dialog_text">Используйте это только в том случае, если НИКАК не можете
     пройти задачу, или её цель уже была сделана. Помните, что Вы используете программу ради себя.
-        Мы настоятельно не рекомендуем нажимать "Я уверен"</string>
+        Мы настоятельно не рекомендуем нажимать \"Я уверен\"</string>
     <string name="cancel_dialog_ok">Я уверен</string>
     <string name="cancel_dialog_cancel">Отменить</string>
 

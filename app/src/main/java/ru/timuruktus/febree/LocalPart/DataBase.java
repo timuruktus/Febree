@@ -25,10 +25,28 @@ public class DataBase implements BaseModel {
     @Subscribe
     public void saveAllTasks(ESaveAllTasks event){
         ArrayList<Task> tasks = event.getTasks();
-        // TODO: Изменить это позже. Делать итерации через tasks и проверять совпадение uniqueid и version
         for(Task currentTask : tasks){
             currentTask.save();
             Log.d("mytag", "DataBase.saveAllTasks() task saved");
+        }
+    }
+
+    @Subscribe
+    public void refreshAllTasks(ERefreshAllTasks event){
+        ArrayList<Task> tasks = event.getTasks();
+
+        for(Task currentTask : tasks){
+            List<Task> localTask =
+                    Task.find(Task.class, "unique_id = ?",
+                            currentTask.getUniqueId() + "");
+            if(localTask.size() == 0){
+                currentTask.save();
+            }else if(localTask.get(0).getVersion() < currentTask.getVersion()){
+                localTask.get(0).setVersion(currentTask.getVersion());
+                localTask.get(0).setText(currentTask.getText());
+                localTask.get(0).setPoints(currentTask.getPoints());
+                localTask.get(0).save();
+            }
         }
     }
 

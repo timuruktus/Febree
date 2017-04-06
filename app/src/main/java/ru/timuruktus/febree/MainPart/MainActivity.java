@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
@@ -35,9 +37,11 @@ import ru.timuruktus.febree.LocalPart.AGetTaskById;
 import ru.timuruktus.febree.LocalPart.DataBase;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.LocalPart.Task;
+import ru.timuruktus.febree.ProjectUtils.Utils;
 import ru.timuruktus.febree.R;
 import ru.timuruktus.febree.VisualisationPart.VisualisationFragment;
 import ru.timuruktus.febree.WebPart.BackendlessWeb;
+import ru.timuruktus.febree.WebPart.EDownloadAndRefreshAllTasks;
 
 import static ru.timuruktus.febree.MainPart.MainPresenter.*;
 import static ru.timuruktus.febree.ProjectUtils.Utils.DAY_IN_SECOND;
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private final String YOUR_APP_ID = "079489C7-78CF-BC51-FF04-055547860300";
     private final String YOUR_SECRET_KEY = "8EFFCEF7-F0BE-C415-FFF3-E459B2957300";
     private final String APP_VERSION = "v1";
+    BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void configureBottomNav(){
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
@@ -156,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 case R.id.navigation_visualisation:
-                    if(Settings.getLevelsDone(MainActivity.this) < 0){
+                    if(Settings.getLevelsDone(MainActivity.this) < 3){
                         Toast.makeText(MainActivity.this, R.string.you_need_3_tasks,
                                 Toast.LENGTH_SHORT).show();
                         return false;
@@ -166,10 +171,36 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     }
 
+                case R.id.navigation_more:
+                    TextView popupAnchor = (TextView) findViewById(R.id.popupAnchor);
+                    PopupMenu popupMenu = new PopupMenu(MainActivity.this, popupAnchor);
+                    popupMenu.inflate(R.menu.popup_menu);
+                    popupMenu.setOnMenuItemClickListener(popupMenuListener);
+                    popupMenu.show();
+                    break;
             }
             return false;
         }
 
+    };
+
+    PopupMenu.OnMenuItemClickListener popupMenuListener = new PopupMenu.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()) {
+
+                case R.id.menu_DB:
+                    if(!Utils.isOnline()){
+                        Toast.makeText(MainActivity.this, R.string.needed_to_internet,
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        EventBus.getDefault().post(new EDownloadAndRefreshAllTasks());
+                    }
+                    return true;
+                default:
+                    return false;
+            }
+        }
     };
 
     EventCallbackListener configureCurrentTaskListener = new EventCallbackListener() {

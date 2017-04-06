@@ -13,8 +13,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
-import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseModel;
+import ru.timuruktus.febree.LocalPart.ERefreshAllTasks;
 import ru.timuruktus.febree.LocalPart.ESaveAllTasks;
 import ru.timuruktus.febree.LocalPart.Task;
 
@@ -36,6 +36,25 @@ public class BackendlessWeb implements BaseModel{
                         Log.d("mytag", "BackendlessWeb.downloadAllTasks().handleResponse() tasks got");
                         ArrayList<Task> tasks = (ArrayList<Task>) foundTasks.getCurrentPage();
                         EventBus.getDefault().post(new ESaveAllTasks(tasks));
+                    }
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+                        Log.d("MagFragmentFault", fault.getCode());
+                    }
+                });
+    }
+
+    @Subscribe
+    public void refreshAllTasks(EDownloadAndRefreshAllTasks event){
+        BackendlessDataQuery dataQuery = new BackendlessDataQuery();
+        Log.d("mytag", "BackendlessWeb.refreshAllTasks() event handled");
+        Backendless.Persistence.of(Task.class).find(dataQuery,
+                new AsyncCallback<BackendlessCollection<Task>>(){
+                    @Override
+                    public void handleResponse(BackendlessCollection<Task> foundTasks) {
+                        Log.d("mytag", "BackendlessWeb.downloadAllTasks().handleResponse() tasks got");
+                        ArrayList<Task> tasks = (ArrayList<Task>) foundTasks.getCurrentPage();
+                        EventBus.getDefault().post(new ERefreshAllTasks(tasks));
                     }
                     @Override
                     public void handleFault(BackendlessFault fault) {
