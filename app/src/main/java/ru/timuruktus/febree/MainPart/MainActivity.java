@@ -188,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
-
                 case R.id.menu_DB:
                     if(!Utils.isOnline()){
                         Toast.makeText(MainActivity.this, R.string.needed_to_internet,
@@ -206,14 +205,10 @@ public class MainActivity extends AppCompatActivity {
     EventCallbackListener configureCurrentTaskListener = new EventCallbackListener() {
         @Override
         public void eventCallback(BaseEvent event) {
-            if(event instanceof AGetTaskById){
-                AGetTaskById currentEvent = (AGetTaskById) event;
-                Task currentTask = currentEvent.getTask();
-                if(currentTask.getPoints() - daysAfterLastTask() >= 0) {
-                    currentTask.setPoints(currentTask.getPoints() - daysAfterLastTask());
-                    currentTask.save();
-                }
-            }
+            AGetTaskById currentEvent = (AGetTaskById) event;
+            Task currentTask = currentEvent.getTask();
+            currentTask.setPoints(currentTask.getPoints() - daysAfterLastTask());
+            currentTask.save();
         }
     };
 
