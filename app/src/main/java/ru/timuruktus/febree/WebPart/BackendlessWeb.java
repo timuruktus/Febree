@@ -7,6 +7,7 @@ import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.QueryOptions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -29,12 +30,16 @@ public class BackendlessWeb implements BaseModel{
     public void downloadAllTasks(EDownloadAllTasksAndCache event){
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
         Log.d("mytag", "BackendlessWeb.downloadAllTasks() event handled");
+        QueryOptions queryOptions = new QueryOptions();
+        queryOptions.setPageSize(100);
+        dataQuery.setQueryOptions( queryOptions );
         Backendless.Persistence.of(Task.class).find(dataQuery,
                 new AsyncCallback<BackendlessCollection<Task>>(){
                     @Override
                     public void handleResponse(BackendlessCollection<Task> foundTasks) {
                         Log.d("mytag", "BackendlessWeb.downloadAllTasks().handleResponse() tasks got");
                         ArrayList<Task> tasks = (ArrayList<Task>) foundTasks.getCurrentPage();
+                        Log.d("mytag", tasks.size() + "");
                         EventBus.getDefault().post(new ESaveAllTasks(tasks));
                     }
                     @Override

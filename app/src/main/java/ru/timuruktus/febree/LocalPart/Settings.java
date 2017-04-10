@@ -23,7 +23,7 @@ public class Settings implements BaseModel {
     public static final long HARD_LEVEL = 2;
 
     public static final long EASY_LIMIT = 499;
-    public static final long MEDIUM_LIMIT = 999;
+    public static final long MEDIUM_LIMIT = 1499;
     public static final long HARD_LIMIT = 10000;
 
 

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.ContentPart.TaskFragment;
+import ru.timuruktus.febree.LocalPart.EClearAllTasks;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.MainPart.EChangeFragment;
 import ru.timuruktus.febree.R;
@@ -85,5 +86,6 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
             EventBus.getDefault().post(new EChangeFragment(new TaskFragment(), false, false, false));
         }
     }
+
 
 }

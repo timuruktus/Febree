@@ -87,4 +87,9 @@ public class DataBase implements BaseModel {
         event.callback();
     }
 
+    @Subscribe
+    public void clearAllTasks(EClearAllTasks event){
+        Task.deleteAll(Task.class);
+    }
+
 }

@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseFragment;
+import ru.timuruktus.febree.LocalPart.EClearAllTasks;
 import ru.timuruktus.febree.MainPart.EChangeFragment;
 import ru.timuruktus.febree.ProjectUtils.Utils;
 import ru.timuruktus.febree.R;
@@ -41,6 +42,7 @@ public class IntroducingFragment extends BaseFragment implements View.OnClickLis
                 inflater.inflate(R.layout.introducing_fragment, container, false);
 
         this.context = rootView.getContext();
+        EventBus.getDefault().post(new EClearAllTasks());
 
         hello = (TextView) rootView.findViewById(R.id.hello);
         introducingText = (TextView) rootView.findViewById(R.id.introducingText);

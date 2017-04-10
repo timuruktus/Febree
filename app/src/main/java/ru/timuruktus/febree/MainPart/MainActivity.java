@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         configureToolbar();
         loadFirstFragment();
         configureBottomNav();
-        configureCurrentTaskPoints();
+
 
     }
 
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("mytag", "MainActivity.loadFirstFragment() introducingFragment opened");
         }else{
             openHomeFragment();
+            configureCurrentTaskPoints();
             Log.d("mytag", "MainActivity.loadFirstFragment() homeFragment opened");
         }
     }
