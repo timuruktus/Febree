@@ -48,7 +48,7 @@
     <string name="task_current_text">Твое текущее задание</string>
     <string name="task_cancel_button">Невозможно выполнить</string>
     <string name="task_complete_button">Задание выполнено!</string>
-    <string name="people_completed">Людей выполнило: </string>
+    <string name="task_points">Очков за задание: </string>
     <string name="task_difficulty">Сложность задания: </string>
     <string name="difficulty_low">Легкая </string>
     <string name="difficulty_medium">Средняя </string>

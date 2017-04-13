@@ -5,21 +5,11 @@ import java.util.ArrayList;
 import ru.timuruktus.febree.BaseEvent;
 
 
-public class ESaveAllTasks implements BaseEvent {
+public class ESaveAllTasks extends TaskEvent {
 
-    private ArrayList<Task> tasks;
+    public ESaveAllTasks(){}
 
     public ESaveAllTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
+        super(tasks);
     }
-
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-
 }

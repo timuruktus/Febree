@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Utils {
 
@@ -28,8 +29,8 @@ public class Utils {
     }
 
     public static long getCurrentTimeInSeconds(){
-        Date currentDate = new Date(System.currentTimeMillis());
-        long time = currentDate.getTime();
-        return time;
+        long timeMillis = System.currentTimeMillis();
+        long timeSeconds = TimeUnit.MILLISECONDS.toSeconds(timeMillis);
+        return timeSeconds;
     }
 }

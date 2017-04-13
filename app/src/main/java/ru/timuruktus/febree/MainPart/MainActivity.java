@@ -49,15 +49,14 @@ import static ru.timuruktus.febree.ProjectUtils.Utils.DAY_IN_SECOND;
 public class MainActivity extends AppCompatActivity {
 
     RelativeLayout fragmentContainer;
-    private final String YOUR_APP_ID = "079489C7-78CF-BC51-FF04-055547860300";
-    private final String YOUR_SECRET_KEY = "8EFFCEF7-F0BE-C415-FFF3-E459B2957300";
-    private final String APP_VERSION = "v1";
+    private final String APP_ID = "CFF3349B-7FBD-06A1-FFBB-2B9CE809D900";
+    private final String API_KEY = "8EFFCEF7-F0BE-C415-FFF3-E459B2957300";
     BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Backendless.initApp(this, YOUR_APP_ID, YOUR_SECRET_KEY, APP_VERSION);
+        Backendless.initApp(this, APP_ID, API_KEY);
         //EventBus.getDefault().register(this);
         initAllListeners();
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
@@ -67,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
         configureToolbar();
         loadFirstFragment();
         configureBottomNav();
-
-
     }
 
     private void configureCurrentTaskPoints(){
@@ -88,6 +85,9 @@ public class MainActivity extends AppCompatActivity {
         }else{
             openHomeFragment();
             configureCurrentTaskPoints();
+            //if(Utils.isOnline()){
+            //    EventBus.getDefault().post(new EDownloadAndRefreshAllTasks());
+            //}
             Log.d("mytag", "MainActivity.loadFirstFragment() homeFragment opened");
         }
     }
@@ -136,7 +136,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private long daysAfterLastTask(){
-        return Settings.getTimeBetweenLastTaskAndCurrentTime(this) / DAY_IN_SECOND;
+        long answer = Settings.getTimeBetweenLastTaskAndCurrentTime(this) / DAY_IN_SECOND;
+        if(answer > 0){
+            Settings.setLastTaskTime(this, Utils.getCurrentTimeInSeconds());
+        }
+        return answer;
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

@@ -24,10 +24,12 @@ import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.LocalPart.AGetNonPassedTasks;
 import ru.timuruktus.febree.LocalPart.AGetTaskById;
+import ru.timuruktus.febree.LocalPart.ERefreshAllTasks;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.LocalPart.Task;
 import ru.timuruktus.febree.ProjectUtils.Utils;
 import ru.timuruktus.febree.R;
+import ru.timuruktus.febree.WebPart.EDownloadAndRefreshAllTasks;
 
 import static ru.timuruktus.febree.ProjectUtils.Utils.WEEK_IN_SECONDS;
 
@@ -35,7 +37,7 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
 
 
     public View rootView;
-    private TextView currentTaskText, taskDifficulty;
+    private TextView currentTaskText, taskDifficulty, taskPoints;
     private Button completeButton, cancelButton;
     private Context context;
     Dialog dialog;
@@ -49,6 +51,7 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
         this.context = rootView.getContext();
         currentTaskText = (TextView) rootView.findViewById(R.id.currentTaskText);
         taskDifficulty = (TextView) rootView.findViewById(R.id.taskDifficulty);
+        taskPoints = (TextView) rootView.findViewById(R.id.taskPoints);
         completeButton = (Button) rootView.findViewById(R.id.completeButton);
         completeButton.setOnClickListener(this);
         cancelButton = (Button) rootView.findViewById(R.id.cancelButton);
@@ -203,6 +206,7 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
                 AGetTaskById currentEvent = (AGetTaskById) event;
                 Task currentTask = currentEvent.getTask();
                 currentTaskText.setText(currentTask.getText());
+                taskPoints.setText(currentTask.getPoints() + "");
                 int taskDifficulty = currentTask.getLevel();
                 setDifficultyText(taskDifficulty);
             }

@@ -2,6 +2,7 @@ package ru.timuruktus.febree.LocalPart;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import ru.timuruktus.febree.BaseModel;
 import ru.timuruktus.febree.ProjectUtils.Utils;
@@ -144,7 +145,8 @@ public class Settings implements BaseModel {
     public static long getTimeBetweenLastTaskAndCurrentTime(Context context){
         long lastTaskTime = getLastTaskTime(context);
         long answer = Utils.getCurrentTimeInSeconds() - lastTaskTime;
-        if(answer <= 0){
+        Log.d("mytag", "Settings.getTimeBetweenLastTaskAndCurrentTime() answer = " + answer);
+        if(answer < 0){
             return 704800;
         }else{
             return answer;
