@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         configureToolbar();
         loadFirstFragment();
         configureBottomNav();
+        Utils.initTypefaces(this);
     }
 
     private void configureCurrentTaskPoints(){

@@ -4,24 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/visualisation_part_backbround"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
         android:alpha="0.8"
-        android:background="@color/visualisation_part_backbround"
-        android:elevation="5dp"
+        android:background="@color/space_white"
+        android:elevation="6dp"
         android:orientation="vertical"
         android:translationZ="5dp">
 
         <TextView
             android:id="@+id/currentTaskTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:text="@string/task_current_text"
@@ -35,7 +36,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:alpha="0.8"
+            android:alpha="0.3"
             android:foreground="@color/space_background_color"
             app:srcCompat="@color/selected_item_color" />
 
@@ -49,7 +50,7 @@
             android:layout_marginTop="15dp"
             android:layout_weight="0.71"
             android:textAlignment="center"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -58,7 +59,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/difficultyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -79,7 +80,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView235"
+                android:id="@+id/pointsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

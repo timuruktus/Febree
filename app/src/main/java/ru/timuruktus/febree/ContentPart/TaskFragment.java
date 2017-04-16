@@ -24,23 +24,22 @@ import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.LocalPart.AGetNonPassedTasks;
 import ru.timuruktus.febree.LocalPart.AGetTaskById;
-import ru.timuruktus.febree.LocalPart.ERefreshAllTasks;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.LocalPart.Task;
 import ru.timuruktus.febree.ProjectUtils.Utils;
 import ru.timuruktus.febree.R;
-import ru.timuruktus.febree.WebPart.EDownloadAndRefreshAllTasks;
 
-import static ru.timuruktus.febree.ProjectUtils.Utils.WEEK_IN_SECONDS;
+import static ru.timuruktus.febree.ProjectUtils.Utils.*;
 
 public class TaskFragment extends BaseFragment implements View.OnClickListener {
 
 
     public View rootView;
-    private TextView currentTaskText, taskDifficulty, taskPoints;
+    private TextView currentTaskText, taskDifficulty, taskPoints, currentTaskTitle;
     private Button completeButton, cancelButton;
     private Context context;
-    Dialog dialog;
+    private Dialog dialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -49,7 +48,10 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
         rootView =
                 inflater.inflate(R.layout.task_fragment, container, false);
         this.context = rootView.getContext();
+
         currentTaskText = (TextView) rootView.findViewById(R.id.currentTaskText);
+        currentTaskTitle = (TextView) rootView.findViewById(R.id.currentTaskTitle);
+
         taskDifficulty = (TextView) rootView.findViewById(R.id.taskDifficulty);
         taskPoints = (TextView) rootView.findViewById(R.id.taskPoints);
         completeButton = (Button) rootView.findViewById(R.id.completeButton);
@@ -63,8 +65,11 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
             loadInterface();
         }
 
+        setTypefaces();
+
         return rootView;
     }
+
 
     @Override
     public void onClick(View v) {
@@ -87,6 +92,21 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
     /*
     UNDER THAT LINE- MAIN METHODS
      */
+
+    private void setTypefaces(){
+        TextView difficultyTextView = (TextView) rootView.findViewById(R.id.difficultyTextView);
+        TextView pointsTextView = (TextView) rootView.findViewById(R.id.pointsTextView);
+        currentTaskTitle = (TextView) rootView.findViewById(R.id.currentTaskTitle);
+        currentTaskTitle.setTypeface(boldTypeFace);
+        currentTaskText.setTypeface(usualTypeface);
+        taskDifficulty.setTypeface(usualTypeface);
+        taskPoints.setTypeface(usualTypeface);
+        completeButton.setTypeface(boldItalicTypeface);
+        cancelButton.setTypeface(boldItalicTypeface);
+        difficultyTextView.setTypeface(usualTypeface);
+        pointsTextView.setTypeface(usualTypeface);
+
+    }
 
     private void pickRandomTask(){
         EventBus.getDefault().post(new AGetNonPassedTasks(pickRandomTaskListener));
@@ -154,8 +174,16 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
                 text = context.getResources().getString(R.string.after_5_task);
                 showDialogAfterTask(text);
                 break;
+            case 6:
+                text = context.getResources().getString(R.string.after_6_task);
+                showDialogAfterTask(text);
+                break;
             case 7:
                 text = context.getResources().getString(R.string.after_7_task);
+                showDialogAfterTask(text);
+                break;
+            case 9:
+                text = context.getResources().getString(R.string.after_9_task);
                 showDialogAfterTask(text);
                 break;
         }

@@ -14,6 +14,8 @@ import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.LocalPart.Task;
 import ru.timuruktus.febree.R;
 
+import static ru.timuruktus.febree.ProjectUtils.Utils.*;
+
 public class DoneTasksAdapter extends BaseAdapter {
 
     private Context context;
@@ -51,6 +53,12 @@ public class DoneTasksAdapter extends BaseAdapter {
         Task task = getTask(position);
 
         TextView taskText = (TextView) view.findViewById(R.id.doneTaskText);
+        taskText.setTypeface(usualTypeface);
+        TextView doneTaskTitle = (TextView) view.findViewById(R.id.doneTaskTitle);
+        doneTaskTitle.setTypeface(blackTypeface);
+        TextView doneTaskEnd = (TextView) view.findViewById(R.id.doneTaskEnd);
+        doneTaskEnd.setTypeface(blackTypeface);
+
         ImageView difficultyColor = (ImageView) view.findViewById(R.id.difficultyColor);
         int taskDifficulty = task.getLevel();
         taskText.setText(task.getText());

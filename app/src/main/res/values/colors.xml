@@ -19,5 +19,5 @@
     <color name="taskBackStart">#563edf</color>
     <color name="taskBackEnd">#30D2AC</color>
     <color name="visualisation_part_backbround">#e3e3e3</color>
-    <color name="done_task_text_background">#f9f9f9</color>
+    <color name="done_task_text_background">#eeeeee</color>
 </resources>
