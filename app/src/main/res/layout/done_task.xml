@@ -21,15 +21,6 @@
             android:background="@color/taskDifficultyEasy"
             app:srcCompat="@color/space_transparent" />
 
-        <TextView
-            android:id="@+id/doneTaskTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:text="@string/done_task_title"
-            android:textAlignment="center"
-            android:textSize="24sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

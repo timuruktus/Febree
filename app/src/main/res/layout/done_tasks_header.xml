@@ -11,4 +11,19 @@
         android:foreground="@drawable/listview_header_image_foreground"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/listview_header_image" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"
+        android:elevation="11dp"
+        android:text="@string/you_completed_this"
+        android:textColor="@color/space_white"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        android:typeface="sans" />
 </RelativeLayout>

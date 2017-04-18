@@ -43,5 +43,11 @@ public class DoneTasksFragment extends BaseFragment implements EventCallbackList
         AGetPassedTasks currentEvent = (AGetPassedTasks) event;
         DoneTasksAdapter adapter = new DoneTasksAdapter(rootView.getContext(), currentEvent.getTasks());
         tasksListView.setAdapter(adapter);
+        tasksListView.addHeaderView(createHeader());
+    }
+
+
+    private View createHeader() {
+         return getActivity().getLayoutInflater().inflate(R.layout.done_tasks_header, null);
     }
 }
