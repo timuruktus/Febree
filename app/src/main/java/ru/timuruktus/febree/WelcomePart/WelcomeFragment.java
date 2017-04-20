@@ -71,17 +71,17 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
             question.setText(questions[counter]);
             stepIndicator.setCurrentStepPosition(counter);
         }else{
-            Settings.setFirstOpened(context, false);
+            Settings.setFirstOpened(false);
             int totalPoints = 0;
             for(int i : answers){
                 totalPoints += i;
             }
             if(totalPoints > 7){
-                Settings.setLevel(context, Settings.MEDIUM_LEVEL);
-                Settings.setPoints(context, 500);
+                Settings.setLevel(Settings.MEDIUM_LEVEL);
+                Settings.setPoints(500);
             }else{
-                Settings.setLevel(context, Settings.EASY_LEVEL);
-                Settings.setPoints(context, 0);
+                Settings.setLevel(Settings.EASY_LEVEL);
+                Settings.setPoints(0);
             }
             EventBus.getDefault().post(new EChangeFragment(new TaskFragment(), false, false, false));
         }

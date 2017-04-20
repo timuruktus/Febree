@@ -5,8 +5,10 @@
         <item
             android:id="@+id/menu_DB"
             android:title="@string/popup_reload_DB"/>
+
+        <item
+            android:id="@+id/menu_level"
+            android:title="@string/popup_switch_level_back"/>
     </group>
-
-
 
 </menu>

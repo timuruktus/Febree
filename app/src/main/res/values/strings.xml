@@ -13,7 +13,9 @@
 
     // [POPUP MENU]
     <string name="popup_reload_DB">Обновить базу</string>
+    <string name="popup_switch_level_back">Снизить уровень сложности</string>
     <string name="needed_to_internet">Для обновления базы требуется интернет соединение</string>
+    <string name="your_level_is_minimal">Вы уже на минимальном уровне сложности</string>
 
 
     // [FOR WELCOME FRAGMENT]

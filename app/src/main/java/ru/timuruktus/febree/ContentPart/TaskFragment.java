@@ -59,7 +59,7 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
         cancelButton = (Button) rootView.findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(this);
 
-        if(Settings.getCurrentTaskId(context) == 0 || Settings.getCurrentTaskId(context) == -1){
+        if(Settings.getCurrentTaskId() == 0 || Settings.getCurrentTaskId() == -1){
             pickRandomTask();
         }else{
             loadInterface();
@@ -75,13 +75,13 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if(id == R.id.cancelButton){
-            if(Settings.getCurrentTaskId(context) != -1) {
+            if(Settings.getCurrentTaskId() != -1) {
                 showCancelDialog();
             }else{
                 showAllCompleteDialog();
             }
         }else if(id == R.id.completeButton){
-            if(Settings.getCurrentTaskId(context) != -1) {
+            if(Settings.getCurrentTaskId() != -1) {
                 showSureDialog();
             }else{
                 showAllCompleteDialog();
@@ -101,8 +101,8 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
         currentTaskText.setTypeface(usualTypeface);
         taskDifficulty.setTypeface(usualTypeface);
         taskPoints.setTypeface(usualTypeface);
-        completeButton.setTypeface(boldItalicTypeface);
-        cancelButton.setTypeface(boldItalicTypeface);
+        completeButton.setTypeface(usualTypeface);
+        cancelButton.setTypeface(usualTypeface);
         difficultyTextView.setTypeface(usualTypeface);
         pointsTextView.setTypeface(usualTypeface);
 
@@ -113,15 +113,15 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void taskComplete(){
-        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(context), completeTaskListener));
+        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(), completeTaskListener));
     }
 
     private void taskSkip(){
-        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(context), skipTaskListener));
+        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(), skipTaskListener));
     }
 
     private void loadInterface(){
-        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(context), loadInterfaceListener));
+        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(), loadInterfaceListener));
     }
 
     /*
@@ -129,7 +129,7 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
      */
     private ArrayList<Task> getTasksByCurrentLevel(ArrayList<Task> tasks){
         ArrayList<Task> answer = new ArrayList<>();
-        long currentLevel = Settings.getLevel(context);
+        long currentLevel = Settings.getLevel();
         for(Task task : tasks){
             if(task.getLevel() == currentLevel){
                 answer.add(task);
@@ -155,7 +155,7 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void showSomeMessage(){
-        int tasksCompleted = (int) Settings.getLevelsDone(context);
+        int tasksCompleted = (int) Settings.getLevelsDone();
         String text;
         switch (tasksCompleted){
             case 1:
@@ -190,7 +190,7 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private boolean moreThanWeek(){
-        return Settings.getTimeBetweenLastTaskAndCurrentTime(context) >= WEEK_IN_SECONDS;
+        return Settings.getTimeBetweenLastTaskAndCurrentTime() >= WEEK_IN_SECONDS;
     }
 
 
@@ -207,12 +207,12 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
             ArrayList<Task> nonPassedTasks = currentEvent.getTasks();
             ArrayList<Task> availableTasks = getTasksByCurrentLevel(nonPassedTasks);
             if(availableTasks.size() == 0){
-                if(Settings.getLevel(context) != 2) {
-                    Settings.setLevel(rootView.getContext(), Settings.getLevel(context) + 1);
+                if(Settings.getLevel() != 2) {
+                    Settings.increaseLevel();
                     pickRandomTask();
                 }else{
                     Task task = new Task(3,"",false,0,-1,0,false);
-                    Settings.setCurrentTaskId(context, -1);
+                    Settings.setCurrentTaskId(-1);
                     task.save();
                     return;
                 }
@@ -221,8 +221,8 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
             Random random = new Random();
             int newTaskNum = random.nextInt(availableTasks.size());
             Task currentTask = availableTasks.get(newTaskNum);
-            Settings.setCurrentTaskId(context, currentTask.getUniqueId());
-            Settings.setLastTaskTime(context, Utils.getCurrentTimeInSeconds());
+            Settings.setCurrentTaskId(currentTask.getUniqueId());
+            Settings.setLastTaskTime(Utils.getCurrentTimeInSeconds());
             loadInterface();
         }
     };
@@ -249,7 +249,7 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
                 Task currentTask = currentEvent.getTask();
                 currentTask.setSkipped(true);
                 currentTask.save();
-                Settings.incrementLevelsSkipped(context);
+                Settings.incrementLevelsSkipped();
                 pickRandomTask();
             }
         }
@@ -261,12 +261,12 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
             AGetTaskById currentEvent = (AGetTaskById) event;
             Task currentTask = currentEvent.getTask();
             currentTask.setPassed(true);
-            Settings.incrementLevelsDone(context);
-            Settings.changePoints(context, currentTask.getPoints());
+            Settings.incrementLevelsDone();
+            Settings.changePoints(currentTask.getPoints());
             currentTask.save();
-            if(Settings.getPoints(context) > Settings.getCurrentLimit(context)
-                    && Settings.getLevel(context) != Settings.HARD_LEVEL){
-                Settings.increaseLevel(context);
+            if(Settings.getPoints() > Settings.getCurrentLimit()
+                    && Settings.getLevel() != Settings.HARD_LEVEL){
+                Settings.increaseLevel();
             }
             pickRandomTask();
         }

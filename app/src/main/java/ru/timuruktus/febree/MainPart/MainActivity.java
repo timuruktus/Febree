@@ -1,5 +1,6 @@
 package ru.timuruktus.febree.MainPart;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void configureCurrentTaskPoints(){
-        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(this), configureCurrentTaskListener));
+        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(), configureCurrentTaskListener));
     }
 
     private void initAllListeners(){
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         mainPresenter = new MainPresenter(this);
         dataBase = new DataBase();
         backendlessWeb = new BackendlessWeb();
+        Settings.initSettings(MainActivity.this);
     }
 
     private void detachAllListeners(){
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadFirstFragment(){
-        if(Settings.isFirstOpened(this)){
+        if(Settings.isFirstOpened()){
             openIntroducingFragment();
             Log.d("mytag", "MainActivity.loadFirstFragment() introducingFragment opened");
         }else{
@@ -158,9 +160,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private long daysAfterLastTask(){
-        long answer = Settings.getTimeBetweenLastTaskAndCurrentTime(this) / DAY_IN_SECOND;
+        long answer = Settings.getTimeBetweenLastTaskAndCurrentTime() / DAY_IN_SECOND;
         if(answer > 0){
-            Settings.setLastTaskTime(this, Utils.getCurrentTimeInSeconds());
+            Settings.setLastTaskTime(Utils.getCurrentTimeInSeconds());
         }
         return answer;
     }
@@ -177,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_dashboard:
 
-                    if(Settings.getLevelsDone(MainActivity.this) < 1){
+                    if(Settings.getLevelsDone() < 1){
                         Toast.makeText(MainActivity.this, R.string.you_need_1_tasks,
                                 Toast.LENGTH_SHORT).show();
                         return false;
@@ -188,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 case R.id.navigation_visualisation:
-                    if(Settings.getLevelsDone(MainActivity.this) < 3){
+                    if(Settings.getLevelsDone() < 3){
                         Toast.makeText(MainActivity.this, R.string.you_need_3_tasks,
                                 Toast.LENGTH_SHORT).show();
                         return false;
@@ -214,15 +216,30 @@ public class MainActivity extends AppCompatActivity {
     PopupMenu.OnMenuItemClickListener popupMenuListener = new PopupMenu.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
+            Context context = MainActivity.this;
             switch (item.getItemId()) {
                 case R.id.menu_DB:
                     if(!Utils.isOnline()){
-                        Toast.makeText(MainActivity.this, R.string.needed_to_internet,
+                        Toast.makeText(context, R.string.needed_to_internet,
                                 Toast.LENGTH_SHORT).show();
                     }else{
                         EventBus.getDefault().post(new EDownloadAndRefreshAllTasks());
                     }
                     return true;
+
+                case R.id.menu_level:
+                    long currentLevel = Settings.getLevel();
+                    if(currentLevel == Settings.EASY_LEVEL){
+                        Toast.makeText(context, R.string.your_level_is_minimal,
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        Settings.decreaseLevel();
+                        Settings.setPoints(Settings.getCurrentLimit() - 400);
+                        loadFirstFragment();
+                        Settings.setCurrentTaskId(0);
+                    }
+                    return true;
+
                 default:
                     return false;
             }

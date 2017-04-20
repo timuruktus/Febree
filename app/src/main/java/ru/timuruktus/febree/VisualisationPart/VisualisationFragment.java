@@ -82,10 +82,10 @@ public class VisualisationFragment extends BaseFragment {
         currentPoints = (TextView) rootView.findViewById(R.id.currentPoints);
         completedTaskCount = (TextView) rootView.findViewById(R.id.completedTaskCount);
         skippedTaskCount = (TextView) rootView.findViewById(R.id.skippedTaskCount);
-        currentPoints.setText(Settings.getPoints(context) + "");
+        currentPoints.setText(Settings.getPoints() + "");
         configureColor();
-        completedTaskCount.setText(Settings.getLevelsDone(context) + "");
-        skippedTaskCount.setText(Settings.getLevelsSkipped(context) + "");
+        completedTaskCount.setText(Settings.getLevelsDone() + "");
+        skippedTaskCount.setText(Settings.getLevelsSkipped() + "");
         initAdView();
 
         return rootView;
@@ -108,7 +108,7 @@ public class VisualisationFragment extends BaseFragment {
     }
 
     private void configureColor(){
-        long taskDifficulty = Settings.getLevel(context);
+        long taskDifficulty = Settings.getLevel();
         if(taskDifficulty == Settings.HARD_LEVEL){
             currentPoints.setTextColor(colorHard);
         }else if(taskDifficulty == Settings.MEDIUM_LEVEL){
@@ -119,18 +119,18 @@ public class VisualisationFragment extends BaseFragment {
     }
 
     private void setPercentages(){
-        if(Settings.getLevel(context) == Settings.EASY_LEVEL){
-            easyPercentage = Settings.getPoints(context) * 100 / Settings.getCurrentLimit(context);
+        if(Settings.getLevel() == Settings.EASY_LEVEL){
+            easyPercentage = Settings.getPoints() * 100 / Settings.getCurrentLimit();
             mediumPercentage = 0;
             hardPercentage = 0;
-        }else if(Settings.getLevel(context) == Settings.MEDIUM_LEVEL){
+        }else if(Settings.getLevel() == Settings.MEDIUM_LEVEL){
             easyPercentage = 100;
-            mediumPercentage = Settings.getPoints(context) * 100 / Settings.getCurrentLimit(context);;
+            mediumPercentage = Settings.getPoints() * 100 / Settings.getCurrentLimit();;
             hardPercentage = 0;
         }else{
             easyPercentage = 100;
             mediumPercentage = 100;
-            hardPercentage = Settings.getPoints(context) * 100 / Settings.getCurrentLimit(context);
+            hardPercentage = Settings.getPoints() * 100 / Settings.getCurrentLimit();
         }
     }
 
