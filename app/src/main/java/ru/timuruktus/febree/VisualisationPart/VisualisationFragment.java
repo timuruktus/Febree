@@ -11,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 
 import devlight.io.library.ArcProgressStackView;
@@ -31,6 +36,8 @@ public class VisualisationFragment extends BaseFragment {
     private long easyPercentage;
     private long mediumPercentage;
     private long hardPercentage;
+    AdView adView_1, adView_2;
+    private VisualisationPresenter presenter;
 
 
     @Override
@@ -39,6 +46,7 @@ public class VisualisationFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         rootView =
                 inflater.inflate(R.layout.visualisation_fragment, container, false);
+        presenter = new VisualisationPresenter(this);
         context = rootView.getContext();
 
         arcProgressStackView = (ArcProgressStackView) rootView.findViewById(R.id.apsv);
@@ -78,8 +86,25 @@ public class VisualisationFragment extends BaseFragment {
         configureColor();
         completedTaskCount.setText(Settings.getLevelsDone(context) + "");
         skippedTaskCount.setText(Settings.getLevelsSkipped(context) + "");
+        initAdView();
 
         return rootView;
+    }
+
+    private void initAdView(){
+        adView_1 = (AdView) rootView.findViewById(R.id.visualisationAdView_1);
+        adView_2 = (AdView) rootView.findViewById(R.id.visualisationAdView_2);
+        /*
+        NOTE: Delete all "//" under tat line to show up advertisment
+         */
+        EventBus.getDefault().post(new EInitAdmob(adView_1));
+        EventBus.getDefault().post(new EInitAdmob(adView_2));
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        presenter.unregisterListener();
     }
 
     private void configureColor(){
@@ -108,4 +133,5 @@ public class VisualisationFragment extends BaseFragment {
             hardPercentage = Settings.getPoints(context) * 100 / Settings.getCurrentLimit(context);
         }
     }
+
 }

@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 
 import com.backendless.Backendless;
+import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private DataBase dataBase;
     private BackendlessWeb backendlessWeb;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fragmentContainer = (RelativeLayout) this.findViewById(R.id.content);
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-1766130558963175~1477951647");
         configureToolbar();
         loadFirstFragment();
         configureBottomNav();

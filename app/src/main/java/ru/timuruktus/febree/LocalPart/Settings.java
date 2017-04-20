@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import ru.timuruktus.febree.BaseModel;
 import ru.timuruktus.febree.ProjectUtils.Utils;
 
@@ -18,6 +20,7 @@ public class Settings implements BaseModel {
     private static final String APP_PREFERENCES_CURRENT_TASK_ID = "currentTaskId";
     private static final String APP_PREFERENCES_LAST_TASK_TIME = "lastTaskTime";
     private static SharedPreferences settings;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public static final long EASY_LEVEL = 0;
     public static final long MEDIUM_LEVEL = 1;
@@ -26,6 +29,16 @@ public class Settings implements BaseModel {
     public static final long EASY_LIMIT = 499;
     public static final long MEDIUM_LIMIT = 1499;
     public static final long HARD_LIMIT = 10000;
+
+    public Settings(Context context){
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+    }
+
+
+    /*
+    UNDER THIS LINE- FIREBASE ANALYTICS METHODS
+     */
+
 
 
     /*
