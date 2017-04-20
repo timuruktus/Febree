@@ -3,6 +3,7 @@ package ru.timuruktus.febree.MainPart;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -10,15 +11,17 @@ import org.greenrobot.eventbus.Subscribe;
 
 import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BasePresenter;
+import ru.timuruktus.febree.EventHandler;
 import ru.timuruktus.febree.R;
 
 import static android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE;
 
-public class MainPresenter implements BasePresenter {
+public class MainPresenter implements BasePresenter, EventHandler {
 
     private MainActivity mainActivity;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
+    private Fragment currentFragment;
     public static final boolean DONT_ADD_TO_BACKSTACK = false;
     public static final boolean ADD_TO_BACKSTACK = true;
     public static final boolean HIDE_MENU = true;
@@ -28,14 +31,21 @@ public class MainPresenter implements BasePresenter {
 
     public MainPresenter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
-        EventBus.getDefault().register(this);
         fragmentManager = mainActivity.getFragmentManager();
+        initListener();
     }
 
     @Subscribe
     public void changeFragment(EChangeFragment event){
         Fragment fragment = event.getFragment();
-        if(fragment.equals(getCurrentFragment())) return;
+        Class fragmentClass = fragment.getClass();
+        if(currentFragment != null) {
+            if (fragmentClass.equals(currentFragment.getClass())) {
+                Log.d("mytag", "MainPresenter.changeFragment() already that fragment");
+                return;
+            }
+        }
+        currentFragment = fragment;
         fragmentTransaction = fragmentManager.beginTransaction();
         if(event.isAddToBackStack()) fragmentTransaction.addToBackStack(null);
         fragmentTransaction.setTransition(TRANSIT_FRAGMENT_FADE);
@@ -44,9 +54,9 @@ public class MainPresenter implements BasePresenter {
         fragmentTransaction.commit();
     }
 
-    private Fragment getCurrentFragment(){
-       return mainActivity.getFragmentManager().findFragmentById(R.id.content);
-    }
+    //private Fragment getCurrentFragment(){
+    //   return fragmentManager.findFragmentById(R.id.content);
+    //}
 
     private void hideNavigationMenu(boolean hide){
         if(hide){
@@ -60,4 +70,13 @@ public class MainPresenter implements BasePresenter {
         fragmentTransaction.replace(R.id.content, fragment);
     }
 
+    @Override
+    public void initListener() {
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void unregisterListener() {
+        EventBus.getDefault().unregister(this);
+    }
 }

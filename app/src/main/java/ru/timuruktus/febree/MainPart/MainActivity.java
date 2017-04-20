@@ -52,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     private final String APP_ID = "CFF3349B-7FBD-06A1-FFBB-2B9CE809D900";
     private final String API_KEY = "8EFFCEF7-F0BE-C415-FFF3-E459B2957300";
     BottomNavigationView navigation;
+    private MainPresenter mainPresenter;
+    private DataBase dataBase;
+    private BackendlessWeb backendlessWeb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +72,28 @@ public class MainActivity extends AppCompatActivity {
         Utils.initTypefaces(this);
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        detachAllListeners();
+    }
+
+
     private void configureCurrentTaskPoints(){
         EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(this), configureCurrentTaskListener));
     }
 
     private void initAllListeners(){
-        MainPresenter mainPresenter = new MainPresenter(this);
-        DataBase dataBase = new DataBase();
-        BackendlessWeb backendlessWeb = new BackendlessWeb();
+        Log.d("mytag", "MainActivity.initAllListeners() listeners initialised");
+        mainPresenter = new MainPresenter(this);
+        dataBase = new DataBase();
+        backendlessWeb = new BackendlessWeb();
+    }
+
+    private void detachAllListeners(){
+        mainPresenter.unregisterListener();
+        dataBase.unregisterListener();
+        backendlessWeb.unregisterListener();
     }
 
     private void loadFirstFragment(){

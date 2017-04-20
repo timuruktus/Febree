@@ -25,7 +25,7 @@ public class BackendlessWeb implements BaseModel{
 
 
     public BackendlessWeb() {
-        EventBus.getDefault().register(this);
+        initListener();
     }
 
     private ArrayList<Task> finalTasks = new ArrayList<>();
@@ -75,4 +75,13 @@ public class BackendlessWeb implements BaseModel{
                 });
     }
 
+    @Override
+    public void initListener() {
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void unregisterListener() {
+        EventBus.getDefault().unregister(this);
+    }
 }

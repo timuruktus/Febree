@@ -31,6 +31,7 @@ public class DoneTasksFragment extends BaseFragment implements EventCallbackList
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("mytag", "DoneTasksFragment.onCreate() doneTasksFragment was created");
         rootView =
                 inflater.inflate(R.layout.done_tasks_fragment, container, false);
         tasksListView = (ListView) rootView.findViewById(R.id.doneTasksList);
@@ -42,12 +43,15 @@ public class DoneTasksFragment extends BaseFragment implements EventCallbackList
     public void eventCallback(BaseEvent event) {
         AGetPassedTasks currentEvent = (AGetPassedTasks) event;
         DoneTasksAdapter adapter = new DoneTasksAdapter(rootView.getContext(), currentEvent.getTasks());
+        View header = createHeader();
         tasksListView.setAdapter(adapter);
-        tasksListView.addHeaderView(createHeader());
+        tasksListView.removeHeaderView(header);
+        tasksListView.addHeaderView(header);
     }
 
 
     private View createHeader() {
+        Log.d("mytag", "DoneTasksFragment.createHeader() header created");
          return getActivity().getLayoutInflater().inflate(R.layout.done_tasks_header, null);
     }
 }

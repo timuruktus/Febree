@@ -209,4 +209,13 @@ public class Settings implements BaseModel {
         return settings.getBoolean(path, defaultValue);
     }
 
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void unregisterListener() {
+
+    }
 }

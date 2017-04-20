@@ -19,7 +19,8 @@ public class DataBase implements BaseModel {
 
 
     public DataBase() {
-        EventBus.getDefault().register(this);
+        Log.d("mytag", "DataBase.DataBase() event handles initialised");
+        initListener();
     }
 
     @Subscribe
@@ -92,4 +93,13 @@ public class DataBase implements BaseModel {
         Task.deleteAll(Task.class);
     }
 
+    @Override
+    public void initListener() {
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void unregisterListener() {
+        EventBus.getDefault().unregister(this);
+    }
 }
