@@ -109,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
         }else{
             openHomeFragment();
             configureCurrentTaskPoints();
-            //if(Utils.isOnline()){
-            //    EventBus.getDefault().post(new EDownloadAndRefreshAllTasks());
-            //}
+            if(Utils.isOnline()){
+                EventBus.getDefault().post(new EDownloadAndRefreshAllTasks());
+            }
             Log.d("mytag", "MainActivity.loadFirstFragment() homeFragment opened");
         }
     }
@@ -235,8 +235,8 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         Settings.decreaseLevel();
                         Settings.setPoints(Settings.getCurrentLimit() - 400);
-                        loadFirstFragment();
                         Settings.setCurrentTaskId(0);
+                        loadFirstFragment();
                     }
                     return true;
 

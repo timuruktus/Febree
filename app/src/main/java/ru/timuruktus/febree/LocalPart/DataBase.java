@@ -17,6 +17,8 @@ import ru.timuruktus.febree.GlobalEvents.ETaskCompleted;
 
 public class DataBase implements BaseModel {
 
+    //TODO: ADD EVENT, WHICH WILL BE RETURN ALL TASKS, WHERE passed = 0 AND currentLevel = CURRENT LEVEL!!!!!!
+
 
     public DataBase() {
         Log.d("mytag", "DataBase.DataBase() event handles initialised");
@@ -81,10 +83,10 @@ public class DataBase implements BaseModel {
     @Subscribe
     public void getTaskById(AGetTaskById event){
         long id = event.getTaskId();
-        List<Task> tempList = Select.from(Task.class)
+        List<Task> tasksWithCurrentId = Select.from(Task.class)
                 .where(Condition.prop("unique_id").eq(id))
                 .list();
-        event.setTask(tempList.get(0));
+        event.setTask(tasksWithCurrentId.get(0));
         event.callback();
     }
 

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "740320805798",
+    "firebase_url": "https://trelico-a434a.firebaseio.com",
+    "project_id": "trelico-a434a",
+    "storage_bucket": "trelico-a434a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740320805798:android:ad0e2d0bd6a27ee6",
+        "android_client_info": {
+          "package_name": "ru.timuruktus.febree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740320805798-q1v2s47f09f3jpdfnk8695i0pvq2efmq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.timuruktus.febree",
+            "certificate_hash": "e1539c1a40259eefb5828281d7ad44308f1c073f"
+          }
+        },
+        {
+          "client_id": "740320805798-4s84gfgplldbt613r9old8ut2s4rvtrf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpU6aud-MeX1CtKHGOuC_rkjsYdm-F2pU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740320805798-4s84gfgplldbt613r9old8ut2s4rvtrf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
