@@ -1,6 +1,5 @@
 package ru.timuruktus.febree.IntroducingPart;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
-import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.LocalPart.EClearAllTasks;
 import ru.timuruktus.febree.MainPart.EChangeFragment;
@@ -28,11 +26,7 @@ import static ru.timuruktus.febree.MainPart.MainPresenter.*;
 
 public class IntroducingFragment extends BaseFragment implements View.OnClickListener {
 
-    public View rootView;
-    public TextView introducingText, hello;
-    public Context context;
-    public Button understoodBut;
-
+    private View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -41,13 +35,12 @@ public class IntroducingFragment extends BaseFragment implements View.OnClickLis
         rootView =
                 inflater.inflate(R.layout.introducing_fragment, container, false);
 
-        this.context = rootView.getContext();
         EventBus.getDefault().post(new EClearAllTasks());
 
-        hello = (TextView) rootView.findViewById(R.id.hello);
-        introducingText = (TextView) rootView.findViewById(R.id.introducingText);
-        understoodBut = (Button) rootView.findViewById(R.id.understoodBut);
-        introducingText.setTypeface(Typeface.createFromAsset(context.getAssets(),
+        TextView hello = (TextView) rootView.findViewById(R.id.hello);
+        TextView introducingText = (TextView) rootView.findViewById(R.id.introducingText);
+        Button understoodBut = (Button) rootView.findViewById(R.id.understoodBut);
+        introducingText.setTypeface(Typeface.createFromAsset(rootView.getContext().getAssets(),
                 "OpenSans.ttf"));
         startAnim(hello, 0);
         startAnim(introducingText, 1000);

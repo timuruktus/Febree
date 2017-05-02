@@ -16,14 +16,12 @@ import ru.timuruktus.febree.R;
 
 import static ru.timuruktus.febree.ProjectUtils.Utils.*;
 
-public class DoneTasksAdapter extends BaseAdapter {
+class DoneTasksAdapter extends BaseAdapter {
 
-    private Context context;
     private LayoutInflater inflater;
     private ArrayList<Task> tasks;
 
     DoneTasksAdapter(Context context, ArrayList<Task> tasks) {
-        this.context = context;
         this.tasks = tasks;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -67,13 +65,15 @@ public class DoneTasksAdapter extends BaseAdapter {
         }else{
             difficultyColor.setBackgroundResource(R.color.taskDifficultyEasy);
         }
-
-
+        task = null;
+        taskText = null;
+        doneTaskEnd = null;
+        difficultyColor = null;
         return view;
     }
 
     // товар по позиции
-    Task getTask(int position) {
+    private Task getTask(int position) {
         return ((Task) getItem(position));
     }
 

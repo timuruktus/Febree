@@ -22,6 +22,7 @@ import java.util.Random;
 import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.EventCallbackListener;
+import ru.timuruktus.febree.LocalPart.AGetNonPassedByLevelTasks;
 import ru.timuruktus.febree.LocalPart.AGetNonPassedTasks;
 import ru.timuruktus.febree.LocalPart.AGetTaskById;
 import ru.timuruktus.febree.LocalPart.Settings;
@@ -109,7 +110,7 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void pickRandomTask(){
-        EventBus.getDefault().post(new AGetNonPassedTasks(pickRandomTaskListener));
+        EventBus.getDefault().post(new AGetNonPassedByLevelTasks(pickRandomTaskListener, Settings.getLevel()));
     }
 
     private void taskComplete(){
@@ -203,9 +204,8 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
     EventCallbackListener pickRandomTaskListener = new EventCallbackListener() {
         @Override
         public void eventCallback(BaseEvent event) {
-            AGetNonPassedTasks currentEvent = (AGetNonPassedTasks) event;
-            ArrayList<Task> nonPassedTasks = currentEvent.getTasks();
-            ArrayList<Task> availableTasks = getTasksByCurrentLevel(nonPassedTasks);
+            AGetNonPassedByLevelTasks currentEvent = (AGetNonPassedByLevelTasks) event;
+            ArrayList<Task> availableTasks = currentEvent.getTasks();
             if(availableTasks.size() == 0){
                 if(Settings.getLevel() != 2) {
                     Settings.increaseLevel();

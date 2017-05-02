@@ -27,9 +27,9 @@ public class Settings implements BaseModel {
     public static final long MEDIUM_LEVEL = 1;
     public static final long HARD_LEVEL = 2;
 
-    public static final long EASY_LIMIT = 499;
-    public static final long MEDIUM_LIMIT = 1499;
-    public static final long HARD_LIMIT = 15000;
+    private static final long EASY_LIMIT = 499;
+    private static final long MEDIUM_LIMIT = 1499;
+    private static final long HARD_LIMIT = 15000;
 
     public static void initSettings(Context context){
         settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);

@@ -31,7 +31,7 @@ public class DoneTasksFragment extends BaseFragment implements EventCallbackList
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("mytag", "DoneTasksFragment.onCreate() doneTasksFragment was created");
+        //Log.d("mytag", "DoneTasksFragment.onCreate() doneTasksFragment was created");
         rootView =
                 inflater.inflate(R.layout.done_tasks_fragment, container, false);
         tasksListView = (ListView) rootView.findViewById(R.id.doneTasksList);

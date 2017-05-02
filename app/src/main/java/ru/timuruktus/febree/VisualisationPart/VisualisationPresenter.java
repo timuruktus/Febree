@@ -15,25 +15,26 @@ public class VisualisationPresenter implements BasePresenter, EventHandler {
 
 
     private VisualisationFragment fragment;
+    private  AdRequest adRequest;
 
-    public VisualisationPresenter(VisualisationFragment fragment){
+    VisualisationPresenter(VisualisationFragment fragment){
         this.fragment = fragment;
         initListener();
+        adRequest = new AdRequest.Builder().build();
     }
 
     @Override
-    public void initListener() {
+    final public void initListener() {
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void unregisterListener() {
+    final public void unregisterListener() {
         EventBus.getDefault().unregister(this);
     }
 
     @Subscribe
-    public void initAdView(EInitAdmob event){
-        AdRequest adRequest = new AdRequest.Builder().build();
+    final public void initAdView(EInitAdmob event){
         event.adView.loadAd(adRequest);
     }
 }

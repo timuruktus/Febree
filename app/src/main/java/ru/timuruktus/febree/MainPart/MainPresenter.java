@@ -29,19 +29,19 @@ public class MainPresenter implements BasePresenter, EventHandler {
     public static final boolean HIDE_TOOLBAR = true;
     public static final boolean DONT_HIDE_TOOLBAR = false;
 
-    public MainPresenter(MainActivity mainActivity) {
+    MainPresenter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         fragmentManager = mainActivity.getFragmentManager();
         initListener();
     }
 
     @Subscribe
-    public void changeFragment(EChangeFragment event){
+    final public void changeFragment(EChangeFragment event){
         Fragment fragment = event.getFragment();
         Class fragmentClass = fragment.getClass();
         if(currentFragment != null) {
             if (fragmentClass.equals(currentFragment.getClass())) {
-                Log.d("mytag", "MainPresenter.changeFragment() already that fragment");
+                //Log.d("mytag", "MainPresenter.changeFragment() already that fragment");
                 return;
             }
         }
@@ -71,12 +71,12 @@ public class MainPresenter implements BasePresenter, EventHandler {
     }
 
     @Override
-    public void initListener() {
+    final public void initListener() {
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void unregisterListener() {
+    final public void unregisterListener() {
         EventBus.getDefault().unregister(this);
     }
 }

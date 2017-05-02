@@ -11,7 +11,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.BaseModel;
 import ru.timuruktus.febree.GlobalEvents.ETaskCompleted;
 
@@ -21,7 +20,7 @@ public class DataBase implements BaseModel {
 
 
     public DataBase() {
-        Log.d("mytag", "DataBase.DataBase() event handles initialised");
+        //Log.d("mytag", "DataBase.DataBase() event handles initialised");
         initListener();
     }
 
@@ -30,14 +29,14 @@ public class DataBase implements BaseModel {
         ArrayList<Task> tasks = event.getTasks();
         for(Task currentTask : tasks){
             currentTask.save();
-            Log.d("mytag", "DataBase.saveAllTasks() task saved");
+            //Log.d("mytag", "DataBase.saveAllTasks() task saved");
         }
+        tasks = null;
     }
 
     @Subscribe
     public void refreshAllTasks(ERefreshAllTasks event){
         ArrayList<Task> tasks = event.getTasks();
-
         for(Task currentTask : tasks){
             List<Task> localTask =
                     Task.find(Task.class, "unique_id = ?",
@@ -51,6 +50,7 @@ public class DataBase implements BaseModel {
                 localTask.get(0).save();
             }
         }
+        tasks = null;
     }
 
     @Subscribe
@@ -58,6 +58,7 @@ public class DataBase implements BaseModel {
         Task task = event.getTask();
         task.setPassed(true);
         task.save();
+        task = null;
     }
 
     @Subscribe
@@ -69,6 +70,18 @@ public class DataBase implements BaseModel {
     @Subscribe
     public void getAllNonPassedTasks(AGetNonPassedTasks event){
         event.setTasks(getTaskByPassed(0));
+        event.callback();
+    }
+
+    @Subscribe
+    public void getNonPassedCurrentLevelTasks(AGetNonPassedByLevelTasks event){
+        ArrayList<Task> tasks = (ArrayList<Task>) Select.from(Task.class)
+                .where(Condition.prop("passed").eq(0))
+                .where(Condition.prop("level").eq(event.getLevel()))
+                .where(Condition.prop("unique_id").notEq(-1))
+                .where(Condition.prop("skipped").notEq(1))
+                .list();
+        event.setTasks(tasks);
         event.callback();
     }
 

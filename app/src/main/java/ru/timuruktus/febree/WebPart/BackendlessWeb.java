@@ -32,14 +32,14 @@ public class BackendlessWeb implements BaseModel{
     private int offset = 0;
 
     @Subscribe
-    public void downloadAllTasks(EDownloadAllTasksAndCache event){
+    final public void downloadAllTasks(EDownloadAllTasksAndCache event){
         finalTasks.clear();
         offset = 0;
         getTasksFromWeb(new ESaveAllTasks());
     }
 
     @Subscribe
-    public void refreshAllTasks(EDownloadAndRefreshAllTasks event){
+    final public void refreshAllTasks(EDownloadAndRefreshAllTasks event){
         finalTasks.clear();
         offset = 0;
         getTasksFromWeb(new ERefreshAllTasks());
@@ -47,7 +47,7 @@ public class BackendlessWeb implements BaseModel{
 
     private void getTasksFromWeb(final TaskEvent event){
         DataQueryBuilder queryBuilder = DataQueryBuilder.create();
-        Log.d("mytag", "BackendlessWeb.getTasksFromWeb() event handled");
+        //Log.d("mytag", "BackendlessWeb.getTasksFromWeb() event handled");
         queryBuilder.setPageSize(100);
         queryBuilder.setOffset(offset);
         Backendless.Persistence.of(Task.class).find(queryBuilder,
@@ -55,11 +55,11 @@ public class BackendlessWeb implements BaseModel{
                     @Override
                     public void handleResponse(List<Task> foundTasks) {
                         int size = foundTasks.size();
-                        Log.d("mytag", "BackendlessWeb.getTasksFromWeb().handleResponse() tasks got");
+                        //Log.d("mytag", "BackendlessWeb.getTasksFromWeb().handleResponse() tasks got");
                         ArrayList<Task> tasks = (ArrayList<Task>) foundTasks;
-                        Log.d("mytag", "BackendlessWeb.getTasksFromWeb() tasks size" +  tasks.size());
+                        //Log.d("mytag", "BackendlessWeb.getTasksFromWeb() tasks size" +  tasks.size());
                         if(size > 0){
-                            offset = tasks.size();
+                            offset += tasks.size();
                             finalTasks.addAll(tasks);
                             getTasksFromWeb(event);
                         }else {
@@ -70,18 +70,18 @@ public class BackendlessWeb implements BaseModel{
                     }
                     @Override
                     public void handleFault(BackendlessFault fault) {
-                        Log.d("MagFragmentFault", fault.getCode());
+                        //Log.d("MagFragmentFault", fault.getCode());
                     }
                 });
     }
 
     @Override
-    public void initListener() {
+    final public void initListener() {
         EventBus.getDefault().register(this);
     }
 
     @Override
-    public void unregisterListener() {
+    final public void unregisterListener() {
         EventBus.getDefault().unregister(this);
     }
 }

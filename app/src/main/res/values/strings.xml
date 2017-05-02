@@ -16,6 +16,7 @@
     <string name="popup_switch_level_back">Снизить уровень сложности</string>
     <string name="needed_to_internet">Для обновления базы требуется интернет соединение</string>
     <string name="your_level_is_minimal">Вы уже на минимальном уровне сложности</string>
+    <string name="has_no_tasks_for_you">Нет доступных заданий! Подождите и обновите базу данных</string>
 
 
     // [FOR WELCOME FRAGMENT]

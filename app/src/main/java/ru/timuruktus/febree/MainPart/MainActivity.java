@@ -31,11 +31,14 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
+
 import ru.timuruktus.febree.BaseEvent;
 import ru.timuruktus.febree.ContentPart.TaskFragment;
 import ru.timuruktus.febree.DoneTasksPart.DoneTasksFragment;
 import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.IntroducingPart.IntroducingFragment;
+import ru.timuruktus.febree.LocalPart.AGetNonPassedByLevelTasks;
 import ru.timuruktus.febree.LocalPart.AGetTaskById;
 import ru.timuruktus.febree.LocalPart.DataBase;
 import ru.timuruktus.febree.LocalPart.Settings;
@@ -52,8 +55,6 @@ import static ru.timuruktus.febree.ProjectUtils.Utils.DAY_IN_SECOND;
 public class MainActivity extends AppCompatActivity {
 
     RelativeLayout fragmentContainer;
-    private final String APP_ID = "CFF3349B-7FBD-06A1-FFBB-2B9CE809D900";
-    private final String API_KEY = "8EFFCEF7-F0BE-C415-FFF3-E459B2957300";
     BottomNavigationView navigation;
     private MainPresenter mainPresenter;
     private DataBase dataBase;
@@ -61,8 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    final protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String APP_ID = "CFF3349B-7FBD-06A1-FFBB-2B9CE809D900";
+        String API_KEY = "8EFFCEF7-F0BE-C415-FFF3-E459B2957300";
         Backendless.initApp(this, APP_ID, API_KEY);
         //EventBus.getDefault().register(this);
         initAllListeners();
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
+    final public void onDestroy(){
         super.onDestroy();
         detachAllListeners();
     }
@@ -105,14 +108,14 @@ public class MainActivity extends AppCompatActivity {
     private void loadFirstFragment(){
         if(Settings.isFirstOpened()){
             openIntroducingFragment();
-            Log.d("mytag", "MainActivity.loadFirstFragment() introducingFragment opened");
+            //Log.d("mytag", "MainActivity.loadFirstFragment() introducingFragment opened");
         }else{
             openHomeFragment();
             configureCurrentTaskPoints();
             if(Utils.isOnline()){
                 EventBus.getDefault().post(new EDownloadAndRefreshAllTasks());
             }
-            Log.d("mytag", "MainActivity.loadFirstFragment() homeFragment opened");
+            //Log.d("mytag", "MainActivity.loadFirstFragment() homeFragment opened");
         }
     }
 
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 DONT_HIDE_TOOLBAR, DONT_HIDE_MENU));
     }
 
-    public void setContentFullscreen(){
+    final public void setContentFullscreen(){
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentContainer.setLayoutParams(layoutParams);
     }
 
-    public void setContentNotFullscreen(){
+    final public void setContentNotFullscreen(){
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -190,15 +193,15 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 case R.id.navigation_visualisation:
-                    if(Settings.getLevelsDone() < 3){
-                        Toast.makeText(MainActivity.this, R.string.you_need_3_tasks,
-                                Toast.LENGTH_SHORT).show();
-                        return false;
-                    }else{
+                    //if(Settings.getLevelsDone() < 3){
+                        //Toast.makeText(MainActivity.this, R.string.you_need_3_tasks,
+                                //Toast.LENGTH_SHORT).show();
+                        //return false;
+                    //}else{
                         EventBus.getDefault().post(new EChangeFragment(new VisualisationFragment(),
                                 ADD_TO_BACKSTACK, DONT_HIDE_MENU));
                         return true;
-                    }
+                    //}
 
                 case R.id.navigation_more:
                     TextView popupAnchor = (TextView) findViewById(R.id.popupAnchor);
@@ -213,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-    PopupMenu.OnMenuItemClickListener popupMenuListener = new PopupMenu.OnMenuItemClickListener() {
+    final PopupMenu.OnMenuItemClickListener popupMenuListener = new PopupMenu.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             Context context = MainActivity.this;
@@ -233,10 +236,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(context, R.string.your_level_is_minimal,
                                 Toast.LENGTH_SHORT).show();
                     }else{
-                        Settings.decreaseLevel();
-                        Settings.setPoints(Settings.getCurrentLimit() - 400);
-                        Settings.setCurrentTaskId(0);
-                        loadFirstFragment();
+                        EventBus.getDefault().post(new AGetNonPassedByLevelTasks(checkAvailableTasksListener, --currentLevel));
+
                     }
                     return true;
 
@@ -246,7 +247,25 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    EventCallbackListener configureCurrentTaskListener = new EventCallbackListener() {
+    final EventCallbackListener checkAvailableTasksListener = new EventCallbackListener() {
+        @Override
+        public void eventCallback(BaseEvent event) {
+            AGetNonPassedByLevelTasks currentEvent = (AGetNonPassedByLevelTasks) event;
+            ArrayList<Task> availableTasks = currentEvent.getTasks();
+            Context context = MainActivity.this;
+            if(availableTasks.size() == 0){
+                Toast.makeText(context, R.string.has_no_tasks_for_you,
+                        Toast.LENGTH_SHORT).show();
+            }else{
+                Settings.decreaseLevel();
+                Settings.setPoints(Settings.getCurrentLimit() - 400);
+                Settings.setCurrentTaskId(0);
+                loadFirstFragment();
+            }
+        }
+    };
+
+    final EventCallbackListener configureCurrentTaskListener = new EventCallbackListener() {
         @Override
         public void eventCallback(BaseEvent event) {
             AGetTaskById currentEvent = (AGetTaskById) event;

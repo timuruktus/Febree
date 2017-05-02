@@ -102,7 +102,7 @@ public class VisualisationFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroy(){
+    final public void onDestroy(){
         super.onDestroy();
         presenter.unregisterListener();
     }
