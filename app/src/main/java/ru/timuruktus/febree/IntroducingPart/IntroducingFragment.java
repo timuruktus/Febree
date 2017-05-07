@@ -74,4 +74,8 @@ public class IntroducingFragment extends BaseFragment implements View.OnClickLis
     }
 
 
+    @Override
+    public void setTypefaces() {
+
+    }
 }

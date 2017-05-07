@@ -23,6 +23,11 @@ import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.R;
 
+import static ru.timuruktus.febree.ProjectUtils.Utils.boldItalicTypeface;
+import static ru.timuruktus.febree.ProjectUtils.Utils.boldTypeFace;
+import static ru.timuruktus.febree.ProjectUtils.Utils.italicTypeface;
+import static ru.timuruktus.febree.ProjectUtils.Utils.usualTypeface;
+
 
 public class VisualisationFragment extends BaseFragment {
 
@@ -36,7 +41,7 @@ public class VisualisationFragment extends BaseFragment {
     private long easyPercentage;
     private long mediumPercentage;
     private long hardPercentage;
-    AdView adView_1, adView_2;
+    AdView adView_1;
     private VisualisationPresenter presenter;
 
 
@@ -80,25 +85,24 @@ public class VisualisationFragment extends BaseFragment {
 
 
         currentPoints = (TextView) rootView.findViewById(R.id.currentPoints);
-        completedTaskCount = (TextView) rootView.findViewById(R.id.completedTaskCount);
-        skippedTaskCount = (TextView) rootView.findViewById(R.id.skippedTaskCount);
+        completedTaskCount = (TextView) rootView.findViewById(R.id.completedTasksCount);
+        skippedTaskCount = (TextView) rootView.findViewById(R.id.skippedTasksCount);
         currentPoints.setText(Settings.getPoints() + "");
         configureColor();
         completedTaskCount.setText(Settings.getLevelsDone() + "");
         skippedTaskCount.setText(Settings.getLevelsSkipped() + "");
         initAdView();
+        setTypefaces();
 
         return rootView;
     }
 
     private void initAdView(){
         adView_1 = (AdView) rootView.findViewById(R.id.visualisationAdView_1);
-        adView_2 = (AdView) rootView.findViewById(R.id.visualisationAdView_2);
         /*
-        NOTE: Delete all "//" under tat line to show up advertisment
+        NOTE: Delete\Place all "//" under tat line to show up\hide advertisement
          */
         EventBus.getDefault().post(new EInitAdmob(adView_1));
-        EventBus.getDefault().post(new EInitAdmob(adView_2));
     }
 
     @Override
@@ -134,4 +138,25 @@ public class VisualisationFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void setTypefaces() {
+        TextView currentPointsTextView = (TextView) rootView.findViewById(R.id.currentPointsTextView);
+        TextView tasksTextView = (TextView) rootView.findViewById(R.id.tasksTextView);
+        TextView completedTasksCountTextView = (TextView) rootView.findViewById(R.id.completedTasksCountTextView);
+        TextView skippedTasksCountTextView = (TextView) rootView.findViewById(R.id.skippedTasksCountTextView);
+        TextView completedTasksCount = (TextView) rootView.findViewById(R.id.completedTasksCount);
+        TextView skippedTasksCount = (TextView) rootView.findViewById(R.id.skippedTasksCount);
+        TextView doneTasksVisualisation = (TextView) rootView.findViewById(R.id.doneTasksVisualisation);
+        // TODO: load right fonts
+        currentPoints.setTypeface(boldItalicTypeface);
+        completedTaskCount.setTypeface(boldItalicTypeface);
+        skippedTaskCount.setTypeface(boldItalicTypeface);
+        currentPointsTextView.setTypeface(boldTypeFace);
+        tasksTextView.setTypeface(boldTypeFace);
+        completedTasksCountTextView.setTypeface(boldTypeFace);
+        skippedTasksCountTextView.setTypeface(boldTypeFace);
+        completedTasksCount.setTypeface(usualTypeface);
+        skippedTasksCount.setTypeface(usualTypeface);
+        doneTasksVisualisation.setTypeface(boldTypeFace);
+    }
 }

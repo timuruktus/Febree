@@ -14,9 +14,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="400dp"
         android:orientation="horizontal">
 
         <Button
@@ -58,22 +58,6 @@
         android:textColor="@color/space_white"
         android:textSize="24sp" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:foreground="#1e000000"
-        app:srcCompat="@color/space_transparent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:foreground="#1e000000"
-        app:srcCompat="@color/space_transparent" />
-
     <com.layer_net.stepindicator.StepIndicator
         android:id="@+id/step_indicator"
         android:layout_width="match_parent"
@@ -81,6 +65,7 @@
         android:layout_marginTop="60dp"
         app:siBackgroundColor="@color/background_default"
         app:siStepColor="@color/step_default"
-        app:siStepCount="10" />
+        app:siStepCount="10"
+        app:siRadius="15dp"/>
 
 </RelativeLayout>

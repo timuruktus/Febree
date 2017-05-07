@@ -94,19 +94,20 @@ public class TaskFragment extends BaseFragment implements View.OnClickListener {
     UNDER THAT LINE- MAIN METHODS
      */
 
-    private void setTypefaces(){
+
+    @Override
+    public void setTypefaces(){
         TextView difficultyTextView = (TextView) rootView.findViewById(R.id.difficultyTextView);
         TextView pointsTextView = (TextView) rootView.findViewById(R.id.pointsTextView);
         currentTaskTitle = (TextView) rootView.findViewById(R.id.currentTaskTitle);
-        currentTaskTitle.setTypeface(boldTypeFace);
-        currentTaskText.setTypeface(usualTypeface);
-        taskDifficulty.setTypeface(usualTypeface);
-        taskPoints.setTypeface(usualTypeface);
+        currentTaskTitle.setTypeface(usualTypeface);
+        currentTaskText.setTypeface(thinTypeface);
+        taskDifficulty.setTypeface(boldItalicTypeface);
+        taskPoints.setTypeface(boldItalicTypeface);
         completeButton.setTypeface(usualTypeface);
         cancelButton.setTypeface(usualTypeface);
-        difficultyTextView.setTypeface(usualTypeface);
-        pointsTextView.setTypeface(usualTypeface);
-
+        difficultyTextView.setTypeface(italicTypeface);
+        pointsTextView.setTypeface(italicTypeface);
     }
 
     private void pickRandomTask(){

@@ -13,4 +13,6 @@ public abstract class BaseFragment extends Fragment {
         //EventBus.getDefault().post(new EOnFragmentChanged(this));
     }
 
+    public abstract void setTypefaces();
+
 }

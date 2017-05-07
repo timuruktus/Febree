@@ -36,7 +36,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/currentPointsTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -44,9 +44,7 @@
                     android:layout_weight="0"
                     android:text="@string/current_points"
                     android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/currentPoints"
@@ -78,16 +76,14 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/tasksTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_weight="0"
                     android:text="@string/tasks"
                     android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
+                    android:textSize="24sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -102,7 +98,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/passed"
+                            android:id="@+id/completedTasksCountTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="15dp"
@@ -125,7 +121,7 @@
                                 app:srcCompat="@drawable/ic_green_check_mark" />
 
                             <TextView
-                                android:id="@+id/completedTaskCount"
+                                android:id="@+id/completedTasksCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
@@ -145,7 +141,7 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/skipped"
+                            android:id="@+id/skippedTasksCountTextView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="15dp"
@@ -168,7 +164,7 @@
                                 app:srcCompat="@drawable/ic_red_cross" />
 
                             <TextView
-                                android:id="@+id/skippedTaskCount"
+                                android:id="@+id/skippedTasksCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -193,8 +189,8 @@
                 app:srcCompat="@color/default_active_item_color" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
@@ -203,7 +199,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/doneTasksVisualisation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -211,9 +207,7 @@
                     android:layout_weight="1"
                     android:text="@string/graph_completed_tasks"
                     android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:typeface="serif" />
+                    android:textSize="24sp" />
 
                 <devlight.io.library.ArcProgressStackView
                     android:id="@+id/apsv"
@@ -243,15 +237,6 @@
                     app:apsv_text_color="#fff" />
 
             </LinearLayout>
-
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/visualisationAdView_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_weight="1"
-                ads:adSize="BANNER"
-                ads:adUnitId="@string/visual_ad_unit_id_2"></com.google.android.gms.ads.AdView>
 
             <ImageView
                 android:id="@+id/divider3"

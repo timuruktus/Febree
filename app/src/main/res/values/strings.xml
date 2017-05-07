@@ -50,7 +50,7 @@
     <string name="question_10">Вы часто путешествуете</string>
 
     // [TASK]
-    <string name="task_current_text">Твое текущее задание</string>
+    <string name="task_current_text">Текущее задание</string>
     <string name="task_cancel_button">Невозможно выполнить</string>
     <string name="task_complete_button">Задание выполнено!</string>
     <string name="task_points">Очков за задание: </string>

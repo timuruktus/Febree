@@ -10,7 +10,8 @@ public class Utils {
 
     public static final long WEEK_IN_SECONDS = 604800;
     public static final long DAY_IN_SECOND = 86400;
-    public static Typeface boldTypeFace, usualTypeface, boldItalicTypeface, blackTypeface;
+    public static Typeface boldTypeFace, usualTypeface, boldItalicTypeface, blackTypeface,
+            italicTypeface, thinTypeface;
 
     private static int convertDpToPx(int pixels, Context context){
         float dp = context.getResources().getDisplayMetrics().density;
@@ -22,6 +23,8 @@ public class Utils {
         usualTypeface = Typeface.createFromAsset(context.getAssets(), "RobotoCondensed-Regular.ttf");
         boldItalicTypeface = Typeface.createFromAsset(context.getAssets(), "Roboto-BoldItalic.ttf");
         blackTypeface = Typeface.createFromAsset(context.getAssets(), "Roboto-Black.ttf");
+        italicTypeface = Typeface.createFromAsset(context.getAssets(), "Roboto-Italic.ttf");
+        thinTypeface = Typeface.createFromAsset(context.getAssets(), "Roboto-Thin.ttf");
     }
 
     public static boolean isOnline() {

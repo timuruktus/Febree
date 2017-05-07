@@ -88,4 +88,8 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
     }
 
 
+    @Override
+    public void setTypefaces() {
+
+    }
 }

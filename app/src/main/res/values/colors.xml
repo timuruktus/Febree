@@ -20,4 +20,9 @@
     <color name="taskBackEnd">#30D2AC</color>
     <color name="visualisation_part_backbround">#e3e3e3</color>
     <color name="done_task_text_background">#eeeeee</color>
+
+    <color name="complete_but">#AA3BBC30</color>
+    <color name="complete_but_dark">#24741d</color>
+
+    <color name="skip_but">#464646</color>
 </resources>

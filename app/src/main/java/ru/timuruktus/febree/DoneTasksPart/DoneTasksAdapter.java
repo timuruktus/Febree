@@ -51,7 +51,7 @@ class DoneTasksAdapter extends BaseAdapter {
         Task task = getTask(position);
 
         TextView taskText = (TextView) view.findViewById(R.id.doneTaskText);
-        taskText.setTypeface(usualTypeface);
+        taskText.setTypeface(italicTypeface);
         TextView doneTaskEnd = (TextView) view.findViewById(R.id.doneTaskEnd);
         doneTaskEnd.setTypeface(blackTypeface);
 
