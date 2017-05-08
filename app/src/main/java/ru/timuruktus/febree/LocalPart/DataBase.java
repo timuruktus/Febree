@@ -53,12 +53,9 @@ public class DataBase implements BaseModel {
         tasks = null;
     }
 
-    @Subscribe
-    public void taskCompleted(ETaskCompleted event){
-        Task task = event.getTask();
+    public static void taskCompleted(Task task){
         task.setPassed(true);
         task.save();
-        task = null;
     }
 
     @Subscribe

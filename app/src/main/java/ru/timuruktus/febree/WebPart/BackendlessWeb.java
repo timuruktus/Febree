@@ -35,14 +35,14 @@ public class BackendlessWeb implements BaseModel{
     final public void downloadAllTasks(EDownloadAllTasksAndCache event){
         finalTasks.clear();
         offset = 0;
-        getTasksFromWeb(new ESaveAllTasks());
+        //getTasksFromWeb(new ESaveAllTasks());
     }
 
     @Subscribe
     final public void refreshAllTasks(EDownloadAndRefreshAllTasks event){
         finalTasks.clear();
         offset = 0;
-        getTasksFromWeb(new ERefreshAllTasks());
+        //getTasksFromWeb(new ERefreshAllTasks());
     }
 
     private void getTasksFromWeb(final TaskEvent event){

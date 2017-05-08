@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#563edf</color>
-    <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#00a6ff</color>
-    <color name="introductionBackStart">#14549B </color>
-    <color name="introductionBackEnd">#2B8BCC</color>
-    <color name="introductionTextBack">#bf003174</color>
-    <color name="understoodButColor">#40ddfc</color>
 
-    <color name="taskDifficultyEasy">#34b144</color>
-    <color name="taskDifficultyMedium">#9ea72f</color>
-    <color name="taskDifficultyHard">#9e2c28</color>
-    <color name="taskDifficultyEasyLight">#7ca682</color>
-    <color name="taskDifficultyMediumLight">#9c9f76</color>
-    <color name="taskDifficultyHardLight">#997573</color>
-    <color name="graphBackground">#FFCCCCCC</color>
+    <color name="trelico_intro">#bbc4c4c4</color>
+    <color name="intro_foreground">#86010000</color>
+    <color name="intro_text_color">#e3e3e3</color>
 
-    <color name="taskBackStart">#563edf</color>
-    <color name="taskBackEnd">#30D2AC</color>
-    <color name="visualisation_part_backbround">#e3e3e3</color>
-    <color name="done_task_text_background">#eeeeee</color>
+    //TASKS
+    <color name="task_blue">#0099FF</color>
+    <color name="task_gray">#a6a6a6</color>
+    <color name="task_gold">#ffe600</color>
+    <color name="task_gold_dark">#d79212</color>
+    <color name="task_white">#ffffff</color>
 
-    <color name="complete_but">#AA3BBC30</color>
-    <color name="complete_but_dark">#24741d</color>
+    // INTRODUCING
+    <color name="intro_button_color">#c50606</color>
+    <color name="test_task_background">#c1c1c1</color>
 
-    <color name="skip_but">#464646</color>
+
 </resources>

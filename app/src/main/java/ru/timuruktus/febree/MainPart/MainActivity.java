@@ -2,15 +2,19 @@ package ru.timuruktus.febree.MainPart;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -33,9 +37,8 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
-import ru.timuruktus.febree.BaseEvent;
+
 import ru.timuruktus.febree.ContentPart.TaskFragment;
-import ru.timuruktus.febree.DoneTasksPart.DoneTasksFragment;
 import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.IntroducingPart.IntroducingFragment;
 import ru.timuruktus.febree.LocalPart.AGetNonPassedByLevelTasks;
@@ -49,34 +52,34 @@ import ru.timuruktus.febree.VisualisationPart.VisualisationFragment;
 import ru.timuruktus.febree.WebPart.BackendlessWeb;
 import ru.timuruktus.febree.WebPart.EDownloadAndRefreshAllTasks;
 
+import static android.graphics.Color.BLACK;
 import static ru.timuruktus.febree.MainPart.MainPresenter.*;
 import static ru.timuruktus.febree.ProjectUtils.Utils.DAY_IN_SECOND;
 
 public class MainActivity extends AppCompatActivity {
 
     RelativeLayout fragmentContainer;
-    BottomNavigationView navigation;
     private MainPresenter mainPresenter;
     private DataBase dataBase;
     private BackendlessWeb backendlessWeb;
-
+    private Toolbar toolbar;
+    DrawerLayout drawer;
 
     @Override
     final protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String APP_ID = "CFF3349B-7FBD-06A1-FFBB-2B9CE809D900";
-        String API_KEY = "8EFFCEF7-F0BE-C415-FFF3-E459B2957300";
+        final String APP_ID = "CFF3349B-7FBD-06A1-FFBB-2B9CE809D900";
+        final String API_KEY = "8EFFCEF7-F0BE-C415-FFF3-E459B2957300";
         Backendless.initApp(this, APP_ID, API_KEY);
-        //EventBus.getDefault().register(this);
         initAllListeners();
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fragmentContainer = (RelativeLayout) this.findViewById(R.id.content);
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-1766130558963175~1477951647");
+        //MobileAds.initialize(getApplicationContext(), "ca-app-pub-1766130558963175~1477951647");
+
         configureToolbar();
         loadFirstFragment();
-        configureBottomNav();
         Utils.initTypefaces(this);
     }
 
@@ -92,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initAllListeners(){
-        Log.d("mytag", "MainActivity.initAllListeners() listeners initialised");
+        //Log.d("mytag", "MainActivity.initAllListeners() listeners initialised");
         mainPresenter = new MainPresenter(this);
         dataBase = new DataBase();
         backendlessWeb = new BackendlessWeb();
@@ -100,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void detachAllListeners(){
-        mainPresenter.unregisterListener();
         dataBase.unregisterListener();
         backendlessWeb.unregisterListener();
     }
@@ -120,46 +122,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openIntroducingFragment(){
-        getSupportActionBar().hide();
-        setContentFullscreen();
-        EventBus.getDefault().post(new EChangeFragment(new IntroducingFragment(), DONT_ADD_TO_BACKSTACK,
-                HIDE_TOOLBAR, HIDE_MENU));
+        mainPresenter.changeToolbarVisibility(false);
+        changeFragment(new IntroducingFragment(), false, true, true);
     }
 
     private void openHomeFragment(){
-        EventBus.getDefault().post(new EChangeFragment(new TaskFragment(), DONT_ADD_TO_BACKSTACK,
-                DONT_HIDE_TOOLBAR, DONT_HIDE_MENU));
+        changeFragment(new TaskFragment(), false, true, false);
     }
 
-    final public void setContentFullscreen(){
-        LinearLayout.LayoutParams layoutParams =
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.weight = 0;
-        fragmentContainer.setLayoutParams(layoutParams);
-    }
-
-    final public void setContentNotFullscreen(){
-        LinearLayout.LayoutParams layoutParams =
-                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.weight = 1;
-        fragmentContainer.setLayoutParams(layoutParams);
-    }
-
-
-    private void configureBottomNav(){
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
 
     private void configureToolbar(){
-        //getActionBar().setHideOnContentScrollEnabled(true);
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.toolbar);
-        TextView toolbarText = (TextView) findViewById(R.id.toolbarText);
-        toolbarText.setTypeface(Typeface.createFromAsset(getAssets(), "Roboto-Regular.ttf"));
-        getSupportActionBar().hide();
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(BLACK);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
     }
 
     private long daysAfterLastTask(){
@@ -170,109 +150,25 @@ public class MainActivity extends AppCompatActivity {
         return answer;
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    EventBus.getDefault().post(new EChangeFragment(new TaskFragment(),
-                            ADD_TO_BACKSTACK, DONT_HIDE_MENU));
-                    return true;
-                case R.id.navigation_dashboard:
-
-                    if(Settings.getLevelsDone() < 1){
-                        Toast.makeText(MainActivity.this, R.string.you_need_1_tasks,
-                                Toast.LENGTH_SHORT).show();
-                        return false;
-                    }else{
-                        EventBus.getDefault().post(new EChangeFragment(new DoneTasksFragment(),
-                                ADD_TO_BACKSTACK, DONT_HIDE_MENU));
-                        return true;
-                    }
-
-                case R.id.navigation_visualisation:
-                    //if(Settings.getLevelsDone() < 3){
-                        //Toast.makeText(MainActivity.this, R.string.you_need_3_tasks,
-                                //Toast.LENGTH_SHORT).show();
-                        //return false;
-                    //}else{
-                        EventBus.getDefault().post(new EChangeFragment(new VisualisationFragment(),
-                                ADD_TO_BACKSTACK, DONT_HIDE_MENU));
-                        return true;
-                    //}
-
-                case R.id.navigation_more:
-                    TextView popupAnchor = (TextView) findViewById(R.id.popupAnchor);
-                    PopupMenu popupMenu = new PopupMenu(MainActivity.this, popupAnchor);
-                    popupMenu.inflate(R.menu.popup_menu);
-                    popupMenu.setOnMenuItemClickListener(popupMenuListener);
-                    popupMenu.show();
-                    break;
-            }
-            return false;
-        }
-
-    };
-
-    final PopupMenu.OnMenuItemClickListener popupMenuListener = new PopupMenu.OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            Context context = MainActivity.this;
-            switch (item.getItemId()) {
-                case R.id.menu_DB:
-                    if(!Utils.isOnline()){
-                        Toast.makeText(context, R.string.needed_to_internet,
-                                Toast.LENGTH_SHORT).show();
-                    }else{
-                        EventBus.getDefault().post(new EDownloadAndRefreshAllTasks());
-                    }
-                    return true;
-
-                case R.id.menu_level:
-                    long currentLevel = Settings.getLevel();
-                    if(currentLevel == Settings.EASY_LEVEL){
-                        Toast.makeText(context, R.string.your_level_is_minimal,
-                                Toast.LENGTH_SHORT).show();
-                    }else{
-                        EventBus.getDefault().post(new AGetNonPassedByLevelTasks(checkAvailableTasksListener, --currentLevel));
-
-                    }
-                    return true;
-
-                default:
-                    return false;
-            }
+    final EventCallbackListener checkAvailableTasksListener = (event) -> {
+        AGetNonPassedByLevelTasks currentEvent = (AGetNonPassedByLevelTasks) event;
+        ArrayList<Task> availableTasks = currentEvent.getTasks();
+        Context context = MainActivity.this;
+        if(availableTasks.size() == 0){
+            Toast.makeText(context, R.string.has_no_tasks_for_you,
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            Settings.decreaseLevel();
+            Settings.setPoints(Settings.getCurrentLimit() - 400);
+            Settings.setCurrentTaskId(0);
+            loadFirstFragment();
         }
     };
 
-    final EventCallbackListener checkAvailableTasksListener = new EventCallbackListener() {
-        @Override
-        public void eventCallback(BaseEvent event) {
-            AGetNonPassedByLevelTasks currentEvent = (AGetNonPassedByLevelTasks) event;
-            ArrayList<Task> availableTasks = currentEvent.getTasks();
-            Context context = MainActivity.this;
-            if(availableTasks.size() == 0){
-                Toast.makeText(context, R.string.has_no_tasks_for_you,
-                        Toast.LENGTH_SHORT).show();
-            }else{
-                Settings.decreaseLevel();
-                Settings.setPoints(Settings.getCurrentLimit() - 400);
-                Settings.setCurrentTaskId(0);
-                loadFirstFragment();
-            }
-        }
+    final EventCallbackListener configureCurrentTaskListener = (event) -> {
+        AGetTaskById currentEvent = (AGetTaskById) event;
+        Task currentTask = currentEvent.getTask();
+        currentTask.setPoints(currentTask.getPoints() - daysAfterLastTask());
+        currentTask.save();
     };
-
-    final EventCallbackListener configureCurrentTaskListener = new EventCallbackListener() {
-        @Override
-        public void eventCallback(BaseEvent event) {
-            AGetTaskById currentEvent = (AGetTaskById) event;
-            Task currentTask = currentEvent.getTask();
-            currentTask.setPoints(currentTask.getPoints() - daysAfterLastTask());
-            currentTask.save();
-        }
-    };
-
 }

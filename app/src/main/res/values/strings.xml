@@ -1,121 +1,30 @@
 <resources>
     <string name="app_name">Trelico</string>
     <string name="title_activity_main">Trelico</string>
-    <string name="visual_ad_unit_id_1">ca-app-pub-1766130558963175/8802742047</string>
-    <string name="visual_ad_unit_id_2">ca-app-pub-1766130558963175/4431418045</string>
-
-    // [BOT NAV MENU]
-    <string name="nav_home">Домой</string>
-    <string name="nav_completed">Сделанные</string>
-    <string name="nav_visualisation">Статистика</string>
-    <string name="nav_materials">Материалы</string>
-    <string name="nav_more">Дополнительно</string>
 
     // [POPUP MENU]
-    <string name="popup_reload_DB">Обновить базу</string>
-    <string name="popup_switch_level_back">Снизить уровень сложности</string>
     <string name="needed_to_internet">Для обновления базы требуется интернет соединение</string>
     <string name="your_level_is_minimal">Вы уже на минимальном уровне сложности</string>
     <string name="has_no_tasks_for_you">Нет доступных заданий! Подождите и обновите базу данных</string>
 
 
-    // [FOR WELCOME FRAGMENT]
-    <string name="agree">Соглашусь</string>
-    <string name="disagree">Не соглашусь</string>
-    
     // [FOR INTRODUCING FRAGMENT]
-    <string name="introducing_text">
-        Сейчас вы пройдете короткий тест, состоящий из 10 вопросов.\n
-        По итогу его прохождения, мы поймем размеры
-        вашей текущей зоны комфорта и предложим вам наиболее оптимальные задания.\n
-        Спасибо.
-    </string>
-    <string name="understood">Понял</string>
-    <string name="hello">Привет</string>
-    <string name="no_internet_start">Для первого запука необходимо подключение к сети</string>
+    <string name="intro_1_text">Добро пожаловать!</string>
+    <string name="intro_2_text">Trelico позволит выйти тебе за рамки собственной жизни</string>
+    <string name="intro_3_text">Простой интерфейс, задания с повышением уровня сложности, приятные бонусы</string>
+    <string name="intro_4_text">Начни новую жизнь прямо сейчас!</string>
+    <string name="intro_continue">Начать!</string>
 
-
-    // [QUESTIONS]
-    <string name="question_1">За последний квартал вы познакомились с кем-нибудь, кого не знали раньше</string>
-    <string name="question_2">Вы часто меняете привычные вещи. Например, дорогу на работу</string>
-    <string name="question_3">У вас есть/была вторая половинка</string>
-    <string name="question_4">Вы часто берете на себя ответственность в важных делах</string>
-    <string name="question_5">В целом, вы довольно быстро принимаете решения</string>
-    <string name="question_6">Если вы заблудились в городе, вы легко можете спросить у незнакомого
-    человека направление</string>
-    <string name="question_7">Вы легко прямо сейчас можете отказаться от использования мобильного
-    телефона</string>
-    <string name="question_8">Вы часто переезжаете/меняете свою работу</string>
-    <string name="question_9">Вы знаете минимум 2 языка на разговорном уровне</string>
-    <string name="question_10">Вы часто путешествуете</string>
-
-    // [TASK]
-    <string name="task_current_text">Текущее задание</string>
-    <string name="task_cancel_button">Невозможно выполнить</string>
-    <string name="task_complete_button">Задание выполнено!</string>
-    <string name="task_points">Очков за задание: </string>
-    <string name="task_difficulty">Сложность задания: </string>
-    <string name="difficulty_low">Легкая </string>
-    <string name="difficulty_medium">Средняя </string>
-    <string name="difficulty_high">Высокая </string>
-
-    // [FOR CANCEL DIALOG]
-    <string name="cancel_dialog_title">Вы уверены?</string>
-    <string name="cancel_dialog_text">Используйте это только в том случае, если НИКАК не можете
-    пройти задачу, или её цель уже была сделана. Помните, что Вы используете программу ради себя.
-        Мы настоятельно не рекомендуем нажимать \"Я уверен\"</string>
-    <string name="cancel_dialog_ok">Я уверен</string>
-    <string name="cancel_dialog_cancel">Отменить</string>
-
-    // [WHEN YOU COMPLETED ALL TASKS!!]
-    <string name="all_dialog_title">Поздравляем!</string>
-    <string name="all_dialog_text">Вы прошли все задания! Ваша зона комфорта невероятно велика!
-    Если вы хотите продолжить развиваться- обновить базу данных можно в настройках</string>
-    <string name="all_dialog_ok">ОК</string>
-
-    // [FOR SURE DIALOG]
-    <string name="sure_dialog_title">Вы уверены?</string>
-    <string name="sure_dialog_text">Не используйте эту кнопку, если на самом деле не выполнили
-    задание. Помните, что программу нет смысла обманывать.</string>
-    <string name="sure_dialog_ok">Я выполнил задание</string>
-
-    // [FOR BOTTOM MENU TOAST]
-    <string name="you_need_3_tasks">Выполните 3 задания, чтобы открыть доступ </string>
-    <string name="you_need_2_tasks">Выполните 2 задания, чтобы открыть доступ </string>
-    <string name="you_need_1_tasks">Выполните 1 задание, чтобы открыть доступ </string>
-
-    // [FOR DONE TASK]
-    <string name="done_task_title">Вы выполнили это задание: </string>
-    <string name="done_task_great">Вы молодец!</string>
-
-    // [FOR VISUALISATION]
-    <string name="easy_task">Легкий уровень</string>
-    <string name="medium_task">Средний уровень</string>
-    <string name="hard_task">Сложный уровень</string>
-    <string name="current_points">Ваше текущее количество очков: </string>
-    <string name="tasks">Задания</string>
-    <string name="completed">Выполненных</string>
-    <string name="skipped">Пропущенных</string>
-    <string name="graph_completed_tasks">График выполнения задач</string>
-
-    // [FOR DIALOGS AFTER COMPLETE TASKS]
-    <string name="after_1_task">Ну вот. Вы прошли первое задание :) Надеюсь, Вы сделали это честно.
-    Теперь вы можете просматривать пройденые задания. Для этого есть вкладка в меню снизу</string>
-    <string name="after_2_task">Отлично! Скажу ещё кое-что. После прохождения заданий Вы получаете очки.
-    Их количество варьируется от сложности задания</string>
-    <string name="after_3_task">Окей, Вы уже прошли  три задания!
-    Настало время открыть новую вкладку в меню</string>
-    <string name="after_5_task">Привет ещё раз. А ты знал, что чем дольше ты выполняешь
-    задание, тем меньше очков получаешь? Теперь знаешь :)</string>
-    <string name="after_6_task">Вау, вы уже прошли целых 6 заданий! Серьёзно? Я думаю, Вам
-    стоит рассказать о нашем приложении друзьям, они точно оценят!</string>
-    <string name="after_7_task">По мере вашего прохождения, Я буду давать Вам ещё
-    несколько подсказок, советов и рекомендаций :) Не теряйте</string>
-    <string name="after_9_task">Привет, ты уже сделал целых 9 заданий! Пришло время рассказать
-    тебя один очень важный момент, ты этого достоин. Звучит он так- хвалите себя после каждого
-    задания! Это очень важно!</string>
+    // FOR TASKS FRAGMENT
+    <string name="first_step_text">Этап 1: Первые шаги</string>
+    <string name="second_step_text">Этап 2: Расширение границ</string>
 
     // [FOR DONE TASKS]
-    <string name="you_completed_this">Вы выполнили эти задания: </string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

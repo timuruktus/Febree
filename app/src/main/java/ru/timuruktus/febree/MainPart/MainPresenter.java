@@ -3,25 +3,35 @@ package ru.timuruktus.febree.MainPart;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.support.design.widget.CoordinatorLayout;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 
-import ru.timuruktus.febree.BaseEvent;
+import java.util.concurrent.TimeUnit;
+
 import ru.timuruktus.febree.BasePresenter;
 import ru.timuruktus.febree.EventHandler;
+import ru.timuruktus.febree.ProjectUtils.Utils;
 import ru.timuruktus.febree.R;
+import rx.functions.Action1;
 
 import static android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE;
+import static android.support.v4.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
+import static android.support.v4.widget.DrawerLayout.LOCK_MODE_UNLOCKED;
 
-public class MainPresenter implements BasePresenter, EventHandler {
+public class MainPresenter implements BasePresenter{
 
-    private MainActivity mainActivity;
-    private FragmentTransaction fragmentTransaction;
-    private FragmentManager fragmentManager;
-    private Fragment currentFragment;
+    private static MainActivity mainActivity;
+    private static FragmentTransaction fragmentTransaction;
+    private static FragmentManager fragmentManager;
+    private static Class currentFragmentClass = null;
     public static final boolean DONT_ADD_TO_BACKSTACK = false;
     public static final boolean ADD_TO_BACKSTACK = true;
     public static final boolean HIDE_MENU = true;
@@ -32,51 +42,45 @@ public class MainPresenter implements BasePresenter, EventHandler {
     MainPresenter(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
         fragmentManager = mainActivity.getFragmentManager();
-        initListener();
+
     }
 
-    @Subscribe
-    final public void changeFragment(EChangeFragment event){
-        Fragment fragment = event.getFragment();
+    public static void changeFragment(Fragment fragment, boolean addToBackStack, boolean refresh,
+                                      boolean hideToolbar){
         Class fragmentClass = fragment.getClass();
-        if(currentFragment != null) {
-            if (fragmentClass.equals(currentFragment.getClass())) {
+        if(currentFragmentClass != null) {
+            if (fragmentClass.equals(currentFragmentClass) && !refresh) {
                 //Log.d("mytag", "MainPresenter.changeFragment() already that fragment");
                 return;
             }
         }
-        currentFragment = fragment;
+        currentFragmentClass = fragment.getClass();
         fragmentTransaction = fragmentManager.beginTransaction();
-        if(event.isAddToBackStack()) fragmentTransaction.addToBackStack(null);
+        if(addToBackStack) fragmentTransaction.addToBackStack(null);
+        changeToolbarVisibility(hideToolbar);
         fragmentTransaction.setTransition(TRANSIT_FRAGMENT_FADE);
-        setNewFragment(fragment);
-        hideNavigationMenu(event.isHideMenu());
+        fragmentTransaction.replace(R.id.content, fragment);
         fragmentTransaction.commit();
     }
 
-    //private Fragment getCurrentFragment(){
-    //   return fragmentManager.findFragmentById(R.id.content);
-    //}
-
-    private void hideNavigationMenu(boolean hide){
-        if(hide){
-            mainActivity.setContentFullscreen();
+    public static void changeToolbarVisibility(boolean hideToolbar){
+        RelativeLayout fragmentContainer = (RelativeLayout)
+                mainActivity.findViewById(R.id.content);
+        CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if(!hideToolbar){
+            mainActivity.getSupportActionBar().show();
+            int totalMargin = Utils.convertDpToPx(56, mainActivity);
+            layoutParams.setMargins(0,totalMargin,0,0);
+            fragmentContainer.setLayoutParams(layoutParams);
+            mainActivity.drawer.setDrawerLockMode(LOCK_MODE_UNLOCKED);
         }else{
-            mainActivity.setContentNotFullscreen();
+            mainActivity.getSupportActionBar().hide();
+            layoutParams.setMargins(0,0,0,0);
+            fragmentContainer.setLayoutParams(layoutParams);
+            mainActivity.drawer.setDrawerLockMode(LOCK_MODE_LOCKED_CLOSED);
         }
+
     }
 
-    private void setNewFragment(Fragment fragment){
-        fragmentTransaction.replace(R.id.content, fragment);
-    }
-
-    @Override
-    final public void initListener() {
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    final public void unregisterListener() {
-        EventBus.getDefault().unregister(this);
-    }
 }

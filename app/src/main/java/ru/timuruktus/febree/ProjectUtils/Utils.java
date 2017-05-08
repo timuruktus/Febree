@@ -13,7 +13,7 @@ public class Utils {
     public static Typeface boldTypeFace, usualTypeface, boldItalicTypeface, blackTypeface,
             italicTypeface, thinTypeface;
 
-    private static int convertDpToPx(int pixels, Context context){
+    public static int convertDpToPx(int pixels, Context context){
         float dp = context.getResources().getDisplayMetrics().density;
         return (int) dp * pixels;
     }
@@ -44,4 +44,6 @@ public class Utils {
         long timeSeconds = TimeUnit.MILLISECONDS.toSeconds(timeMillis);
         return timeSeconds;
     }
+
+
 }
