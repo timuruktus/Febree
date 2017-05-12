@@ -16,7 +16,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/firstStepTasksText"
+                android:id="@+id/firstBlockTasksText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -27,7 +27,7 @@
                 android:textSize="18sp" />
 
             <LinearLayout
-                android:id="@+id/firstStepTasks"
+                android:id="@+id/firstBlockTasks"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -51,7 +51,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task11"
+                                android:id="@+id/step11"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_centerHorizontal="true"
@@ -59,10 +59,10 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task11Name"
+                                android:id="@+id/step11Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/task11"
+                                android:layout_below="@+id/step11"
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="1"
                                 android:text="TextView"
@@ -77,7 +77,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task12"
+                                android:id="@+id/step12"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_alignParentTop="false"
@@ -86,10 +86,10 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task12Name"
+                                android:id="@+id/step12Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/task12"
+                                android:layout_below="@+id/step12"
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="1"
                                 android:text="TextView"
@@ -104,7 +104,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task13"
+                                android:id="@+id/step13"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_alignParentTop="false"
@@ -113,10 +113,10 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task13Name"
+                                android:id="@+id/step13Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/task13"
+                                android:layout_below="@+id/step13"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
                                 android:layout_marginTop="5dp"
@@ -141,7 +141,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task14"
+                                android:id="@+id/step14"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_centerHorizontal="true"
@@ -149,10 +149,10 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task14Name"
+                                android:id="@+id/step14Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/task14"
+                                android:layout_below="@+id/step14"
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="1"
                                 android:text="TextView"
@@ -167,7 +167,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task15"
+                                android:id="@+id/step15"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_alignParentTop="false"
@@ -177,10 +177,10 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task15Name"
+                                android:id="@+id/step15Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/task15"
+                                android:layout_below="@+id/step15"
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="1"
                                 android:text="TextView"
@@ -194,7 +194,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/secondStepTasksText"
+                android:id="@+id/secondBlockTasksText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -205,7 +205,7 @@
                 android:textSize="18sp" />
 
             <LinearLayout
-                android:id="@+id/secondStepTasks"
+                android:id="@+id/secondBlockTasks"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
@@ -229,7 +229,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task21"
+                                android:id="@+id/step21"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_centerHorizontal="true"
@@ -237,10 +237,10 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task21Name"
+                                android:id="@+id/step21Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/task21"
+                                android:layout_below="@+id/step21"
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="1"
                                 android:text="TextView"
@@ -255,7 +255,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task22"
+                                android:id="@+id/step22"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_alignParentTop="false"
@@ -264,10 +264,10 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task22Name"
+                                android:id="@+id/step22Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/task22"
+                                android:layout_below="@+id/step22"
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="1"
                                 android:text="TextView"
@@ -282,7 +282,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task23"
+                                android:id="@+id/step23"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_alignParentTop="false"
@@ -291,11 +291,11 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task23Name"
+                                android:id="@+id/step23Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentTop="false"
-                                android:layout_below="@+id/task23"
+                                android:layout_below="@+id/step23"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
@@ -320,7 +320,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task24"
+                                android:id="@+id/step24"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_centerHorizontal="true"
@@ -328,12 +328,12 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task24Name"
+                                android:id="@+id/step24Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentStart="false"
                                 android:layout_alignParentTop="false"
-                                android:layout_below="@+id/task24"
+                                android:layout_below="@+id/step24"
                                 android:layout_weight="1"
                                 android:text="TextView"
                                 android:textAlignment="center"
@@ -347,7 +347,7 @@
                             android:orientation="vertical">
 
                             <ImageView
-                                android:id="@+id/task25"
+                                android:id="@+id/step25"
                                 android:layout_width="@dimen/task_edge_size"
                                 android:layout_height="@dimen/task_edge_size"
                                 android:layout_alignParentTop="true"
@@ -356,10 +356,10 @@
                                 android:background="@color/test_task_background" />
 
                             <TextView
-                                android:id="@+id/task25Name"
+                                android:id="@+id/step25Name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/task25"
+                                android:layout_below="@+id/step25"
                                 android:layout_marginTop="5dp"
                                 android:layout_weight="1"
                                 android:text="TextView"

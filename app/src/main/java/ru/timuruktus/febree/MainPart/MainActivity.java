@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ import ru.timuruktus.febree.LocalPart.AGetNonPassedByLevelTasks;
 import ru.timuruktus.febree.LocalPart.AGetTaskById;
 import ru.timuruktus.febree.LocalPart.DataBase;
 import ru.timuruktus.febree.LocalPart.Settings;
+import ru.timuruktus.febree.LocalPart.StepCreator;
 import ru.timuruktus.febree.LocalPart.Task;
 import ru.timuruktus.febree.ProjectUtils.Utils;
 import ru.timuruktus.febree.R;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private BackendlessWeb backendlessWeb;
     private Toolbar toolbar;
     DrawerLayout drawer;
+    private static ImageView splashScreen;
 
     @Override
     final protected void onCreate(Bundle savedInstanceState) {
@@ -71,22 +74,30 @@ public class MainActivity extends AppCompatActivity {
         final String APP_ID = "CFF3349B-7FBD-06A1-FFBB-2B9CE809D900";
         final String API_KEY = "8EFFCEF7-F0BE-C415-FFF3-E459B2957300";
         Backendless.initApp(this, APP_ID, API_KEY);
-        initAllListeners();
-        //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        Settings.initSettings(MainActivity.this);
+        if(Settings.isFirstOpened()) {
+            StepCreator.setFirstLaunchSteps(this);
+        }
+        mainPresenter = new MainPresenter(this);
+
+        //initAllListeners();
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fragmentContainer = (RelativeLayout) this.findViewById(R.id.content);
         //MobileAds.initialize(getApplicationContext(), "ca-app-pub-1766130558963175~1477951647");
+        splashScreen = (ImageView) findViewById(R.id.splashScreen);
 
         configureToolbar();
         loadFirstFragment();
         Utils.initTypefaces(this);
     }
 
-    @Override
-    final public void onDestroy(){
-        super.onDestroy();
-        detachAllListeners();
+    public static void showSplashScreen(){
+        splashScreen.setVisibility(View.VISIBLE);
+    }
+
+    public static void hideSplashScreen(){
+        splashScreen.setVisibility(View.INVISIBLE);
     }
 
 
@@ -96,15 +107,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAllListeners(){
         //Log.d("mytag", "MainActivity.initAllListeners() listeners initialised");
-        mainPresenter = new MainPresenter(this);
+
         dataBase = new DataBase();
         backendlessWeb = new BackendlessWeb();
-        Settings.initSettings(MainActivity.this);
-    }
 
-    private void detachAllListeners(){
-        dataBase.unregisterListener();
-        backendlessWeb.unregisterListener();
     }
 
     private void loadFirstFragment(){
