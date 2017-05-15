@@ -6,39 +6,39 @@
     android:viewportHeight="500">
 
     <path
-        android:fillColor="@color/task_gold"
+        android:fillColor="@color/step_gold"
         android:pathData="M471,491H27c-11,0-20-9-20-20V27C7,16,16,7,27,7h444c11,0,20,9,20,20v444C491,482,482,491,471,491z" />
     <path
-        android:fillColor="@color/task_gold_dark"
+        android:fillColor="@color/step_gold_dark"
         android:pathData="M 170.7 217 H 373.6 V 266.8 H 170.7 V 217 Z" />
     <path
-        android:fillColor="@color/task_gold_dark"
+        android:fillColor="@color/step_gold_dark"
         android:pathData="M 128 120.9 H 192.1 V 366.5 H 128 V 120.9 Z" />
     <path
-        android:fillColor="@color/task_gold_dark"
+        android:fillColor="@color/step_gold_dark"
         android:fillAlpha="0.86"
         android:strokeAlpha="0.86"
         android:strokeWidth="1"
         android:pathData="M 78.2 147.8 H 128 V 336.4 H 78.2 V 147.8 Z" />
     <path
-        android:fillColor="@color/task_gold_dark"
+        android:fillColor="@color/step_gold_dark"
         android:fillAlpha="0.69"
         android:strokeAlpha="0.69"
         android:strokeWidth="1"
         android:pathData="M 42.6 183.4 H 78.2 V 300.8 H 42.6 V 183.4 Z" />
     <path
-        android:fillColor="@color/task_gold_dark"
+        android:fillColor="@color/step_gold_dark"
         android:fillAlpha="0.69"
         android:strokeAlpha="0.69"
         android:strokeWidth="1"
         android:pathData="M 416.3 183.4 H 451.9 V 300.8 H 416.3 V 183.4 Z" />
     <path
-        android:fillColor="@color/task_gold_dark"
+        android:fillColor="@color/step_gold_dark"
         android:fillAlpha="0.86"
         android:strokeAlpha="0.86"
         android:strokeWidth="1"
         android:pathData="M 366.4 147.8 H 416.2 V 336.4 H 366.4 V 147.8 Z" />
     <path
-        android:fillColor="@color/task_gold_dark"
+        android:fillColor="@color/step_gold_dark"
         android:pathData="M 309.5 120.9 H 373.6 V 366.5 H 309.5 V 120.9 Z" />
 </vector>

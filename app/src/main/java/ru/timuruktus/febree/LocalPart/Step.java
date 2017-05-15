@@ -1,8 +1,11 @@
 package ru.timuruktus.febree.LocalPart;
 
+import android.content.Context;
 import android.widget.ImageView;
 
 import com.orm.SugarRecord;
+
+import static weborb.util.ThreadContext.context;
 
 public class Step extends SugarRecord {
 
@@ -24,17 +27,6 @@ public class Step extends SugarRecord {
     }
 
     public Step(int block, int numOfTasks, int completedTasks, int status, int idInStep,
-                ImageView icon, String name) {
-        this.block = block;
-        this.numOfTasks = numOfTasks;
-        this.completedTasks = completedTasks;
-        this.status = status;
-        this.idInStep = idInStep;
-        this.icon = icon;
-        this.name = name;
-    }
-
-    public Step(int block, int numOfTasks, int completedTasks, int status, int idInStep,
                 int imageResId, String name) {
         this.block = block;
         this.numOfTasks = numOfTasks;
@@ -43,6 +35,17 @@ public class Step extends SugarRecord {
         this.idInStep = idInStep;
         this.imageResId = imageResId;
         this.name = name;
+    }
+
+    public Step(int block, int numOfTasks, int completedTasks, int status, int idInStep, int imageResId, String name, String path) {
+        this.block = block;
+        this.numOfTasks = numOfTasks;
+        this.completedTasks = completedTasks;
+        this.status = status;
+        this.idInStep = idInStep;
+        this.imageResId = imageResId;
+        this.name = name;
+        this.path = path;
     }
 
     public int getBlock() {
@@ -77,14 +80,6 @@ public class Step extends SugarRecord {
         this.status = status;
     }
 
-    public ImageView getIcon() {
-        return icon;
-    }
-
-    public void setIcon(ImageView icon) {
-        this.icon = icon;
-    }
-
     public String getName() {
         return name;
     }
@@ -109,6 +104,18 @@ public class Step extends SugarRecord {
         this.imageResId = imageResId;
     }
 
+    public int getFullPath(Context context){
+        String endOfPath;
+        if(status == STATUS_COMPLETED){
+            endOfPath = "_gold";
+        }else if(status == STATUS_IN_PROGRESS){
+            endOfPath = "_blue";
+        }else{
+            endOfPath = "_gray";
+        }
+        return context.getResources().getIdentifier(path + endOfPath, "drawable", context.getPackageName());
+    }
+
 
 
     private int block;
@@ -117,7 +124,7 @@ public class Step extends SugarRecord {
     private int status;
     private int idInStep;
     private int imageResId;
-    private ImageView icon;
     private String name;
+    private String path;
 
 }

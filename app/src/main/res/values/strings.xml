@@ -2,6 +2,14 @@
     <string name="app_name">Trelico</string>
     <string name="title_activity_main">Trelico</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    // TITLES FOR TOOLBAR
+    <string name="steps_fragment">Главная</string>
+
     // [POPUP MENU]
     <string name="needed_to_internet">Для обновления базы требуется интернет соединение</string>
     <string name="your_level_is_minimal">Вы уже на минимальном уровне сложности</string>
@@ -22,9 +30,25 @@
     // [FOR DONE TASKS]
     <string name="title_activity_main2">Main2Activity</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    // FOR FIRST OPENED DIALOG
+    <string name="first_step_opening_title">\"Начало\"</string>
+    <string name="first_step_opening_first_text">Все приложение делится на этапы и уровни. \n
+        \n
+    Они разделены по сложности и открываются по мере прохождения. \n
+        \n
+    Уровень \"Начало\" содержит базовые задания, которые под силу почти всем. </string>
+    <string name="first_step_opening_second_text">Добро пожаловать в Trelico!</string>
+    <string name="first_step_opening_button_text">Начать</string>
 
-    <string name="action_settings">Settings</string>
+    // FOR TASK
+    <string name="task_ready">Готово!</string>
+    <string name="task_number">Задание </string>
+    <string name="task_confirm_title">Вы уверены, что выполнили задание полностью?</string>
+    <string name="task_confirm_text">Вы должны понимать, что нет смысла обманывать приложение.
+    В первую очереднь это все необходимо Вам.
+        Мы настоятельно не рекомендуем продолжать, если задание не было выполнено</string>
+    <string name="task_confirm_button_text">Я выполнил!</string>
+
+
 
 </resources>

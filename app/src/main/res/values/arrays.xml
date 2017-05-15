@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="block_1_names">
+    <string-array name="block_0_names">
         <item>Начало</item>
         <item>Основы 1</item>
         <item>Общение</item>
@@ -9,17 +9,17 @@
         <item>Знакомства</item>
     </string-array>
 
-    <string-array name="block_2_names">
+    <string-array name="block_1_names">
         <item>Навыки</item>
         <item>Привычки</item>
         <item>Уверенность</item>
         <item>Цели</item>
-        <item>Знакомства</item>
+        <item>ЗОЖ</item>
     </string-array>
 
     <array name="step_names_array">
+        <item>@array/block_0_names</item>
         <item>@array/block_1_names</item>
-        <item>@array/block_2_names</item>
     </array>
 
 

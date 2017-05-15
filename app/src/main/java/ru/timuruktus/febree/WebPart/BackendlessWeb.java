@@ -9,8 +9,6 @@ import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.DataQueryBuilder;
 import com.backendless.persistence.QueryOptions;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,14 +29,14 @@ public class BackendlessWeb implements BaseModel{
     private ArrayList<Task> finalTasks = new ArrayList<>();
     private int offset = 0;
 
-    @Subscribe
+
     final public void downloadAllTasks(EDownloadAllTasksAndCache event){
         finalTasks.clear();
         offset = 0;
         //getTasksFromWeb(new ESaveAllTasks());
     }
 
-    @Subscribe
+
     final public void refreshAllTasks(EDownloadAndRefreshAllTasks event){
         finalTasks.clear();
         offset = 0;
@@ -65,7 +63,6 @@ public class BackendlessWeb implements BaseModel{
                         }else {
                             offset = 0;
                             event.setTasks(finalTasks);
-                            EventBus.getDefault().post(event);
                         }
                     }
                     @Override
@@ -77,11 +74,11 @@ public class BackendlessWeb implements BaseModel{
 
     @Override
     final public void initListener() {
-        EventBus.getDefault().register(this);
+
     }
 
     @Override
     final public void unregisterListener() {
-        EventBus.getDefault().unregister(this);
+
     }
 }

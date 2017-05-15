@@ -1,10 +1,7 @@
 package ru.timuruktus.febree.IntroducingPart;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +9,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import ru.timuruktus.febree.ContentPart.TaskFragment;
+import ru.timuruktus.febree.ContentPart.StepsFragment;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.MainPart.MainPresenter;
 import ru.timuruktus.febree.R;
-
-
-import static ru.timuruktus.febree.ProjectUtils.Utils.*;
 
 public class UltraPagerAdapter extends PagerAdapter {
 
@@ -53,7 +45,6 @@ public class UltraPagerAdapter extends PagerAdapter {
         RelativeLayout relativeLayout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.intro_slide, null);
         TextView textView = (TextView) relativeLayout.findViewById(R.id.introText);
         textView.setText(slides.get(position).text);
-        textView.setTypeface(thinTypeface);
         ImageView image = (ImageView) relativeLayout.findViewById(R.id.introBackground);
         image.setImageResource(slides.get(position).image);
         Button contBut = (Button) relativeLayout.findViewById(R.id.introContinue);
@@ -64,9 +55,8 @@ public class UltraPagerAdapter extends PagerAdapter {
                     context, R.anim.intro_button_appear);
             contBut.startAnimation(animation);
             contBut.setEnabled(true);
-            contBut.setTypeface(boldItalicTypeface);
             contBut.setOnClickListener(v -> {
-                MainPresenter.changeFragment(new TaskFragment(), false, true, false);
+                MainPresenter.changeFragment(new StepsFragment(), false, true, false);
                 Settings.setFirstOpened(false);
             });
             contBut.setAlpha(1L);

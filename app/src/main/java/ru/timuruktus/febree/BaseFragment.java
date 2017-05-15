@@ -3,7 +3,6 @@ package ru.timuruktus.febree;
 import android.app.Fragment;
 import android.util.Log;
 
-import org.greenrobot.eventbus.EventBus;
 
 public abstract class BaseFragment extends Fragment {
 

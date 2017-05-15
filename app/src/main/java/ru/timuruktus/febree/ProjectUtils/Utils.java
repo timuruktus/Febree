@@ -18,15 +18,6 @@ public class Utils {
         return (int) dp * pixels;
     }
 
-    public static void initTypefaces(Context context){
-        boldTypeFace = Typeface.createFromAsset(context.getAssets(), "RobotoCondensed-Bold.ttf");
-        usualTypeface = Typeface.createFromAsset(context.getAssets(), "RobotoCondensed-Regular.ttf");
-        boldItalicTypeface = Typeface.createFromAsset(context.getAssets(), "Roboto-BoldItalic.ttf");
-        blackTypeface = Typeface.createFromAsset(context.getAssets(), "Roboto-Black.ttf");
-        italicTypeface = Typeface.createFromAsset(context.getAssets(), "Roboto-Italic.ttf");
-        thinTypeface = Typeface.createFromAsset(context.getAssets(), "Roboto-Thin.ttf");
-    }
-
     public static boolean isOnline() {
         Runtime runtime = Runtime.getRuntime();
         try {

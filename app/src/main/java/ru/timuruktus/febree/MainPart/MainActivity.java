@@ -2,57 +2,37 @@ package ru.timuruktus.febree.MainPart;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.backendless.Backendless;
-import com.google.android.gms.ads.MobileAds;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
 
-import ru.timuruktus.febree.ContentPart.TaskFragment;
+import ru.timuruktus.febree.ContentPart.StepsFragment;
 import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.IntroducingPart.IntroducingFragment;
-import ru.timuruktus.febree.LocalPart.AGetNonPassedByLevelTasks;
-import ru.timuruktus.febree.LocalPart.AGetTaskById;
 import ru.timuruktus.febree.LocalPart.DataBase;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.LocalPart.StepCreator;
 import ru.timuruktus.febree.LocalPart.Task;
 import ru.timuruktus.febree.ProjectUtils.Utils;
 import ru.timuruktus.febree.R;
-import ru.timuruktus.febree.VisualisationPart.VisualisationFragment;
 import ru.timuruktus.febree.WebPart.BackendlessWeb;
 import ru.timuruktus.febree.WebPart.EDownloadAndRefreshAllTasks;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.graphics.Color.BLACK;
 import static ru.timuruktus.febree.MainPart.MainPresenter.*;
@@ -89,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
 
         configureToolbar();
         loadFirstFragment();
-        Utils.initTypefaces(this);
     }
 
     public static void showSplashScreen(){
@@ -100,10 +79,18 @@ public class MainActivity extends AppCompatActivity {
         splashScreen.setVisibility(View.INVISIBLE);
     }
 
-
-    private void configureCurrentTaskPoints(){
-        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(), configureCurrentTaskListener));
+    private void configureFonts(){
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
+
+
+    /*private void configureCurrentTaskPoints(){
+        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(), configureCurrentTaskListener));
+    }*/
 
     private void initAllListeners(){
         //Log.d("mytag", "MainActivity.initAllListeners() listeners initialised");
@@ -119,10 +106,6 @@ public class MainActivity extends AppCompatActivity {
             //Log.d("mytag", "MainActivity.loadFirstFragment() introducingFragment opened");
         }else{
             openHomeFragment();
-            configureCurrentTaskPoints();
-            if(Utils.isOnline()){
-                EventBus.getDefault().post(new EDownloadAndRefreshAllTasks());
-            }
             //Log.d("mytag", "MainActivity.loadFirstFragment() homeFragment opened");
         }
     }
@@ -133,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openHomeFragment(){
-        changeFragment(new TaskFragment(), false, true, false);
+        changeFragment(new StepsFragment(), false, true, false);
     }
 
 
@@ -156,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         return answer;
     }
 
-    final EventCallbackListener checkAvailableTasksListener = (event) -> {
+    /*final EventCallbackListener checkAvailableTasksListener = (event) -> {
         AGetNonPassedByLevelTasks currentEvent = (AGetNonPassedByLevelTasks) event;
         ArrayList<Task> availableTasks = currentEvent.getTasks();
         Context context = MainActivity.this;
@@ -169,12 +152,17 @@ public class MainActivity extends AppCompatActivity {
             Settings.setCurrentTaskId(0);
             loadFirstFragment();
         }
-    };
+    };*/
 
-    final EventCallbackListener configureCurrentTaskListener = (event) -> {
+    /*final EventCallbackListener configureCurrentTaskListener = (event) -> {
         AGetTaskById currentEvent = (AGetTaskById) event;
         Task currentTask = currentEvent.getTask();
         currentTask.setPoints(currentTask.getPoints() - daysAfterLastTask());
         currentTask.save();
-    };
+    };*/
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 }

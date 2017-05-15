@@ -24,7 +24,8 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="@color/intro_text_color"
-        android:textSize="28sp" />
+        android:textSize="28sp"
+        fontPath="fonts/Roboto-Thin.ttf"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -68,6 +69,7 @@
         android:enabled="false"
         android:text="@string/intro_continue"
         android:textColor="@android:color/white"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        fontPath="fonts/Roboto-BoldItalic.ttf"/>
 
 </RelativeLayout>

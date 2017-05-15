@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 
 import java.util.concurrent.TimeUnit;
@@ -61,6 +59,10 @@ public class MainPresenter implements BasePresenter{
         fragmentTransaction.setTransition(TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.replace(R.id.content, fragment);
         fragmentTransaction.commit();
+    }
+
+    public static void changeToolbarTitle(String text){
+        mainActivity.getSupportActionBar().setTitle(text);
     }
 
     public static void changeToolbarVisibility(boolean hideToolbar){

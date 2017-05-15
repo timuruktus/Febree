@@ -5,8 +5,6 @@ import android.util.Log;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +22,7 @@ public class DataBase implements BaseModel {
         initListener();
     }
 
-    @Subscribe
+
     public void saveAllTasks(ESaveAllTasks event){
         ArrayList<Task> tasks = event.getTasks();
         for(Task currentTask : tasks){
@@ -34,7 +32,7 @@ public class DataBase implements BaseModel {
         tasks = null;
     }
 
-    @Subscribe
+
     public void refreshAllTasks(ERefreshAllTasks event){
         ArrayList<Task> tasks = event.getTasks();
         for(Task currentTask : tasks){
@@ -58,7 +56,7 @@ public class DataBase implements BaseModel {
         task.save();
     }
 
-    @Subscribe
+    /*@Subscribe
     public void getAllPassedTasks(AGetPassedTasks event){
         event.setTasks(getTaskByPassed(1));
         event.callback();
@@ -98,20 +96,20 @@ public class DataBase implements BaseModel {
                 .list();
         event.setTask(tasksWithCurrentId.get(0));
         event.callback();
-    }
+    }*/
 
-    @Subscribe
+
     public void clearAllTasks(EClearAllTasks event){
         Task.deleteAll(Task.class);
     }
 
     @Override
     public void initListener() {
-        EventBus.getDefault().register(this);
+
     }
 
     @Override
     public void unregisterListener() {
-        EventBus.getDefault().unregister(this);
+
     }
 }

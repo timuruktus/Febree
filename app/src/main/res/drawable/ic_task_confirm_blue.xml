@@ -6,9 +6,9 @@
     android:viewportHeight="500">
 
     <path
-        android:fillColor="@color/task_blue"
+        android:fillColor="@color/step_blue"
         android:pathData="M467,490H28c-11,0-20-9-20-20V31c0-11,9-20,20-20h439c11,0,20,9,20,20v439C487,481,478,490,467,490z" />
     <path
-        android:fillColor="@color/task_white"
+        android:fillColor="@color/step_white"
         android:pathData="M 98.4 281.9 L 140.6 236.5 L 214.5 303 L 375.9 96.2 L 426.6 136.3 L 222.9 401.1 Z" />
 </vector>

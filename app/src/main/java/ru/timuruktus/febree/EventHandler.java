@@ -1,6 +1,5 @@
 package ru.timuruktus.febree;
 
-import org.greenrobot.eventbus.EventBus;
 
 public interface EventHandler {
 

@@ -15,6 +15,7 @@ public class Settings implements BaseModel {
 
     private static final String APP_PREFERENCES = "mySettings";
     private static final String APP_PREFERENCES_FIRST_OPENED = "firstOpen";
+    private static final String APP_PREFERENCES_FIRST_OPENED_STEP = "firstOpenStep";
     private static final String APP_PREFERENCES_LEVEL = "level";
     private static final String APP_PREFERENCES_POINTS = "points";
     private static final String APP_PREFERENCES_LEVELS_DONE = "levelsDone";
@@ -46,6 +47,18 @@ public class Settings implements BaseModel {
 
     public static boolean isFirstOpened(){
         return getBooleanValue(APP_PREFERENCES_FIRST_OPENED, true);
+    }
+
+    /*
+    UNDER THIS LINE- FIRST APP OPEN METHODS
+     */
+
+    public static void setFirstOpenedStep(boolean isFirstOpened){
+        writeBooleanValue(APP_PREFERENCES_FIRST_OPENED_STEP, isFirstOpened);
+    }
+
+    public static boolean isFirstOpenedStep(){
+        return getBooleanValue(APP_PREFERENCES_FIRST_OPENED_STEP, true);
     }
 
     /*

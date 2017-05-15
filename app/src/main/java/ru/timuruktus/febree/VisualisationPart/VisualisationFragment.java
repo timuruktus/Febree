@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 

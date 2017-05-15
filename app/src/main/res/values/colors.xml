@@ -7,16 +7,33 @@
     <color name="intro_foreground">#86010000</color>
     <color name="intro_text_color">#e3e3e3</color>
 
-    //TASKS
-    <color name="task_blue">#0099FF</color>
-    <color name="task_gray">#a6a6a6</color>
-    <color name="task_gold">#ffe600</color>
-    <color name="task_gold_dark">#d79212</color>
-    <color name="task_white">#ffffff</color>
+    //STEPS
+    <color name="step_blue">#0099FF</color>
+    <color name="step_gray">#b1b1b1</color>
+    <color name="step_gray_dark">#808080</color>
+    <color name="step_gold">#ffffe600</color>
+    <color name="step_gold_dark">#ffd79212</color>
+    <color name="step_white">#ffffff</color>
 
     // INTRODUCING
     <color name="intro_button_color">#c50606</color>
     <color name="test_task_background">#c1c1c1</color>
+
+    // DIALOGS
+    <color name="dialog_but_color">#7986cb</color>
+    <color name="first_step_opening_title_color">#243bb4</color>
+    <color name="first_step_opening_second_text_color">#243bb4</color>
+
+    //TASKS FRAGMENT
+    <color name="tasks_fragment_background_color">#2962ff</color>
+
+    //TASK
+    <color name="task_background_color">#ffffff</color>
+    <color name="task_title_color">#2962ff</color>
+    <color name="task_text_background_color">#b1d6cec6</color>
+    <color name="task_button_color">#5582ff</color>
+    <color name="task_confirm_title_color">#8f2020</color>
+    <color name="task_confirm_button_color">#5582ff</color>
 
 
 </resources>
