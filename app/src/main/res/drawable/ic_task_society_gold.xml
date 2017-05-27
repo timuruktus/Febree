@@ -1,32 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="500dp"
-    android:height="500dp"
-    android:viewportWidth="500"
-    android:viewportHeight="500">
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:drawable="@drawable/task_society_gold"
+    tools:ignore="NewApi">
 
-    <path
-        android:fillColor="@color/step_gold"
-        android:pathData="M470,490H28c-11,0-20-9-20-20V28C8,17,17,8,28,8h442c11,0,20,9,20,20v442C490,481,481,490,470,490z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:fillAlpha="0.75"
-        android:strokeAlpha="0.75"
-        android:strokeWidth="1"
-        android:pathData="M 244.4 113.4 C 272.014237492 113.4 294.4 135.785762508 294.4 163.4 C 294.4 191.014237492 272.014237492 213.4 244.4 213.4 C 216.785762508 213.4 194.4 191.014237492 194.4 163.4 C 194.4 135.785762508 216.785762508 113.4 244.4 113.4 Z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:pathData="M 162.7 220.6 C 190.314237492 220.6 212.7 242.985762508 212.7 270.6 C 212.7 298.214237492 190.314237492 320.6 162.7 320.6 C 135.085762508 320.6 112.7 298.214237492 112.7 270.6 C 112.7 242.985762508 135.085762508 220.6 162.7 220.6 Z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:pathData="M 336.7 220.6 C 364.314237492 220.6 386.7 242.985762508 386.7 270.6 C 386.7 298.214237492 364.314237492 320.6 336.7 320.6 C 309.085762508 320.6 286.7 298.214237492 286.7 270.6 C 286.7 242.985762508 309.085762508 220.6 336.7 220.6 Z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:pathData="M221.6,427.4C251.6,292.8,82.8,342,82.8,342C106.3,414.6,221.6,427.4,221.6,427.4z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:pathData="M282.9,429.6C253,295,421.7,344.1,421.7,344.1C398.2,416.7,282.9,429.6,282.9,429.6z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:pathData="M290,429.6c-29.9-134.6,138.9-85.5,138.9-85.5C405.3,416.7,290,429.6,290,429.6z" />
-</vector>
+    <target
+        android:animation="@animator/shake"
+        android:name="society_glare" />
+
+</animated-vector>

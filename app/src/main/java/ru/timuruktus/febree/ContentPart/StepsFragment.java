@@ -1,5 +1,6 @@
 package ru.timuruktus.febree.ContentPart;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
@@ -13,27 +14,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import ru.timuruktus.febree.BaseFragment;
-import ru.timuruktus.febree.LocalPart.Settings;
+import ru.timuruktus.febree.ContentPart.Interfaces.BaseStepsFragment;
+import ru.timuruktus.febree.ContentPart.Interfaces.BaseStepsPresenter;
 import ru.timuruktus.febree.LocalPart.Step;
-import ru.timuruktus.febree.MainPart.MainActivity;
 import ru.timuruktus.febree.MainPart.MainPresenter;
-import ru.timuruktus.febree.ProjectUtils.CustomDialog1;
 import ru.timuruktus.febree.R;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+
 
 import static ru.timuruktus.febree.LocalPart.StepCreator.BLOCK_COUNT;
 import static ru.timuruktus.febree.LocalPart.StepCreator.BLOCK_STEPS_COUNT;
 
-public class StepsFragment extends BaseFragment{
+
+public class StepsFragment extends Fragment implements BaseStepsFragment{
 
 
     public View rootView;
     private ImageView[][] taskIcons = new ImageView[BLOCK_COUNT][BLOCK_STEPS_COUNT];
     private TextView[][] taskNames = new TextView[BLOCK_COUNT][BLOCK_STEPS_COUNT];
     private Context context;
+    private BaseStepsPresenter presenter;
 
 
     @Override
@@ -41,35 +40,26 @@ public class StepsFragment extends BaseFragment{
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rootView =
-                inflater.inflate(R.layout.blocks_fragment, container, false);
-
-        initAllViews();
-        MainActivity.showSplashScreen();
-
+                inflater.inflate(R.layout.steps_fragment, container, false);
+        Log.d("mytag", "Creating new fragment");
         context = rootView.getContext();
-
-        stepQuery()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        step -> setImageAndText(step, context),
-                        throwable -> Log.d("mytag", "StepsFragment.onCreateView() error =" + throwable),
-                        MainActivity::hideSplashScreen);
-
+        presenter = new StepsPresenter(this);
+        initAllViews();
+        //MainActivity.showSplashScreen();
+        presenter.onCreate();
         return rootView;
     }
 
-    //TODO: Показывать диалог с загрузкой и надписью "Подождите, загружаем Ваши задания" и загружать задания по сети
-    //TODO: СНАЧАЛА ПУСТЬ ЗАДАНИЯ СОХРАНЯЮТСЯ В БД, ПОТОМ МБ БУДЕМ БРАТЬ ТОЛЬКО ИЗ СЕТИ И БД СТАНЕТ ПЛАТНОЙ
-
-    private void setImageAndText(Step step, Context context){
-        int block = step.getBlock();
-        int stepInBlock = step.getIdInBlock();
-        taskIcons[block][stepInBlock].setImageResource(step.getFullPath(context));
-        Drawable drawable = taskIcons[block][stepInBlock].getDrawable();
+    @Override
+    public void setImageAndText(Step step){
+        int blockNum = step.getBlock();
+        int stepInBlockNum = step.getIdInBlock();
+        taskIcons[blockNum][stepInBlockNum].setImageResource(step.getFullPath(context));
+        Drawable drawable = taskIcons[blockNum][stepInBlockNum].getDrawable();
         if(drawable instanceof Animatable){
             ((Animatable) drawable).start();
         }
-        taskNames[block][stepInBlock].setText(step.getName());
+        taskNames[blockNum][stepInBlockNum].setText(step.getName());
 
     }
 
@@ -78,11 +68,6 @@ public class StepsFragment extends BaseFragment{
         super.onResume();
         String title = context.getResources().getString(R.string.steps_fragment);
         MainPresenter.changeToolbarTitle(title);
-    }
-
-    private Observable<Step> stepQuery(){
-        return Observable.from(Step.listAll(Step.class))
-                .subscribeOn(Schedulers.io());
     }
 
     private void initAllViews(){
@@ -97,9 +82,9 @@ public class StepsFragment extends BaseFragment{
         taskIcons[1][3] = (ImageView) rootView.findViewById(R.id.step24);
         taskIcons[1][4] = (ImageView) rootView.findViewById(R.id.step25);
 
-        for(int block = 0; block < BLOCK_COUNT; block++){
-            for(int step = 0; step < BLOCK_STEPS_COUNT; step++){
-                taskIcons[block][step].setOnClickListener(getImageListener(block, step));
+        for(int blockNum = 0; blockNum < BLOCK_COUNT; blockNum++){
+            for(int stepNum = 0; stepNum < BLOCK_STEPS_COUNT; stepNum++){
+                taskIcons[blockNum][stepNum].setOnClickListener(getImageListener(blockNum, stepNum));
             }
         }
 
@@ -113,42 +98,19 @@ public class StepsFragment extends BaseFragment{
         taskNames[1][2] = (TextView) rootView.findViewById(R.id.step23Name);
         taskNames[1][3] = (TextView) rootView.findViewById(R.id.step24Name);
         taskNames[1][4] = (TextView) rootView.findViewById(R.id.step25Name);
-
     }
 
     @NonNull
-    private View.OnClickListener getImageListener(int block, int step){
-        return v -> showTasks(block, step);
-    }
-
-    private void showTasks(int block, int step){
-        if(block == 0 && step == 0 && Settings.isFirstOpenedStep()){
-            String firstText = context.getResources().getString(R.string.first_step_opening_first_text);
-            String secondText = context.getResources().getString(R.string.first_step_opening_second_text);
-            String title = context.getResources().getString(R.string.first_step_opening_title);
-            String buttonText = context.getResources().getString(R.string.first_step_opening_button_text);
-            int titleColor = context.getResources().getColor(R.color.first_step_opening_title_color);
-            int secondTextColor = context.getResources().getColor(R.color.first_step_opening_second_text_color);
-            CustomDialog1 dialog = new CustomDialog1();
-            dialog.buildDialog(context)
-                    .setTitle(title)
-                    .setFirstText(firstText)
-                    .setSecondText(secondText)
-                    .setButtonText(buttonText)
-                    .setTitleColor(titleColor)
-                    .setSecondTextColor(secondTextColor)
-                    .setOnClickListener(v -> {
-                        Settings.setFirstOpenedStep(false);
-                        showTasks(block, step);
-                        dialog.dismiss();
-                    })
-                    .show();
-        }
+    private View.OnClickListener getImageListener(int blockNum, int stepNum){
+        return v -> presenter.onStepClick(blockNum, stepNum);
     }
 
     @Override
-    public void setTypefaces(){
-
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d("mytag", "onDestroy() in StepsFragment");
+        //presenter.onDestroy();
+        //presenter = null;
     }
 
 

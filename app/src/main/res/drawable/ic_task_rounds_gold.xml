@@ -1,29 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="500dp"
-    android:height="500dp"
-    android:viewportWidth="500"
-    android:viewportHeight="500">
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:drawable="@drawable/task_rounds_gold"
+    tools:ignore="NewApi">
 
-    <path
-        android:fillColor="@color/step_gold"
-        android:pathData="M473,494H25c-11,0-20-9-20-20V26C5,15,14,6,25,6h448c11,0,20,9,20,20v448C493,485,484,494,473,494z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:fillAlpha="0.82"
-        android:strokeAlpha="0.82"
-        android:strokeWidth="1"
-        android:pathData="M 163.4 70.6 C 235.031332053 70.6 293.1 128.668667947 293.1 200.3 C 293.1 271.931332053 235.031332053 330 163.4 330 C 91.7686679469 330 33.7 271.931332053 33.7 200.3 C 33.7 128.668667947 91.7686679469 70.6 163.4 70.6 Z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:fillAlpha="0.82"
-        android:strokeAlpha="0.82"
-        android:strokeWidth="1"
-        android:pathData="M 331 70.6 C 402.631332053 70.6 460.7 128.668667947 460.7 200.3 C 460.7 271.931332053 402.631332053 330 331 330 C 259.368667947 330 201.3 271.931332053 201.3 200.3 C 201.3 128.668667947 259.368667947 70.6 331 70.6 Z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:fillAlpha="0.82"
-        android:strokeAlpha="0.82"
-        android:strokeWidth="1"
-        android:pathData="M 247.2 180.3 C 318.831332053 180.3 376.9 238.368667947 376.9 310 C 376.9 381.631332053 318.831332053 439.7 247.2 439.7 C 175.568667947 439.7 117.5 381.631332053 117.5 310 C 117.5 238.368667947 175.568667947 180.3 247.2 180.3 Z" />
-</vector>
+    <target
+        android:animation="@animator/shake"
+        android:name="rounds_glare" />
+
+</animated-vector>

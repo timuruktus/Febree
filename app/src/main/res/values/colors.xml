@@ -23,17 +23,23 @@
     <color name="dialog_but_color">#7986cb</color>
     <color name="first_step_opening_title_color">#243bb4</color>
     <color name="first_step_opening_second_text_color">#243bb4</color>
+    <color name="steps_loading_dialog_title_color">#273eb6</color>
 
     //TASKS FRAGMENT
     <color name="tasks_fragment_background_color">#2962ff</color>
+
+
 
     //TASK
     <color name="task_background_color">#ffffff</color>
     <color name="task_title_color">#2962ff</color>
     <color name="task_text_background_color">#b1d6cec6</color>
+    <color name="task_text_color">#bcaaa4</color>
     <color name="task_button_color">#5582ff</color>
     <color name="task_confirm_title_color">#8f2020</color>
     <color name="task_confirm_button_color">#5582ff</color>
+    <color name="tasks_button_background_color_disabled">#939393</color>
+    <color name="task_title_color_passed">#fdcc2b</color>
 
 
 </resources>

@@ -6,37 +6,35 @@
     android:background="@color/tasks_fragment_background_color"
     android:orientation="vertical">
 
+    <me.crosswall.lib.coverflow.core.PagerContainer
+        android:id="@+id/pager_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/tasksFragmentViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+
+    </me.crosswall.lib.coverflow.core.PagerContainer>
+
     <ImageView
         android:id="@+id/tasksBackArrow"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
+        android:padding="5dp"
         app:srcCompat="@drawable/ic_arrow_left" />
 
     <TextView
         android:id="@+id/tasksStepName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/tasksBackArrow"
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
-
-    <me.crosswall.lib.coverflow.core.PagerContainer
-        android:id="@+id/tasksPagerContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/tasksViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </android.support.v4.view.ViewPager>
-
-    </me.crosswall.lib.coverflow.core.PagerContainer>
 </RelativeLayout>

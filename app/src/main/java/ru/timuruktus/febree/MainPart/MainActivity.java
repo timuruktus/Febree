@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     DrawerLayout drawer;
     private static ImageView splashScreen;
+    protected static MainActivity instance;
 
     @Override
     final protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
         if(Settings.isFirstOpened()) {
             StepCreator.setFirstLaunchSteps(this);
         }
+        instance = this;
         mainPresenter = new MainPresenter(this);
-
+        configureFonts();
         //initAllListeners();
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -72,32 +74,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void showSplashScreen(){
+        changeToolbarVisibility(true);
         splashScreen.setVisibility(View.VISIBLE);
     }
 
     public static void hideSplashScreen(){
+        changeToolbarVisibility(false);
         splashScreen.setVisibility(View.INVISIBLE);
     }
 
     private void configureFonts(){
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
+                .setDefaultFontPath("fonts/Roboto-Regular.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
-    }
-
-
-    /*private void configureCurrentTaskPoints(){
-        EventBus.getDefault().post(new AGetTaskById(Settings.getCurrentTaskId(), configureCurrentTaskListener));
-    }*/
-
-    private void initAllListeners(){
-        //Log.d("mytag", "MainActivity.initAllListeners() listeners initialised");
-
-        dataBase = new DataBase();
-        backendlessWeb = new BackendlessWeb();
-
     }
 
     private void loadFirstFragment(){
@@ -111,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openIntroducingFragment(){
-        mainPresenter.changeToolbarVisibility(false);
         changeFragment(new IntroducingFragment(), false, true, true);
     }
 
@@ -131,38 +121,13 @@ public class MainActivity extends AppCompatActivity {
         toggle.syncState();
     }
 
-    private long daysAfterLastTask(){
-        long answer = Settings.getTimeBetweenLastTaskAndCurrentTime() / DAY_IN_SECOND;
-        if(answer > 0){
-            Settings.setLastTaskTime(Utils.getCurrentTimeInSeconds());
-        }
-        return answer;
-    }
-
-    /*final EventCallbackListener checkAvailableTasksListener = (event) -> {
-        AGetNonPassedByLevelTasks currentEvent = (AGetNonPassedByLevelTasks) event;
-        ArrayList<Task> availableTasks = currentEvent.getTasks();
-        Context context = MainActivity.this;
-        if(availableTasks.size() == 0){
-            Toast.makeText(context, R.string.has_no_tasks_for_you,
-                    Toast.LENGTH_SHORT).show();
-        }else{
-            Settings.decreaseLevel();
-            Settings.setPoints(Settings.getCurrentLimit() - 400);
-            Settings.setCurrentTaskId(0);
-            loadFirstFragment();
-        }
-    };*/
-
-    /*final EventCallbackListener configureCurrentTaskListener = (event) -> {
-        AGetTaskById currentEvent = (AGetTaskById) event;
-        Task currentTask = currentEvent.getTask();
-        currentTask.setPoints(currentTask.getPoints() - daysAfterLastTask());
-        currentTask.save();
-    };*/
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    public static Context getContext() {
+        return instance;
     }
 }

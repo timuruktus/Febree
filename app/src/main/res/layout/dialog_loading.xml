@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <com.github.mmin18.widget.RealtimeBlurView
-        android:id="@+id/dialogBlurBackground1"
+        android:id="@+id/dialogBlurBackgroundLoading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:realtimeBlurRadius="10dp"
@@ -23,7 +23,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/dialogTitle1"
+            android:id="@+id/dialogTitleLoading"
             fontPath="fonts/Roboto-Bold.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/dialogFirstText1"
+            android:id="@+id/dialogFirstTextLoading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -47,7 +47,7 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/dialogSecondText1"
+            android:id="@+id/dialogSecondTextLoading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -61,16 +61,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
 
-            <Button
-                android:id="@+id/dialogButton1"
+            <ProgressBar
+                android:id="@+id/dialogProgressBarLoading"
+                style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/dialog_but_background_first"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textColor="@android:color/white" />
+                android:layout_marginBottom="30dp" />
+
         </RelativeLayout>
     </LinearLayout>
 

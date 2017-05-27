@@ -1,11 +1,8 @@
 package ru.timuruktus.febree.LocalPart;
 
 import android.content.Context;
-import android.widget.ImageView;
 
 import com.orm.SugarRecord;
-
-import static weborb.util.ThreadContext.context;
 
 public class Step extends SugarRecord {
 
@@ -22,27 +19,41 @@ public class Step extends SugarRecord {
         this.numOfTasks = numOfTasks;
         this.completedTasks = completedTasks;
         this.status = status;
-        this.idInStep = idInBlock;
+        this.idInBlock = idInBlock;
         this.name = name;
     }
 
-    public Step(int block, int numOfTasks, int completedTasks, int status, int idInStep,
+    public Step(int block, int numOfTasks, int completedTasks, int status, int idInBlock,
                 int imageResId, String name) {
         this.block = block;
         this.numOfTasks = numOfTasks;
         this.completedTasks = completedTasks;
         this.status = status;
-        this.idInStep = idInStep;
+        this.idInBlock = idInBlock;
         this.imageResId = imageResId;
         this.name = name;
     }
 
-    public Step(int block, int numOfTasks, int completedTasks, int status, int idInStep, int imageResId, String name, String path) {
+    public Step(int block, int numOfTasks, int completedTasks, int status, int idInBlock,
+                int imageResId, String name, String path, boolean downloaded) {
         this.block = block;
         this.numOfTasks = numOfTasks;
         this.completedTasks = completedTasks;
         this.status = status;
-        this.idInStep = idInStep;
+        this.idInBlock = idInBlock;
+        this.imageResId = imageResId;
+        this.name = name;
+        this.path = path;
+        this.downloaded = downloaded;
+    }
+
+    public Step(int block, int numOfTasks, int completedTasks, int status, int idInBlock,
+                int imageResId, String name, String path) {
+        this.block = block;
+        this.numOfTasks = numOfTasks;
+        this.completedTasks = completedTasks;
+        this.status = status;
+        this.idInBlock = idInBlock;
         this.imageResId = imageResId;
         this.name = name;
         this.path = path;
@@ -89,11 +100,11 @@ public class Step extends SugarRecord {
     }
 
     public int getIdInBlock() {
-        return idInStep;
+        return idInBlock;
     }
 
     public void setIdInBlock(int idInStep) {
-        this.idInStep = idInStep;
+        this.idInBlock = idInStep;
     }
 
     public int getImageResId() {
@@ -103,6 +114,15 @@ public class Step extends SugarRecord {
     public void setImageResId(int imageResId) {
         this.imageResId = imageResId;
     }
+
+    public boolean isDownloaded() {
+        return downloaded;
+    }
+
+    public void setDownloaded(boolean downloaded) {
+        this.downloaded = downloaded;
+    }
+
 
     public int getFullPath(Context context){
         String endOfPath;
@@ -122,9 +142,10 @@ public class Step extends SugarRecord {
     private int numOfTasks;
     private int completedTasks;
     private int status;
-    private int idInStep;
+    private int idInBlock;
     private int imageResId;
     private String name;
     private String path;
+    private boolean downloaded;
 
 }

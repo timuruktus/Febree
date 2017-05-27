@@ -7,6 +7,7 @@ import com.google.android.gms.ads.AdView;
 import ru.timuruktus.febree.BasePresenter;
 import ru.timuruktus.febree.EventHandler;
 import ru.timuruktus.febree.R;
+import rx.Subscription;
 
 
 public class VisualisationPresenter implements BasePresenter, EventHandler {
@@ -33,5 +34,15 @@ public class VisualisationPresenter implements BasePresenter, EventHandler {
 
     final public void initAdView(EInitAdmob event){
         event.adView.loadAd(adRequest);
+    }
+
+    @Override
+    public void addSubscription(Subscription subscription) {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
     }
 }

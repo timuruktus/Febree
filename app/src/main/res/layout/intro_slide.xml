@@ -42,7 +42,7 @@
             android:text="TRELI"
             android:textColor="@color/trelico_intro"
             android:textSize="36sp"
-            android:textStyle="bold" />
+            fontPath="fonts/Roboto-Bold.ttf"/>
 
         <TextView
             android:id="@+id/co"

@@ -10,12 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.timuruktus.febree.BaseModel;
-import ru.timuruktus.febree.GlobalEvents.ETaskCompleted;
 
 public class DataBase implements BaseModel {
-
-    //TODO: ADD EVENT, WHICH WILL BE RETURN ALL TASKS, WHERE passed = 0 AND currentLevel = CURRENT LEVEL!!!!!!
-
 
     public DataBase() {
         //Log.d("mytag", "DataBase.DataBase() event handles initialised");

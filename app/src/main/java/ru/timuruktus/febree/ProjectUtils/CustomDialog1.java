@@ -31,31 +31,10 @@ public class CustomDialog1 {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
         lp.width = MATCH_PARENT;
-        lp.height = MATCH_PARENT;
+        //lp.height = MATCH_PARENT;
         dialog.getWindow().setAttributes(lp);
         return this;
     }
-
-    /*public static Dialog buildDialog(String firstText, String title, String secondText, String buttonText,
-                                      int titleColor, int secondTextColor, Context context) {
-        dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_with_1_button);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-        lp.width = MATCH_PARENT;
-        dialog.getWindow().setAttributes(lp);
-        TextView firstTextView = (TextView) dialog.findViewById(R.id.dialogFirstText1);
-        TextView secondTextView = (TextView) dialog.findViewById(R.id.dialogSecondText1);
-        TextView titleTextView = (TextView) dialog.findViewById(R.id.dialogTitle1);
-        titleTextView.setTextColor(titleColor);
-        secondTextView.setTextColor(secondTextColor);
-        firstTextView.setText(firstText);
-        secondTextView.setText(secondText);
-        titleTextView.setText(title);
-        button = (Button) dialog.findViewById(R.id.dialogButton1);
-        button.setText(buttonText);
-        return dialog;
-    }*/
 
     public CustomDialog1 setOnClickListener(View.OnClickListener listener){
         button.setOnClickListener(listener);
@@ -104,9 +83,9 @@ public class CustomDialog1 {
         return this;
     }
 
-    public CustomDialog1 setButtonColor(int color){
+    public CustomDialog1 setButtonBackground(int resId){
         button = (Button) dialog.findViewById(R.id.dialogButton1);
-        button.setBackgroundColor(color);
+        button.setBackgroundResource(resId);
         return this;
     }
 

@@ -1,45 +1,100 @@
 package ru.timuruktus.febree.TaskPart;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.orm.query.Condition;
+import com.orm.query.Select;
+
+import java.util.List;
+
+import ru.timuruktus.febree.LocalPart.Settings;
+import ru.timuruktus.febree.LocalPart.Step;
 import ru.timuruktus.febree.LocalPart.Task;
 import ru.timuruktus.febree.ProjectUtils.CustomDialog1;
 import ru.timuruktus.febree.R;
 
 public class TaskFragment extends Fragment {
 
-    public static final String ARG_TASK = "item_task";
+    public static final String ARG_NUM_IN_BLOCK = "item_blockNum";
+    public static final String ARG_STEP_NUM = "item_stepNum";
+    public static final String ARG_POSITION = "item_position_in_step";
+    public static final String ARG_ADAPTER = "item_adapter";
+    public static final String ARG_CURRENT_TASK = "item_currentTask";
     private Context context;
     private Task currentTask;
+    private View rootView;
+    private int positionInStep;
+    private int blockNum, stepNum;
+    private Step currentStep;
+    private TasksFragmentAdapter adapter;
+
+
+    static TaskFragment newInstance(Task currentTask, int blockNum, int stepNum, int position, TasksFragmentAdapter adapter) {
+        TaskFragment pageFragment = new TaskFragment();
+        pageFragment.blockNum = blockNum;
+        pageFragment.stepNum = stepNum;
+        pageFragment.positionInStep = position;
+        //Bundle arguments = new Bundle();
+        //arguments.putInt(ARG_NUM_IN_BLOCK, blockNum);
+        //arguments.putInt(ARG_STEP_NUM, stepNum);
+        //arguments.putInt(ARG_POSITION, position);
+        pageFragment.adapter = adapter;
+        pageFragment.currentTask = currentTask;
+        //arguments.putSerializable(ARG_CURRENT_TASK, currentTask);
+        //TODO: Узнать, почему используется bundle
+        //pageFragment.setArguments(arguments);
+        return pageFragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //blockNum = getArguments().getInt(ARG_NUM_IN_BLOCK);
+        //stepNum = getArguments().getInt(ARG_STEP_NUM);
+        //positionInStep = getArguments().getInt(ARG_POSITION);
+        //adapter = (TasksFragmentAdapter) getArguments().getSerializable(ARG_ADAPTER);
+        currentStep = findStepByNumber(blockNum, stepNum);
+        //currentTask = (Task) getArguments().getSerializable(ARG_CURRENT_TASK);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(
+        rootView = inflater.inflate(
                 R.layout.task_fragment, container, false);
-        Bundle args = getArguments();
         context = rootView.getContext();
-        currentTask = (Task) args.getSerializable(ARG_TASK);
         String taskNumber = context.getResources().getString(R.string.task_number)
-                + currentTask.getNumInStep();
+                + " " + ++positionInStep;
         String taskTitle = currentTask.getTitle();
         String taskText = currentTask.getText();
         int taskDifficulty = currentTask.getPoints();
 
-        ((TextView) rootView.findViewById(R.id.taskNumber)).setText(taskNumber);
-        ((TextView) rootView.findViewById(R.id.taskTitle)).setText(taskTitle);
-        ((TextView) rootView.findViewById(R.id.taskText)).setText(taskText);
+        TextView taskNumberView = (TextView) rootView.findViewById(R.id.taskNumber);
+        taskNumberView.setText(taskNumber);
+        TextView taskTitleView = (TextView) rootView.findViewById(R.id.taskTitle);
+        taskTitleView.setText(taskTitle);
+        TextView taskTextView = (TextView) rootView.findViewById(R.id.taskText);
+        taskTextView.setText(taskText);
 
         Button readyButton = (Button) rootView.findViewById(R.id.readyButton);
-        readyButton.setOnClickListener(v -> makeConfirmDialog());
+
+        if(!currentTask.isPassed()) {
+            readyButton.setOnClickListener(v -> makeConfirmDialog());
+        }else{
+            readyButton.setEnabled(false);
+            readyButton.setBackgroundResource(R.drawable.task_button_background_disabled);
+            int titleColor = context.getResources().getColor(R.color.task_title_color_passed);
+            taskTitleView.setTextColor(titleColor);
+        }
 
         return rootView;
     }
@@ -50,20 +105,39 @@ public class TaskFragment extends Fragment {
         String confirmText = context.getResources().getString(R.string.task_confirm_text);
         String confirmButtonText = context.getResources().getString(R.string.task_confirm_button_text);
         int titleColor = context.getResources().getColor(R.color.task_confirm_title_color);
-        int buttonColor = context.getResources().getColor(R.color.task_confirm_button_color);
-        dialog1.setTitle(confirmTitle)
+        dialog1.buildDialog(context)
+                .setTitle(confirmTitle)
                 .setTitleColor(titleColor)
                 .setFirstText(confirmText)
                 .setButtonText(confirmButtonText)
-                .setButtonColor(buttonColor)
                 .setOnClickListener(v -> {
-                    taskCompleted(currentTask);
+                    taskCompleted();
                     dialog1.dismiss();
                 })
                 .show();
     }
 
-    private void taskCompleted(Task task){
+    private void taskCompleted(){
+        currentStep.setCompletedTasks(1 + currentStep.getCompletedTasks());
+        Log.d("mytag", "Num of completed tasks = " + currentStep.getCompletedTasks());
+        if(currentStep.getCompletedTasks() == currentStep.getNumOfTasks()){
+            currentStep.setStatus(Step.STATUS_COMPLETED);
+        }
+        currentTask.setPassed(true);
+        adapter.refreshData();
+        Log.d("mytag", "Points before " + Settings.getPoints());
+        Settings.changePoints(currentTask.getPoints());
+        Log.d("mytag", "Points after " + Settings.getPoints());
+        currentTask.save();
+        currentStep.save();
 
+    }
+
+    private Step findStepByNumber(int blockNum, int stepNum){
+        List<Step> step = Select.from(Step.class)
+                .where(Condition.prop("block").eq(blockNum))
+                .where(Condition.prop("id_in_block").eq(stepNum))
+                .list();
+        return step.get(0);
     }
 }

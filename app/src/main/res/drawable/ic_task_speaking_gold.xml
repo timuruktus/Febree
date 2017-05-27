@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="500dp"
-    android:height="500dp"
-    android:viewportWidth="500"
-    android:viewportHeight="500">
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:drawable="@drawable/task_speaking_gold"
+    tools:ignore="NewApi">
 
-    <path
-        android:fillColor="@color/step_gold"
-        android:pathData="M473,493H27c-11,0-20-9-20-20V27C7,16,16,7,27,7h446c11,0,20,9,20,20v446C493,484,484,493,473,493z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:fillAlpha="0.75"
-        android:strokeAlpha="0.75"
-        android:strokeWidth="1"
-        android:pathData="M320.8,121.4c-81.6,0-147.8,54.4-147.8,121.5c0,56.6,47.2,104.2,111,117.6c-4,23.4-24.5,53.9-24.5,53.9
-c48.1-11.3,63.6-42.3,66.8-50.2c79.1-2.3,142.4-55.8,142.4-121.4C468.6,175.7,402.4,121.4,320.8,121.4z" />
-    <path
-        android:fillColor="@color/step_gold_dark"
-        android:pathData="M190.6,121.4c-81.6,0-147.8,54.4-147.8,121.5c0,56.6,47.2,104.2,111,117.6c-4,23.4-24.5,53.9-24.5,53.9
-c48.1-11.3,63.6-42.3,66.8-50.2c79.1-2.3,142.4-55.8,142.4-121.4C338.4,175.7,272.2,121.4,190.6,121.4z" />
+    <target
+        android:animation="@animator/shake"
+        android:name="speaking_glare" />
 
-
-</vector>
+</animated-vector>
