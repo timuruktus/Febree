@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 
@@ -88,15 +89,18 @@ public class MainPresenter implements BasePresenter{
     public static void changeToolbarVisibility(boolean hideToolbar){
         RelativeLayout fragmentContainer = (RelativeLayout)
                 mainActivity.findViewById(R.id.content);
+        ProgressBar levelBar = (ProgressBar) mainActivity.findViewById(R.id.levelBar);
         CoordinatorLayout.LayoutParams layoutParams = new CoordinatorLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if(!hideToolbar){
+            levelBar.setVisibility(View.VISIBLE);
             mainActivity.getSupportActionBar().show();
             int totalMargin = Utils.convertDpToPx(56, mainActivity);
             layoutParams.setMargins(0,totalMargin,0,0);
             fragmentContainer.setLayoutParams(layoutParams);
             mainActivity.drawer.setDrawerLockMode(LOCK_MODE_UNLOCKED);
         }else{
+            levelBar.setVisibility(View.INVISIBLE);
             mainActivity.getSupportActionBar().hide();
             layoutParams.setMargins(0,0,0,0);
             fragmentContainer.setLayoutParams(layoutParams);

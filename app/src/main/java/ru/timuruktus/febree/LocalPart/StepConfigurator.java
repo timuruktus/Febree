@@ -4,8 +4,13 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
-public class StepCreator {
+import java.util.ArrayList;
+
+
+public class StepConfigurator {
 
     public final static int BLOCK_COUNT = 2;
     public final static int BLOCK_STEPS_COUNT = 5;
@@ -25,6 +30,19 @@ public class StepCreator {
                             block * stepInBlock, namesArray[stepInBlock],  allPathsToIcons[block][stepInBlock], false);
                     step.save();
                 }
+            }
+        }
+    }
+
+    public static void openStepsInBlock(int blockNum){
+        ArrayList<Step> steps = (ArrayList<Step>) Select.from(Step.class)
+                .where(Condition.prop("block").eq(blockNum))
+                .list();
+        for(Step step : steps){
+            if(step.getStatus() == Step.STATUS_CLOSED){
+                Log.d("mytag", "Opened step name: " + step.getName());
+                step.setStatus(Step.STATUS_IN_PROGRESS);
+                step.save();
             }
         }
     }

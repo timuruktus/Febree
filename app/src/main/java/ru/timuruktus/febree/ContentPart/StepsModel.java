@@ -67,6 +67,7 @@ public class StepsModel implements BaseStepsModel {
         HashMap<String, String> map = new HashMap<>();
         map.put(FIRST_TEXT, resources.getString(R.string.steps_loading_text));
         map.put(TITLE_TEXT, resources.getString(R.string.steps_loading_title));
+        map.put(SECOND_TEXT, resources.getString(R.string.steps_long_loading_second_text));
         return map;
     }
 

@@ -24,4 +24,13 @@
 
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/levelBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_marginTop="56dp"
+        android:progress="50"
+        android:progressTint="@color/level_bar_color" />
+
 </android.support.design.widget.CoordinatorLayout>

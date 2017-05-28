@@ -67,5 +67,6 @@ public class TasksFragmentAdapter extends FragmentStatePagerAdapter{
 
     public void refreshData() {
         fragment.showTasks(tasks);
+        this.setPrimaryItem(null, 1, null);
     }
 }

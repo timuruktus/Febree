@@ -42,27 +42,15 @@ public class TaskFragment extends Fragment {
         pageFragment.blockNum = blockNum;
         pageFragment.stepNum = stepNum;
         pageFragment.positionInStep = position;
-        //Bundle arguments = new Bundle();
-        //arguments.putInt(ARG_NUM_IN_BLOCK, blockNum);
-        //arguments.putInt(ARG_STEP_NUM, stepNum);
-        //arguments.putInt(ARG_POSITION, position);
         pageFragment.adapter = adapter;
         pageFragment.currentTask = currentTask;
-        //arguments.putSerializable(ARG_CURRENT_TASK, currentTask);
-        //TODO: Узнать, почему используется bundle
-        //pageFragment.setArguments(arguments);
         return pageFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //blockNum = getArguments().getInt(ARG_NUM_IN_BLOCK);
-        //stepNum = getArguments().getInt(ARG_STEP_NUM);
-        //positionInStep = getArguments().getInt(ARG_POSITION);
-        //adapter = (TasksFragmentAdapter) getArguments().getSerializable(ARG_ADAPTER);
         currentStep = findStepByNumber(blockNum, stepNum);
-        //currentTask = (Task) getArguments().getSerializable(ARG_CURRENT_TASK);
     }
 
     @Override
@@ -120,7 +108,7 @@ public class TaskFragment extends Fragment {
     private void taskCompleted(){
         currentStep.setCompletedTasks(1 + currentStep.getCompletedTasks());
         Log.d("mytag", "Num of completed tasks = " + currentStep.getCompletedTasks());
-        if(currentStep.getCompletedTasks() == currentStep.getNumOfTasks()){
+        if(1 + currentStep.getCompletedTasks() == currentStep.getNumOfTasks()){
             currentStep.setStatus(Step.STATUS_COMPLETED);
         }
         currentTask.setPassed(true);

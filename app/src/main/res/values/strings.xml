@@ -42,13 +42,15 @@
     <string name="task_number">Задание </string>
     <string name="task_confirm_title">Вы уверены, что выполнили задание полностью?</string>
     <string name="task_confirm_text">Вы должны понимать, что нет смысла обманывать приложение.
-        \nВ первую очередь это все необходимо Вам.
-        \nМы настоятельно не рекомендуем продолжать, если задание не было выполнено</string>
+        \n В первую очередь это все необходимо Вам.
+        \n Мы настоятельно не рекомендуем продолжать, если задание не было выполнено</string>
     <string name="task_confirm_button_text">Я выполнил!</string>
 
     //FOR LOADING DIALOG IN STEPS FRAGMENT
     <string name="steps_loading_title">Пожалуйста, подождите</string>
     <string name="steps_loading_text">Идёт скачивание ваших заданий....</string>
+    <string name="steps_long_loading_second_text">Если скачивание идет долго- пожалуйста,
+    перепроверьте ваше подключение к интернету.</string>
 
     // FOR STEPS FRAGMENT
     <string name="step_is_unavailable">Доступ к уровню закрыт! Повысьте свой уровень</string>
@@ -56,5 +58,17 @@
     // FOR TASKS FRAGMENT
     <string name="tasks_back_to_menu">В главное меню</string>
 
+    // FOR DIALOGS AFTER COMPLETING LEVEL
+    <string name="complete_level_1_title">Поздравляем!</string>
+    <string name="complete_level_1_text">Вы успешно достигли второго уровня!
+    \n Теперь для вас открыты все задания первого этапа.
+    \n После достижения четвертого уровня, вам откроются все задания второго этапа.
+    \n После прохождения второго этапа,
+        чтобы открывать новые задания, вам будет необходимо купить подписку на приложение.</string>
+    <string name="complete_level_1_button">Понял</string>
+
+    <string name="complete_level_title">Поздравляем!</string>
+    <string name="complete_level_text">Вы успешно повысили свой уровень!</string>
+    <string name="complete_level_button">Я молодец</string>
 
 </resources>

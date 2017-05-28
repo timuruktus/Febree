@@ -6,4 +6,5 @@ import rx.Subscription;
 public interface BaseStepsFragment {
 
     void setImageAndText(Step step);
+    void setLevelBarProgress(int progress);
 }

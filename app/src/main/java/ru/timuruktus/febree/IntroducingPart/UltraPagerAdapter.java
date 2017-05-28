@@ -58,6 +58,7 @@ public class UltraPagerAdapter extends PagerAdapter {
             contBut.setOnClickListener(v -> {
                 MainPresenter.changeFragment(new StepsFragment(), false, true, false);
                 Settings.setFirstOpened(false);
+                Settings.setLevel(1);
             });
             contBut.setAlpha(1L);
         }

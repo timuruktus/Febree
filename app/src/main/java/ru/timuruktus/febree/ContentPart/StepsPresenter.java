@@ -1,6 +1,6 @@
 package ru.timuruktus.febree.ContentPart;
 
-import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,7 +30,6 @@ import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
 
 import static android.widget.Toast.LENGTH_SHORT;
 import static ru.timuruktus.febree.ContentPart.StepsModel.BUTTON_TEXT;
@@ -40,7 +39,6 @@ import static ru.timuruktus.febree.ContentPart.StepsModel.SECOND_TEXT_COLOR;
 import static ru.timuruktus.febree.ContentPart.StepsModel.TITLE_COLOR;
 import static ru.timuruktus.febree.ContentPart.StepsModel.TITLE_TEXT;
 import static ru.timuruktus.febree.MainPart.MainPresenter.ADD_TO_BACKSTACK;
-import static ru.timuruktus.febree.MainPart.MainPresenter.DONT_HIDE_TOOLBAR;
 import static ru.timuruktus.febree.MainPart.MainPresenter.HIDE_TOOLBAR;
 import static ru.timuruktus.febree.MainPart.MainPresenter.REFRESH;
 import static ru.timuruktus.febree.TaskPart.TasksFragment.ARGS_BLOCK;
@@ -59,12 +57,18 @@ public class StepsPresenter implements BaseStepsPresenter {
     }
 
     public void onCreate(){
+        configureLevelBar();
         addSubscription(model.stepsQuery()
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(
                                 step -> view.setImageAndText(step),
                                 throwable -> Log.d("mytag", "StepsFragment.onCreateView() error =" + throwable),
                                 MainActivity::hideSplashScreen));
+    }
+
+    private void configureLevelBar(){
+        int progress = (int) (Settings.getPoints() - (Settings.getLevel() - 1) * 100);
+        view.setLevelBarProgress(progress);
     }
 
     @Override
@@ -75,46 +79,72 @@ public class StepsPresenter implements BaseStepsPresenter {
             return;
         }
         if(blockNum == 0 && stepNum == 0 && Settings.isFirstOpenedStep()){
-            HashMap<String, String> textForDialog = model.getTextFor1Dialog();
-            HashMap<String, Integer> colorsForDialog = model.getColorsFor1Dialog();
-            buildDialogForFirstStep(textForDialog, colorsForDialog);
+            openWelcomeDialog();
         }else if(step.isDownloaded()){
-            HashMap<String, Integer> info = new HashMap<>();
-            info.put(ARGS_BLOCK, blockNum);
-            info.put(ARGS_STEP, stepNum);
-            MainPresenter.changeFragmentWithInfo(new TasksFragment(), ADD_TO_BACKSTACK, REFRESH,
-                    HIDE_TOOLBAR, info);
+            openStep(blockNum, stepNum);
         }else if(!step.isDownloaded()){
-            CustomLoadingDialog loadingDialog = new CustomLoadingDialog();
-            HashMap<String, String> textForDialog = model.getTextForLoadingDialog();
-            HashMap<String, Integer> colorsForDialog = model.getColorsForLoadingDialog();
-            loadingDialog.buildDialog(MainActivity.getContext())
-                    .setFirstText(textForDialog.get(FIRST_TEXT))
-                    .setTitle(textForDialog.get(TITLE_TEXT))
-                    .setTitleColor(colorsForDialog.get(TITLE_COLOR))
-                    .show();
-            Observer<Task> observer = new Observer<Task>() {
-                @Override
-                public void onCompleted() {
-                    step.setDownloaded(true);
-                    step.save();
-                    loadingDialog.dismiss();
-                    onStepClick(blockNum, stepNum);
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Log.d("mytag", "Error while downloading tasks in step" + e.getMessage());
-                }
-
-                @Override
-                public void onNext(Task task) {
-                    task.save();
-                }
-            };
-            downloadTasksInStep(observer, blockNum, stepNum);
+            openLoadingDialog(blockNum, stepNum, step);
         }
     }
+
+    private void openWelcomeDialog(){
+        HashMap<String, String> textForDialog = model.getTextFor1Dialog();
+        HashMap<String, Integer> colorsForDialog = model.getColorsFor1Dialog();
+        buildDialogForFirstStep(textForDialog, colorsForDialog);
+    }
+
+    private void openStep(int blockNum, int stepNum){
+        HashMap<String, Integer> info = new HashMap<>();
+        info.put(ARGS_BLOCK, blockNum);
+        info.put(ARGS_STEP, stepNum);
+        MainPresenter.changeFragmentWithInfo(new TasksFragment(), ADD_TO_BACKSTACK, REFRESH,
+                HIDE_TOOLBAR, info);
+    }
+
+    private void openLoadingDialog(int blockNum, int stepNum, Step step){
+        CustomLoadingDialog loadingDialog = new CustomLoadingDialog();
+        HashMap<String, String> textForDialog = model.getTextForLoadingDialog();
+        HashMap<String, Integer> colorsForDialog = model.getColorsForLoadingDialog();
+        loadingDialog.buildDialog(MainActivity.getContext())
+                .setFirstText(textForDialog.get(FIRST_TEXT))
+                .setTitle(textForDialog.get(TITLE_TEXT))
+                .setTitleColor(colorsForDialog.get(TITLE_COLOR))
+                .setDismissOnClick(true)
+                .show();
+        addTextAfterPause(loadingDialog, textForDialog.get(SECOND_TEXT));
+        downloadTasksInStep(getLoadingListener(loadingDialog, step, blockNum, stepNum), blockNum, stepNum);
+    }
+
+    private void addTextAfterPause(CustomLoadingDialog loadingDialog, String text){
+        final Handler handler = new Handler();
+        final Runnable task = () -> loadingDialog.setSecondText(text);
+        handler.postDelayed(task, 5000);
+    }
+
+    private Observer<Task> getLoadingListener(CustomLoadingDialog loadingDialog, Step step,
+                                              int blockNum, int stepNum){
+        return new Observer<Task>() {
+            @Override
+            public void onCompleted() {
+                step.setDownloaded(true);
+                step.save();
+                loadingDialog.dismiss();
+                onStepClick(blockNum, stepNum);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("mytag", "Error while downloading tasks in step" + e.getMessage());
+            }
+
+            @Override
+            public void onNext(Task task) {
+                task.save();
+            }
+        };
+    }
+
+
 
 
     public void buildDialogForFirstStep(HashMap<String, String> textForDialog,

@@ -11,32 +11,23 @@ import android.view.View;
 
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 
 import com.backendless.Backendless;
 
 
-import java.util.ArrayList;
-
-
 import ru.timuruktus.febree.ContentPart.StepsFragment;
-import ru.timuruktus.febree.EventCallbackListener;
 import ru.timuruktus.febree.IntroducingPart.IntroducingFragment;
 import ru.timuruktus.febree.LocalPart.DataBase;
 import ru.timuruktus.febree.LocalPart.Settings;
-import ru.timuruktus.febree.LocalPart.StepCreator;
-import ru.timuruktus.febree.LocalPart.Task;
-import ru.timuruktus.febree.ProjectUtils.Utils;
+import ru.timuruktus.febree.LocalPart.StepConfigurator;
 import ru.timuruktus.febree.R;
 import ru.timuruktus.febree.WebPart.BackendlessWeb;
-import ru.timuruktus.febree.WebPart.EDownloadAndRefreshAllTasks;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.graphics.Color.BLACK;
 import static ru.timuruktus.febree.MainPart.MainPresenter.*;
-import static ru.timuruktus.febree.ProjectUtils.Utils.DAY_IN_SECOND;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,12 +48,11 @@ public class MainActivity extends AppCompatActivity {
         Backendless.initApp(this, APP_ID, API_KEY);
         Settings.initSettings(MainActivity.this);
         if(Settings.isFirstOpened()) {
-            StepCreator.setFirstLaunchSteps(this);
+            StepConfigurator.setFirstLaunchSteps(this);
         }
         instance = this;
         mainPresenter = new MainPresenter(this);
         configureFonts();
-        //initAllListeners();
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         fragmentContainer = (RelativeLayout) this.findViewById(R.id.content);

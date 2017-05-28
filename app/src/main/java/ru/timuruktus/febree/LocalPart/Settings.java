@@ -2,14 +2,16 @@ package ru.timuruktus.febree.LocalPart;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.util.Log;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
+import java.util.HashMap;
 
 import ru.timuruktus.febree.BaseModel;
+import ru.timuruktus.febree.MainPart.MainActivity;
+import ru.timuruktus.febree.ProjectUtils.CustomDialog1;
 import ru.timuruktus.febree.ProjectUtils.Utils;
-
-import static weborb.util.ThreadContext.context;
+import ru.timuruktus.febree.R;
 
 public class Settings implements BaseModel {
 
@@ -23,6 +25,7 @@ public class Settings implements BaseModel {
     private static final String APP_PREFERENCES_CURRENT_TASK_ID = "currentTaskId";
     private static final String APP_PREFERENCES_LAST_TASK_TIME = "lastTaskTime";
     private static SharedPreferences settings;
+    private static Context context;
 
     public static final long EASY_LEVEL = 0;
     public static final long MEDIUM_LEVEL = 1;
@@ -32,7 +35,8 @@ public class Settings implements BaseModel {
     private static final long MEDIUM_LIMIT = 1499;
     private static final long HARD_LIMIT = 15000;
 
-    public static void initSettings(Context context){
+    public static void initSettings(Context con){
+        context = con;
         settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
     }
 
@@ -72,6 +76,11 @@ public class Settings implements BaseModel {
     public static void increaseLevel(){
         long level = getLevel();
         writeLongValue(APP_PREFERENCES_LEVEL, ++level);
+        if(level == 2){
+            StepConfigurator.openStepsInBlock(0);
+        }else if(level == 4){
+            StepConfigurator.openStepsInBlock(1);
+        }
     }
 
     public static void decreaseLevel(){
@@ -93,23 +102,57 @@ public class Settings implements BaseModel {
     }
 
     public static void changePoints(long change){
-        long points = getPoints();
-        setPoints(points + change);
+        long pointsBefore = getPoints();
+        setPoints(pointsBefore + change);
+        long pointsAfter = pointsBefore + change;
+        if(pointsAfter >= getCurrentLevelLimit()){
+            increaseLevel();
+            makeLevelIncreaseDialog();
+        }
+
     }
 
-    public static long getCurrentLimit(){
+    public static long getCurrentLevelLimit(){
         long currentLevel = getLevel();
-        if(currentLevel == HARD_LEVEL){
-            return HARD_LIMIT;
-        }else if(currentLevel == MEDIUM_LEVEL){
-            return MEDIUM_LIMIT;
-        }else{
-            return EASY_LIMIT;
-        }
+        return currentLevel * 100;
     }
 
     public static long getPoints(){
         return getLongValue(APP_PREFERENCES_POINTS);
+    }
+
+    public static void makeLevelIncreaseDialog(){
+        if(getLevel() == 2){
+            CustomDialog1 dialog = new CustomDialog1();
+            Context context = MainActivity.getContext();
+            Resources resources = context.getResources();
+            String title = resources.getString(R.string.complete_level_1_title);
+            String text = resources.getString(R.string.complete_level_1_text);
+            String buttonText = resources.getString(R.string.complete_level_1_button);
+            int titleColor = resources.getColor(R.color.complete_level_1_title_color);
+            dialog.buildDialog(context)
+                    .setTitle(title)
+                    .setFirstText(text)
+                    .setButtonText(buttonText)
+                    .setTitleColor(titleColor)
+                    .setOnClickListener(v -> dialog.dismiss())
+                    .show();
+        }else{
+            CustomDialog1 dialog = new CustomDialog1();
+            Context context = MainActivity.getContext();
+            Resources resources = context.getResources();
+            String title = resources.getString(R.string.complete_level_title);
+            String text = resources.getString(R.string.complete_level_text);
+            String buttonText = resources.getString(R.string.complete_level_button);
+            int titleColor = resources.getColor(R.color.complete_level_title_color);
+            dialog.buildDialog(context)
+                    .setTitle(title)
+                    .setFirstText(text)
+                    .setButtonText(buttonText)
+                    .setTitleColor(titleColor)
+                    .setOnClickListener(v -> dialog.dismiss())
+                    .show();
+        }
     }
 
 
@@ -238,4 +281,6 @@ public class Settings implements BaseModel {
     public void unregisterListener() {
 
     }
+
+
 }

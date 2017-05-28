@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import ru.timuruktus.febree.ContentPart.Interfaces.BaseStepsFragment;
@@ -21,8 +22,8 @@ import ru.timuruktus.febree.MainPart.MainPresenter;
 import ru.timuruktus.febree.R;
 
 
-import static ru.timuruktus.febree.LocalPart.StepCreator.BLOCK_COUNT;
-import static ru.timuruktus.febree.LocalPart.StepCreator.BLOCK_STEPS_COUNT;
+import static ru.timuruktus.febree.LocalPart.StepConfigurator.BLOCK_COUNT;
+import static ru.timuruktus.febree.LocalPart.StepConfigurator.BLOCK_STEPS_COUNT;
 
 
 public class StepsFragment extends Fragment implements BaseStepsFragment{
@@ -33,6 +34,7 @@ public class StepsFragment extends Fragment implements BaseStepsFragment{
     private TextView[][] taskNames = new TextView[BLOCK_COUNT][BLOCK_STEPS_COUNT];
     private Context context;
     private BaseStepsPresenter presenter;
+    private ProgressBar levelbar;
 
 
     @Override
@@ -64,6 +66,11 @@ public class StepsFragment extends Fragment implements BaseStepsFragment{
     }
 
     @Override
+    public void setLevelBarProgress(int progress) {
+        levelbar.setProgress(progress);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         String title = context.getResources().getString(R.string.steps_fragment);
@@ -71,6 +78,8 @@ public class StepsFragment extends Fragment implements BaseStepsFragment{
     }
 
     private void initAllViews(){
+        levelbar = (ProgressBar) getActivity().findViewById(R.id.levelBar);
+
         taskIcons[0][0] = (ImageView) rootView.findViewById(R.id.step11);
         taskIcons[0][1] = (ImageView) rootView.findViewById(R.id.step12);
         taskIcons[0][2] = (ImageView) rootView.findViewById(R.id.step13);
