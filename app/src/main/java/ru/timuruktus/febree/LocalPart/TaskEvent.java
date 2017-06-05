@@ -2,10 +2,9 @@ package ru.timuruktus.febree.LocalPart;
 
 import java.util.ArrayList;
 
-import ru.timuruktus.febree.BaseEvent;
 
 
-public class TaskEvent implements BaseEvent {
+public class TaskEvent{
 
     private ArrayList<Task> tasks;
 

@@ -9,15 +9,15 @@ android {
         applicationId "ru.timuruktus.febree"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 5
-        versionName "1.0.5"
+        versionCode 6
+        versionName "2.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -51,6 +51,7 @@ dependencies {
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'com.github.mmin18:realtimeblurview:1.1.0'
     compile 'com.github.crosswall:Android-Coverflow:release-v1.0.4'
+    compile 'com.anjlab.android.iab.v3:library:1.0.+'
     testCompile 'junit:junit:4.12'
 }
 

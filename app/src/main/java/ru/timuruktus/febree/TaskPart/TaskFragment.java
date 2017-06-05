@@ -2,12 +2,15 @@ package ru.timuruktus.febree.TaskPart;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.orm.query.Condition;
@@ -78,6 +81,10 @@ public class TaskFragment extends Fragment {
         if(!currentTask.isPassed()) {
             readyButton.setOnClickListener(v -> makeConfirmDialog());
         }else{
+            ImageView taskCrown = (ImageView) rootView.findViewById(R.id.taskCrown);
+            taskCrown.setVisibility(View.VISIBLE);
+            String textForButton = context.getResources().getString(R.string.task_completed);
+            readyButton.setText(textForButton);
             readyButton.setEnabled(false);
             readyButton.setBackgroundResource(R.drawable.task_button_background_disabled);
             int titleColor = context.getResources().getColor(R.color.task_title_color_passed);
@@ -94,6 +101,7 @@ public class TaskFragment extends Fragment {
         String confirmButtonText = context.getResources().getString(R.string.task_confirm_button_text);
         int titleColor = context.getResources().getColor(R.color.task_confirm_title_color);
         dialog1.buildDialog(context)
+                .setDismissOnClick(true)
                 .setTitle(confirmTitle)
                 .setTitleColor(titleColor)
                 .setFirstText(confirmText)
@@ -112,7 +120,7 @@ public class TaskFragment extends Fragment {
             currentStep.setStatus(Step.STATUS_COMPLETED);
         }
         currentTask.setPassed(true);
-        adapter.refreshData();
+        adapter.refreshData(positionInStep);
         Log.d("mytag", "Points before " + Settings.getPoints());
         Settings.changePoints(currentTask.getPoints());
         Log.d("mytag", "Points after " + Settings.getPoints());

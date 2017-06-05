@@ -5,10 +5,23 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="error">Ошибка</string>
 
     // TITLES FOR TOOLBAR
     <string name="steps_fragment">Главная</string>
+    <string name="reg_fragment">Регистрация</string>
+    <string name="login_fragment">Вход</string>
+    <string name="donate_fragment">Премиум-функции</string>
+
+    // LEFT NAVIGATION MENU
+    <string name="nav_home_text">Домой</string>
+    <string name="nav_donate_text">Донат</string>
+    <string name="nav_exit_text">Выйти</string>
+    <string name="nav_login_text">Войти</string>
+    <string name="nav_more">Подробнее</string>
+    <string name="exit_message">Вы успешно вышли</string>
 
     // [POPUP MENU]
     <string name="needed_to_internet">Для обновления базы требуется интернет соединение</string>
@@ -39,6 +52,7 @@
 
     // FOR TASK
     <string name="task_ready">Готово!</string>
+    <string name="task_completed">Выполнено</string>
     <string name="task_number">Задание </string>
     <string name="task_confirm_title">Вы уверены, что выполнили задание полностью?</string>
     <string name="task_confirm_text">Вы должны понимать, что нет смысла обманывать приложение.
@@ -70,5 +84,48 @@
     <string name="complete_level_title">Поздравляем!</string>
     <string name="complete_level_text">Вы успешно повысили свой уровень!</string>
     <string name="complete_level_button">Я молодец</string>
+
+    // REGISTRATION FRAGMENT
+    <string name="reg_title_text">Регистрация</string>
+    <string name="reg_email_title">E-mail адрес</string>
+    <string name="reg_email_hint">Введите действующий адрес</string>
+    <string name="reg_pass_hint">Не менее 6 символов</string>
+    <string name="reg_confirm_pass_title">Пожалуйста, повторите пароль</string>
+    <string name="reg_login_hint">Логин должен быть уникальным</string>
+    <string name="reg_confirm_registration">Завершить регистрацию</string>
+    <string name="reg_empty_values">Пожалуйста, заполните все поля!</string>
+    <string name="reg_registration_title">Регистрация..</string>
+    <string name="reg_registration_text1">Выполняется регистрация нового пользователя</string>
+    <string name="reg_registration_text2">Если регистрация идет слишком долго- проверьте ваше соединение</string>
+    <string name="reg_success_message">Остался последний шаг. Подтвердите почту!</string>
+    <string name="reg_pass_confirm_false">Неверно подтвержден пароль</string>
+    <string name="reg_short_pass">Слишком короткий пароль</string>
+    <string name="reg_user_already_exists">Пользователь уже существует</string>
+
+    // LOGIN FRAGMENT
+    <string name="login_title_text">Вход</string>
+    <string name="login_go_to_registration_text"><u>У меня нет аккаунта</u></string>
+    <string name="login_join_text">Войти</string>
+    <string name="login_success_message">Вы успешно вошли!</string>
+    <string name="login_error_account_blocked">Ваш аккаунт заблокирован!</string>
+    <string name="login_error_wrong_info">Неверный логин, или пароль</string>
+    <string name="login_joining_title">Пожалуйста, подождите</string>
+    <string name="login_joining_text1">Выполняется вход в систему</string>
+    <string name="login_joining_text2">Если вход идет слишком долго- проверьте ваше соединение</string>
+    <string name="login_empty_values">Пожалуйста, заполните все поля!</string>
+    <string name="login_email_not_confirmed">Пожалуйста, подтвердите ваш почтовый адрес</string>
+
+    // DONATE FRAGMENT
+    <string name="donate_title">Премиум-функции</string>
+    <string name="donate_block_1_title">Премиум аккаунт</string>
+    <string name="donate_block_1_text">Месячная подписка. Открывает доступ к этапам выше второго</string>
+    <string name="donate_other_functions">Остальные функции появятся позже! Следите за новостями</string>
+    <string name="donate_buy_block_1_title">Покупка премиум аккаунта</string>
+    <string name="donate_buy_block_1_text">Вы собираетесь купить премиум-аккаунт в нашем приложении.
+    \n Данная функция будет действовать ровно месяц и откроет вам доступ ко всем этапам с заданиями.
+        \n Кроме того, вы будете самыми первыми получать новые задания, приходящие с обновлениями
+    \n Заранее благодарны за покупку.</string>
+    <string name="donate_buy_block_1_button">Купить..</string>
+    <string name="donate_first_register">Для доступа к платным функциям требуется вход в аккаунт</string>
 
 </resources>

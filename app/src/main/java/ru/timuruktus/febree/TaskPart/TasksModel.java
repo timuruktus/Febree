@@ -9,8 +9,6 @@ import android.util.Log;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import ru.timuruktus.febree.LocalPart.Step;
@@ -44,7 +42,7 @@ public class TasksModel implements BaseTasksModel {
                 .list();
         Log.d("mytag", "TasksModel.getStepByNumber() blockNum = " + blockNum
                 + " stepNum = " + stepNum);
-        Context context = MainActivity.getContext();
+        Context context = MainActivity.getInstance();
         Resources resources = context.getResources();
         return resources.getString(R.string.tasks_back_to_menu);
     }

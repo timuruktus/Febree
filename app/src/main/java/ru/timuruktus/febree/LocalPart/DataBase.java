@@ -15,37 +15,8 @@ public class DataBase implements BaseModel {
 
     public DataBase() {
         //Log.d("mytag", "DataBase.DataBase() event handles initialised");
-        initListener();
     }
 
-
-    public void saveAllTasks(ESaveAllTasks event){
-        ArrayList<Task> tasks = event.getTasks();
-        for(Task currentTask : tasks){
-            currentTask.save();
-            //Log.d("mytag", "DataBase.saveAllTasks() task saved");
-        }
-        tasks = null;
-    }
-
-
-    public void refreshAllTasks(ERefreshAllTasks event){
-        ArrayList<Task> tasks = event.getTasks();
-        for(Task currentTask : tasks){
-            List<Task> localTask =
-                    Task.find(Task.class, "unique_id = ?",
-                            currentTask.getUniqueId() + "");
-            if(localTask.size() == 0){
-                currentTask.save();
-            }else if(localTask.get(0).getVersion() < currentTask.getVersion()){
-                localTask.get(0).setVersion(currentTask.getVersion());
-                localTask.get(0).setText(currentTask.getText());
-                localTask.get(0).setPoints(currentTask.getPoints());
-                localTask.get(0).save();
-            }
-        }
-        tasks = null;
-    }
 
     public static void taskCompleted(Task task){
         task.setPassed(true);
@@ -95,17 +66,4 @@ public class DataBase implements BaseModel {
     }*/
 
 
-    public void clearAllTasks(EClearAllTasks event){
-        Task.deleteAll(Task.class);
-    }
-
-    @Override
-    public void initListener() {
-
-    }
-
-    @Override
-    public void unregisterListener() {
-
-    }
 }

@@ -4,14 +4,7 @@ import android.app.Fragment;
 import android.util.Log;
 
 
-public abstract class BaseFragment extends Fragment {
+public interface BaseFragment {
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        //EventBus.getDefault().post(new EOnFragmentChanged(this));
-    }
-
-    public abstract void setTypefaces();
 
 }

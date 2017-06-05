@@ -65,8 +65,8 @@ public class TasksFragmentAdapter extends FragmentStatePagerAdapter{
         this.stepNum = stepNum;
     }
 
-    public void refreshData() {
+    public void refreshData(int taskNum) {
         fragment.showTasks(tasks);
-        this.setPrimaryItem(null, 1, null);
+        fragment.refreshData(taskNum - 1);
     }
 }

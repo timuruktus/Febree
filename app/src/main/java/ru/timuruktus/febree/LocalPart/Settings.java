@@ -5,7 +5,11 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.util.Log;
 
-import java.util.HashMap;
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.local.UserTokenStorageFactory;
 
 import ru.timuruktus.febree.BaseModel;
 import ru.timuruktus.febree.MainPart.MainActivity;
@@ -24,22 +28,142 @@ public class Settings implements BaseModel {
     private static final String APP_PREFERENCES_LEVELS_SKIPPED = "levelsSkipped";
     private static final String APP_PREFERENCES_CURRENT_TASK_ID = "currentTaskId";
     private static final String APP_PREFERENCES_LAST_TASK_TIME = "lastTaskTime";
+    private static final String APP_PREFERENCES_USER_LOGGED = "userLogged";
     private static SharedPreferences settings;
-    private static Context context;
-
-    public static final long EASY_LEVEL = 0;
-    public static final long MEDIUM_LEVEL = 1;
-    public static final long HARD_LEVEL = 2;
-
-    private static final long EASY_LIMIT = 499;
-    private static final long MEDIUM_LIMIT = 1499;
-    private static final long HARD_LIMIT = 15000;
 
     public static void initSettings(Context con){
-        context = con;
-        settings = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        settings = con.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
     }
 
+    /**
+     * UNDER THIS LINE- 3-LVL METHODS
+     * 3-lvl methods is used to make some calculations and other operations.
+     * This methods use ONLY 2-lvl methods
+     */
+
+    public static boolean checkIfUserLogged(){
+        String userToken = UserTokenStorageFactory.instance().getStorage().get();
+        return userToken != null && !userToken.equals("");
+    }
+
+    public static void exitUser(){
+        BackendlessUser user = Backendless.UserService.CurrentUser();
+        if(user != null){
+            Backendless.UserService.logout(getLogoutCallback());
+        }else{
+            Log.d("mytag", "Unable to logout. User didn't log in");
+        }
+    }
+
+    private static AsyncCallback<Void> getLogoutCallback(){
+        return new AsyncCallback<Void>() {
+            @Override
+            public void handleResponse(Void response) {
+
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.d("mytag", fault.toString());
+            }
+        };
+    }
+
+    public static void increaseLevel(){
+        long level = getLevel();
+        writeLongValue(APP_PREFERENCES_LEVEL, ++level);
+        if(level == 2){
+            StepConfigurator.openStepsInBlock(0);
+        }else if(level == 4){
+            StepConfigurator.openStepsInBlock(1);
+        }
+    }
+
+    public static void decreaseLevel(){
+        long level = getLevel();
+        writeLongValue(APP_PREFERENCES_LEVEL, --level);
+    }
+
+    public static void changePoints(long change){
+        long pointsBefore = getPoints();
+        setPoints(pointsBefore + change);
+        long pointsAfter = pointsBefore + change;
+        if(pointsAfter >= getCurrentLevelLimit()){
+            increaseLevel();
+            makeLevelIncreaseDialog();
+        }
+
+    }
+
+    public static long getCurrentLevelLimit(){
+        long currentLevel = getLevel();
+        return currentLevel * 100;
+    }
+
+    public static void makeLevelIncreaseDialog(){
+        if(getLevel() == 2){
+            CustomDialog1 dialog = new CustomDialog1();
+            Context context = MainActivity.getInstance();
+            Resources resources = context.getResources();
+            String title = resources.getString(R.string.complete_level_1_title);
+            String text = resources.getString(R.string.complete_level_1_text);
+            String buttonText = resources.getString(R.string.complete_level_1_button);
+            int titleColor = resources.getColor(R.color.complete_level_1_title_color);
+            dialog.buildDialog(context)
+                    .setDismissOnClick(true)
+                    .setTitle(title)
+                    .setFirstText(text)
+                    .setButtonText(buttonText)
+                    .setTitleColor(titleColor)
+                    .setOnClickListener(v -> dialog.dismiss())
+                    .show();
+        }else{
+            CustomDialog1 dialog = new CustomDialog1();
+            Context context = MainActivity.getInstance();
+            Resources resources = context.getResources();
+            String title = resources.getString(R.string.complete_level_title);
+            String text = resources.getString(R.string.complete_level_text);
+            String buttonText = resources.getString(R.string.complete_level_button);
+            int titleColor = resources.getColor(R.color.complete_level_title_color);
+            dialog.buildDialog(context)
+                    .setDismissOnClick(true)
+                    .setTitle(title)
+                    .setFirstText(text)
+                    .setButtonText(buttonText)
+                    .setTitleColor(titleColor)
+                    .setOnClickListener(v -> dialog.dismiss())
+                    .show();
+        }
+    }
+
+
+    public static void incrementLevelsDone(){
+        long level = getLevelsDone();
+        writeLongValue(APP_PREFERENCES_LEVELS_DONE, ++level);
+    }
+
+
+    public static void incrementLevelsSkipped(){
+        long level = getLevelsSkipped();
+        writeLongValue(APP_PREFERENCES_LEVELS_SKIPPED, ++level);
+    }
+
+
+    public static long getTimeBetweenLastTaskAndCurrentTime(){
+        long lastTaskTime = getLastTaskTime();
+        long answer = Utils.getCurrentTimeInSeconds() - lastTaskTime;
+        Log.d("mytag", "Settings.getTimeBetweenLastTaskAndCurrentTime() answer = " + answer);
+        if(answer < 0){
+            return 704800;
+        }else{
+            return answer;
+        }
+    }
+
+    /**
+     * UNDER THIS LINE- 2-LVL METHODS
+     * 2-lvl methods is used to specify values to write and read.
+     */
 
     /*
     UNDER THIS LINE- FIRST APP OPEN METHODS
@@ -73,21 +197,6 @@ public class Settings implements BaseModel {
         writeLongValue(APP_PREFERENCES_LEVEL, level);
     }
 
-    public static void increaseLevel(){
-        long level = getLevel();
-        writeLongValue(APP_PREFERENCES_LEVEL, ++level);
-        if(level == 2){
-            StepConfigurator.openStepsInBlock(0);
-        }else if(level == 4){
-            StepConfigurator.openStepsInBlock(1);
-        }
-    }
-
-    public static void decreaseLevel(){
-        long level = getLevel();
-        writeLongValue(APP_PREFERENCES_LEVEL, --level);
-    }
-
     public static long getLevel(){
         return getLongValue(APP_PREFERENCES_LEVEL);
     }
@@ -101,61 +210,9 @@ public class Settings implements BaseModel {
         writeLongValue(APP_PREFERENCES_POINTS, points);
     }
 
-    public static void changePoints(long change){
-        long pointsBefore = getPoints();
-        setPoints(pointsBefore + change);
-        long pointsAfter = pointsBefore + change;
-        if(pointsAfter >= getCurrentLevelLimit()){
-            increaseLevel();
-            makeLevelIncreaseDialog();
-        }
-
-    }
-
-    public static long getCurrentLevelLimit(){
-        long currentLevel = getLevel();
-        return currentLevel * 100;
-    }
-
     public static long getPoints(){
         return getLongValue(APP_PREFERENCES_POINTS);
     }
-
-    public static void makeLevelIncreaseDialog(){
-        if(getLevel() == 2){
-            CustomDialog1 dialog = new CustomDialog1();
-            Context context = MainActivity.getContext();
-            Resources resources = context.getResources();
-            String title = resources.getString(R.string.complete_level_1_title);
-            String text = resources.getString(R.string.complete_level_1_text);
-            String buttonText = resources.getString(R.string.complete_level_1_button);
-            int titleColor = resources.getColor(R.color.complete_level_1_title_color);
-            dialog.buildDialog(context)
-                    .setTitle(title)
-                    .setFirstText(text)
-                    .setButtonText(buttonText)
-                    .setTitleColor(titleColor)
-                    .setOnClickListener(v -> dialog.dismiss())
-                    .show();
-        }else{
-            CustomDialog1 dialog = new CustomDialog1();
-            Context context = MainActivity.getContext();
-            Resources resources = context.getResources();
-            String title = resources.getString(R.string.complete_level_title);
-            String text = resources.getString(R.string.complete_level_text);
-            String buttonText = resources.getString(R.string.complete_level_button);
-            int titleColor = resources.getColor(R.color.complete_level_title_color);
-            dialog.buildDialog(context)
-                    .setTitle(title)
-                    .setFirstText(text)
-                    .setButtonText(buttonText)
-                    .setTitleColor(titleColor)
-                    .setOnClickListener(v -> dialog.dismiss())
-                    .show();
-        }
-    }
-
-
 
     /*
     UNDER THIS LINE- DONE LEVELS METHODS
@@ -163,11 +220,6 @@ public class Settings implements BaseModel {
 
     public static void setLevelsDone(long levels){
         writeLongValue(APP_PREFERENCES_LEVELS_DONE, levels);
-    }
-
-    public static void incrementLevelsDone(){
-        long level = getLevelsDone();
-        writeLongValue(APP_PREFERENCES_LEVELS_DONE, ++level);
     }
 
     public static long getLevelsDone(){
@@ -180,11 +232,6 @@ public class Settings implements BaseModel {
 
     public static void setLevelsSkipped(long levels){
         writeLongValue(APP_PREFERENCES_LEVELS_SKIPPED, levels);
-    }
-
-    public static void incrementLevelsSkipped(){
-        long level = getLevelsSkipped();
-        writeLongValue(APP_PREFERENCES_LEVELS_SKIPPED, ++level);
     }
 
     public static long getLevelsSkipped(){
@@ -211,23 +258,14 @@ public class Settings implements BaseModel {
         writeLongValue(APP_PREFERENCES_LAST_TASK_TIME, sec);
     }
 
-    public static long getTimeBetweenLastTaskAndCurrentTime(){
-        long lastTaskTime = getLastTaskTime();
-        long answer = Utils.getCurrentTimeInSeconds() - lastTaskTime;
-        Log.d("mytag", "Settings.getTimeBetweenLastTaskAndCurrentTime() answer = " + answer);
-        if(answer < 0){
-            return 704800;
-        }else{
-            return answer;
-        }
-    }
 
     public static long getLastTaskTime(){
         return getLongValue(APP_PREFERENCES_LAST_TASK_TIME);
     }
 
-    /*
-    UNDER THIS LINE- SUPPORTING METHODS. USE ONLY IS THIS CLASS
+    /**
+     * UNDER THIS LINE- 1-LVL METHODS
+     * 1-lvl methods is used to write and read data from SharedReference.
      */
 
     private static void writeStringValue(String path, String value){
@@ -272,15 +310,6 @@ public class Settings implements BaseModel {
         return settings.getBoolean(path, defaultValue);
     }
 
-    @Override
-    public void initListener() {
-
-    }
-
-    @Override
-    public void unregisterListener() {
-
-    }
 
 
 }

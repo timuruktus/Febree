@@ -30,7 +30,7 @@
     <color name="complete_level_1_button_color">#4857a6</color>
 
     //TASKS FRAGMENT
-    <color name="tasks_fragment_background_color">#2962ff</color>
+    <color name="tasks_fragment_background_color">#4875f1</color>
 
     //TASK
     <color name="task_background_color">#ffffff</color>
@@ -42,6 +42,23 @@
     <color name="task_confirm_button_color">#5582ff</color>
     <color name="tasks_button_background_color_disabled">#939393</color>
     <color name="task_title_color_passed">#fdcc2b</color>
+
+    // REGISTRATION FRAGMENT
+    <color name="reg_fragment_background">#607acf</color>
+    <color name="reg_registration_title_color">#243bb4</color>
+
+    // LOGIN FRAGMENT
+    <color name="login_fragment_background">#607acf</color>
+    <color name="login_have_no_account">#d40c13</color>
+    <color name="login_joining_title_color">#243bb4</color>
+
+    // DONATE FRAGMENT
+    <color name="donate_fragment_background">#c4c8d7</color>
+    <color name="donate_block_background">#eaeaea</color>
+    <color name="donate_block_corners">#ffffff</color>
+    <color name="donate_image_background_1">#701802</color>
+    <color name="donate_image_corners_1">#871e04</color>
+    <color name="donate_buy_block_1_title">#cca116</color>
 
 
 

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_fragment_background"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/loginJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginPassBlock"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:text="@string/login_join_text" />
+
+    <TextView
+        android:id="@+id/goToRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginJoin"
+        android:layout_centerHorizontal="true"
+        android:text="@string/login_go_to_registration_text"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/loginLoginBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:elevation="3dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/loginLoginTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/login"
+            android:textSize="18sp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/loginLoginInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/loginLoginEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint=" "
+                android:inputType="textPersonName" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loginPassBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginLoginBlock"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:elevation="3dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/loginPassTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/password"
+            android:textSize="18sp" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/loginPassInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/loginPassEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint=" "
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+</RelativeLayout>

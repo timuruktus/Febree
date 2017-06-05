@@ -35,6 +35,7 @@ public class StepsFragment extends Fragment implements BaseStepsFragment{
     private Context context;
     private BaseStepsPresenter presenter;
     private ProgressBar levelbar;
+    private static final int NAV_MENU_ID = R.id.nav_home;
 
 
     @Override
@@ -75,6 +76,8 @@ public class StepsFragment extends Fragment implements BaseStepsFragment{
         super.onResume();
         String title = context.getResources().getString(R.string.steps_fragment);
         MainPresenter.changeToolbarTitle(title);
+        MainPresenter.changeToolbarVisibility(MainPresenter.DONT_HIDE_TOOLBAR);
+        MainPresenter.setCheckedItemInNavMenu(NAV_MENU_ID);
     }
 
     private void initAllViews(){

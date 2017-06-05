@@ -16,14 +16,14 @@ import ru.timuruktus.febree.R;
 import rx.Observable;
 import rx.schedulers.Schedulers;
 
-public class StepsModel implements BaseStepsModel {
+import static ru.timuruktus.febree.BaseModel.BUTTON_TEXT;
+import static ru.timuruktus.febree.BaseModel.FIRST_TEXT;
+import static ru.timuruktus.febree.BaseModel.SECOND_TEXT;
+import static ru.timuruktus.febree.BaseModel.SECOND_TEXT_COLOR;
+import static ru.timuruktus.febree.BaseModel.TITLE_COLOR;
+import static ru.timuruktus.febree.BaseModel.TITLE_TEXT;
 
-    public static final String FIRST_TEXT = "firstText";
-    public static final String SECOND_TEXT = "secondText";
-    public static final String TITLE_TEXT = "titleText";
-    public static final String BUTTON_TEXT = "buttonText";
-    public static final String TITLE_COLOR = "titleColor";
-    public static final String SECOND_TEXT_COLOR = "secondTextColor";
+public class StepsModel implements BaseStepsModel {
 
     public Observable<Step> stepsQuery(){
         return Observable.from(Step.listAll(Step.class))
@@ -40,7 +40,7 @@ public class StepsModel implements BaseStepsModel {
 
     @Override
     public HashMap<String, String> getTextFor1Dialog() {
-        Context context = MainActivity.getContext();
+        Context context = MainActivity.getInstance();
         Resources resources = context.getResources();
         HashMap<String, String> map = new HashMap<>();
         map.put(FIRST_TEXT, resources.getString(R.string.first_step_opening_first_text));
@@ -52,7 +52,7 @@ public class StepsModel implements BaseStepsModel {
 
     @Override
     public HashMap<String, Integer> getColorsFor1Dialog() {
-        Context context = MainActivity.getContext();
+        Context context = MainActivity.getInstance();
         Resources resources = context.getResources();
         HashMap<String, Integer> map = new HashMap<>();
         map.put(TITLE_COLOR, resources.getColor(R.color.first_step_opening_title_color));
@@ -62,7 +62,7 @@ public class StepsModel implements BaseStepsModel {
 
     @Override
     public HashMap<String, String> getTextForLoadingDialog() {
-        Context context = MainActivity.getContext();
+        Context context = MainActivity.getInstance();
         Resources resources = context.getResources();
         HashMap<String, String> map = new HashMap<>();
         map.put(FIRST_TEXT, resources.getString(R.string.steps_loading_text));
@@ -73,7 +73,7 @@ public class StepsModel implements BaseStepsModel {
 
     @Override
     public HashMap<String, Integer> getColorsForLoadingDialog() {
-        Context context = MainActivity.getContext();
+        Context context = MainActivity.getInstance();
         Resources resources = context.getResources();
         HashMap<String, Integer> map = new HashMap<>();
         map.put(TITLE_COLOR, resources.getColor(R.color.steps_loading_dialog_title_color));

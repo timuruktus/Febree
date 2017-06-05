@@ -73,7 +73,7 @@ class TasksPresenter implements BaseTasksPresenter {
         return model.getStepByNumber(blockNum, stepNum);
     }
 
-    @Override
+
     public void addSubscription(Subscription subscription) {
         allSubscriptions.add(subscription);
     }

@@ -5,13 +5,16 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import ru.timuruktus.febree.R;
 
+import static android.graphics.Color.BLACK;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 public class CustomDialog1 {
@@ -24,15 +27,26 @@ public class CustomDialog1 {
 
 
     public CustomDialog1 buildDialog(Context context){
-        dialog = new Dialog(context);
+        dialog = new Dialog(context, R.style.CustomDialogStyle);
         dialog.setContentView(R.layout.dialog_with_1_button);
-        View dialogBackground = dialog.findViewById(R.id.dialogBlurBackground1);
-        dialogBackground.setOnClickListener(v -> dialog.dismiss());
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Window window = dialog.getWindow();
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
         lp.width = MATCH_PARENT;
-        //lp.height = MATCH_PARENT;
-        dialog.getWindow().setAttributes(lp);
+        lp.height = MATCH_PARENT;
+        window.setAttributes(lp);
+        window.setGravity(Gravity.CENTER);
+        setFirstTextColor(BLACK);
+        return this;
+    }
+
+    public CustomDialog1 setDismissOnClick(boolean enable){
+        View dialogBackground = dialog.findViewById(R.id.dialogBlurBackground1);
+        if(enable){
+            dialogBackground.setOnClickListener(v -> dialog.dismiss());
+        }else{
+            dialogBackground.setOnClickListener(null);
+        }
         return this;
     }
 

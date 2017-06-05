@@ -1,5 +1,6 @@
 package ru.timuruktus.febree.IntroducingPart;
 
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +17,7 @@ import com.tmall.ultraviewpager.UltraViewPager;
 import ru.timuruktus.febree.BaseFragment;
 import ru.timuruktus.febree.R;
 
-public class IntroducingFragment extends BaseFragment {
+public class IntroducingFragment extends Fragment implements BaseFragment  {
 
     private View rootView;
 
@@ -45,8 +46,4 @@ public class IntroducingFragment extends BaseFragment {
         return rootView;
     }
 
-    @Override
-    public void setTypefaces() {
-
-    }
 }

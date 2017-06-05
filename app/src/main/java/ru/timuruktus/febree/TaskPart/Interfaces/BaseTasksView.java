@@ -10,4 +10,5 @@ public interface BaseTasksView {
 
     void showTasks(ArrayList<Task> tasks);
     Fragment getFragment();
+    void refreshData(int taskNum);
 }

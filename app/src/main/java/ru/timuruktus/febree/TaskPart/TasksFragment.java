@@ -19,11 +19,13 @@ import java.util.HashMap;
 import me.crosswall.lib.coverflow.CoverFlow;
 import me.crosswall.lib.coverflow.core.PagerContainer;
 import ru.timuruktus.febree.LocalPart.Task;
+import ru.timuruktus.febree.MainPart.MainPresenter;
 import ru.timuruktus.febree.R;
 import ru.timuruktus.febree.TaskPart.Interfaces.BaseTasksPresenter;
 import ru.timuruktus.febree.TaskPart.Interfaces.BaseTasksView;
 
 import static ru.timuruktus.febree.MainPart.MainPresenter.ARG_INFO;
+import static ru.timuruktus.febree.MainPart.MainPresenter.HIDE_TOOLBAR;
 
 public class TasksFragment extends Fragment implements BaseTasksView, Serializable {
 
@@ -35,6 +37,7 @@ public class TasksFragment extends Fragment implements BaseTasksView, Serializab
     private View rootView;
     private BaseTasksPresenter presenter;
     private PagerAdapter textPagerAdapter;
+    private ViewPager pager;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -57,6 +60,12 @@ public class TasksFragment extends Fragment implements BaseTasksView, Serializab
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        MainPresenter.changeToolbarVisibility(HIDE_TOOLBAR);
+    }
+
+    @Override
     public void onDestroy(){
         super.onDestroy();
         Log.d("mytag", "onDestroy() is TasksFragment");
@@ -69,7 +78,7 @@ public class TasksFragment extends Fragment implements BaseTasksView, Serializab
     @Override
     public void showTasks(ArrayList<Task> tasks) {
         PagerContainer container = (PagerContainer) rootView.findViewById(R.id.pager_container);
-        ViewPager pager = container.getViewPager();
+        pager = container.getViewPager();
         FragmentManager fm = getChildFragmentManager();
         textPagerAdapter = new TasksFragmentAdapter(this, tasks, fm, block, step);
         pager.setAdapter(textPagerAdapter);
@@ -86,6 +95,11 @@ public class TasksFragment extends Fragment implements BaseTasksView, Serializab
     @Override
     public Fragment getFragment() {
         return this;
+    }
+
+    @Override
+    public void refreshData(int taskNum) {
+        pager.setCurrentItem(taskNum);
     }
 
 }
