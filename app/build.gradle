@@ -9,15 +9,16 @@ android {
         applicationId "ru.timuruktus.febree"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 6
-        versionName "2.0.0"
+        versionCode 7
+        versionName "2.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

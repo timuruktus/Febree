@@ -95,12 +95,17 @@ public class RegistrationPresenter implements BaseRegistrationPresenter {
             @Override
             public void handleFault(BackendlessFault fault) {
                 dialog.dismiss();
-                int errorCode = Integer.valueOf(fault.getCode());
-                Log.d("mytag", "Auth Fault. Error code = " + errorCode);
-                if(errorCode == USER_ALREADY_EXISTS){
-                    Toast.makeText(MainActivity.getInstance(), R.string.reg_user_already_exists, Toast.LENGTH_SHORT).show();
+                try {
+                    int errorCode = Integer.valueOf(fault.getCode());
+                    Log.d("mytag", "Auth Fault. Error code = " + errorCode);
+                    if (errorCode == USER_ALREADY_EXISTS) {
+                        Toast.makeText(MainActivity.getInstance(), R.string.reg_user_already_exists, Toast.LENGTH_SHORT).show();
+                    }
+                    Toast.makeText(MainActivity.getInstance(), R.string.error, Toast.LENGTH_SHORT).show();
+                }catch(NumberFormatException ex){
+                    Toast.makeText(MainActivity.getInstance(), R.string.error, Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(MainActivity.getInstance(), R.string.error, Toast.LENGTH_SHORT).show();
+
             }
         };
     }

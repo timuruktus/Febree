@@ -42,8 +42,7 @@ public class Settings implements BaseModel {
      */
 
     public static boolean checkIfUserLogged(){
-        String userToken = UserTokenStorageFactory.instance().getStorage().get();
-        return userToken != null && !userToken.equals("");
+        return Backendless.UserService.CurrentUser() != null;
     }
 
     public static void exitUser(){

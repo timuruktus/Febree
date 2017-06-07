@@ -86,17 +86,22 @@ public class LoginPresenter implements BaseLoginPresenter {
             @Override
             public void handleFault(BackendlessFault fault) {
                 dialog.dismiss();
-                int errorCode = Integer.valueOf(fault.getCode());
-                Log.d("mytag", "Auth Fault. Error code = " + errorCode);
-                if(errorCode == WRONG_INFO_ERROR){
-                    Toast.makeText(MainActivity.getInstance(), R.string.login_error_wrong_info, Toast.LENGTH_SHORT).show();
-                }else if(errorCode == ACCOUNT_BLOCKED_ERROR){
-                    Toast.makeText(MainActivity.getInstance(), R.string.login_error_account_blocked, Toast.LENGTH_SHORT).show();
-                }else if(errorCode == EMAIL_NOT_CONFIRMED){
-                    Toast.makeText(MainActivity.getInstance(), R.string.login_email_not_confirmed, Toast.LENGTH_SHORT).show();
-                } else{
+                try {
+                    int errorCode = Integer.valueOf(fault.getCode());
+                    Log.d("mytag", "Auth Fault. Error code = " + errorCode);
+                    if(errorCode == WRONG_INFO_ERROR){
+                        Toast.makeText(MainActivity.getInstance(), R.string.login_error_wrong_info, Toast.LENGTH_SHORT).show();
+                    }else if(errorCode == ACCOUNT_BLOCKED_ERROR){
+                        Toast.makeText(MainActivity.getInstance(), R.string.login_error_account_blocked, Toast.LENGTH_SHORT).show();
+                    }else if(errorCode == EMAIL_NOT_CONFIRMED){
+                        Toast.makeText(MainActivity.getInstance(), R.string.login_email_not_confirmed, Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(MainActivity.getInstance(), R.string.error, Toast.LENGTH_SHORT).show();
+                    }
+                }catch(NumberFormatException ex){
                     Toast.makeText(MainActivity.getInstance(), R.string.error, Toast.LENGTH_SHORT).show();
                 }
+
             }
         };
     }

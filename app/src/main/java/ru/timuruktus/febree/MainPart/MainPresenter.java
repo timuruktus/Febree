@@ -58,20 +58,20 @@ public class MainPresenter implements BasePresenter{
 
     public static void changeFragmentWithInfo(Fragment fragment, boolean addToBackStack, boolean refresh,
                                       boolean hideToolbar, HashMap<String, Integer> info){
-        String fragmentTag = fragment.getClass().toString();
-        Log.d("mytag", "MainPresenter.changeFragmentWithInfo() fragmentTag = " + fragmentTag);
-        if(refresh) currentFragmentTag = null;
-        if(!backStackIsNull()) {
-            FragmentManager.BackStackEntry lastEntry = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1);
-            currentFragmentTag = lastEntry.getName();
-        }
-        if(currentFragmentTag != null) {
-            if(fragmentTag.equals(currentFragmentTag) && !refresh) {
-                Log.d("mytag", "MainPresenter.changeFragmentWithInfo() return in refresh check");
-                return;
-            }
-        }
-        Log.d("mytag", "MainPresenter.changeFragmentWithInfo() currentFragmentTag = " + currentFragmentTag);
+        //String fragmentTag = fragment.getClass().toString();
+        //Log.d("mytag", "MainPresenter.changeFragmentWithInfo() fragmentTag = " + fragmentTag);
+        //if(refresh) currentFragmentTag = null;
+        //if(!backStackIsNull()) {
+        //    FragmentManager.BackStackEntry lastEntry = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1);
+        //    currentFragmentTag = lastEntry.getName();
+        //}
+        //if(currentFragmentTag != null) {
+        //    if(fragmentTag.equals(currentFragmentTag) && !refresh) {
+        //        Log.d("mytag", "MainPresenter.changeFragmentWithInfo() return in refresh check");
+        //        return;
+        //    }
+        // }
+        //Log.d("mytag", "MainPresenter.changeFragmentWithInfo() currentFragmentTag = " + currentFragmentTag);
         fragmentTransaction = fragmentManager.beginTransaction();
         if(addToBackStack) {
             fragmentTransaction.addToBackStack(fragment.getClass().toString());
