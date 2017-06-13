@@ -1,4 +1,4 @@
-package ru.timuruktus.febree.ContentPart;
+package ru.timuruktus.febree.StepsPart;
 
 public class DownloadError extends Throwable {
 

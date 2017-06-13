@@ -1,29 +1,15 @@
 package ru.timuruktus.febree.TaskPart;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
 
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import ru.timuruktus.febree.ContentPart.StepsFragment;
-import ru.timuruktus.febree.LocalPart.Step;
 import ru.timuruktus.febree.LocalPart.Task;
-import ru.timuruktus.febree.MainPart.MainActivity;
-import ru.timuruktus.febree.MainPart.MainPresenter;
-import ru.timuruktus.febree.R;
 import ru.timuruktus.febree.TaskPart.Interfaces.BaseTasksPresenter;
 import ru.timuruktus.febree.TaskPart.Interfaces.BaseTasksModel;
 import ru.timuruktus.febree.TaskPart.Interfaces.BaseTasksView;
 import rx.Observer;
 import rx.Subscription;
-
-import static ru.timuruktus.febree.MainPart.MainPresenter.DONT_ADD_TO_BACKSTACK;
-import static ru.timuruktus.febree.MainPart.MainPresenter.DONT_HIDE_TOOLBAR;
-import static ru.timuruktus.febree.MainPart.MainPresenter.DONT_REFRESH;
-import static ru.timuruktus.febree.MainPart.MainPresenter.REFRESH;
 
 class TasksPresenter implements BaseTasksPresenter {
 

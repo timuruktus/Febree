@@ -16,12 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 import java.util.HashMap;
 
 import ru.timuruktus.febree.BasePresenter;
-import ru.timuruktus.febree.ContentPart.StepsFragment;
+import ru.timuruktus.febree.StepsPart.StepsFragment;
 import ru.timuruktus.febree.DonatePart.DonateFragment;
 import ru.timuruktus.febree.JoinPart.LoginPart.LoginFragment;
 import ru.timuruktus.febree.LocalPart.Settings;
@@ -39,6 +40,7 @@ public class MainPresenter implements BasePresenter{
     private static FragmentManager fragmentManager;
     private static String currentFragmentTag = null;
     public static final String ARG_INFO = "Info";
+    private static final String DONATE_TAG = "class ru.timuruktus.febree.DonatePart.DonateFragment";
 
     public static final boolean DONT_REFRESH = false;
     public static final boolean REFRESH = true;
@@ -54,29 +56,41 @@ public class MainPresenter implements BasePresenter{
         fragmentManager = mainActivity.getFragmentManager();
     }
 
-
+    // BACKSTACK- то, ОТКУДА мы пришли
 
     public static void changeFragmentWithInfo(Fragment fragment, boolean addToBackStack, boolean refresh,
                                       boolean hideToolbar, HashMap<String, Integer> info){
-        //String fragmentTag = fragment.getClass().toString();
-        //Log.d("mytag", "MainPresenter.changeFragmentWithInfo() fragmentTag = " + fragmentTag);
-        //if(refresh) currentFragmentTag = null;
-        //if(!backStackIsNull()) {
-        //    FragmentManager.BackStackEntry lastEntry = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1);
-        //    currentFragmentTag = lastEntry.getName();
-        //}
-        //if(currentFragmentTag != null) {
-        //    if(fragmentTag.equals(currentFragmentTag) && !refresh) {
-        //        Log.d("mytag", "MainPresenter.changeFragmentWithInfo() return in refresh check");
-        //        return;
-        //    }
-        // }
-        //Log.d("mytag", "MainPresenter.changeFragmentWithInfo() currentFragmentTag = " + currentFragmentTag);
+        String fragmentTag = fragment.getClass().toString();
+        Log.d("mytag", "MainPresenter.changeFragmentWithInfo() fragmentTag = " + fragmentTag);
+        if(!Settings.checkIfUserLogged()){
+            if(fragmentTag.equals(DONATE_TAG)) {
+                Toast.makeText(mainActivity, R.string.donate_first_register, Toast.LENGTH_LONG).show();
+                Log.d("mytag", "MainPresenter.changeFragmentWithInfo() donate is blocked");
+                return;
+            }
+        }
+
+        if(!refresh){
+            if(!backStackIsNull()) {
+                FragmentManager.BackStackEntry lastEntry = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount() - 1);
+                currentFragmentTag = lastEntry.getName();
+                Log.d("mytag", "MainPresenter.changeFragmentWithInfo() currentFragmentTag = " + currentFragmentTag);
+                if(fragmentTag.equals(currentFragmentTag)){
+                    Log.d("mytag", "MainPresenter.changeFragmentWithInfo() return in refresh check");
+                    return;
+                }
+            }else{
+                currentFragmentTag = null;
+                Log.d("mytag", "MainPresenter.changeFragmentWithInfo() currentFragmentTag = null");
+            }
+        }
+
+
         fragmentTransaction = fragmentManager.beginTransaction();
         if(addToBackStack) {
             fragmentTransaction.addToBackStack(fragment.getClass().toString());
         }else {
-            fragmentManager.popBackStack();
+            clearStack();
         }
         if(info != null) {
             Bundle args = new Bundle();
@@ -88,6 +102,14 @@ public class MainPresenter implements BasePresenter{
         fragmentTransaction.replace(R.id.content, fragment);
         fragmentTransaction.commit();
 
+    }
+
+    private static void clearStack(){
+        int count = fragmentManager.getBackStackEntryCount();
+        while(count > 0){
+            fragmentManager.popBackStack();
+            count--;
+        }
     }
 
     private static boolean backStackIsNull(){
@@ -142,6 +164,11 @@ public class MainPresenter implements BasePresenter{
         return new ActionBarDrawerToggle(activity, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close){
             @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+            }
+
+            @Override
             public void onDrawerStateChanged(int newState) {
                 super.onDrawerStateChanged(newState);
                 MenuItem menuExit = mainActivity.navigationView.getMenu().findItem(R.id.nav_exit);
@@ -162,14 +189,19 @@ public class MainPresenter implements BasePresenter{
         if(id == R.id.nav_exit){
             Settings.exitUser();
             mainActivity.drawer.closeDrawer(GravityCompat.START);
-            changeFragment(new StepsFragment(), DONT_ADD_TO_BACKSTACK, REFRESH, DONT_HIDE_TOOLBAR);
+            changeFragment(new StepsFragment(), DONT_ADD_TO_BACKSTACK, DONT_REFRESH, DONT_HIDE_TOOLBAR);
             return false;
         }else if(id == R.id.nav_login){
-            changeFragment(new LoginFragment(), ADD_TO_BACKSTACK, DONT_REFRESH, DONT_HIDE_TOOLBAR);
+            changeFragment(new LoginFragment(), DONT_ADD_TO_BACKSTACK, DONT_REFRESH, DONT_HIDE_TOOLBAR);
         }else if(id == R.id.nav_home){
-            changeFragment(new StepsFragment(), ADD_TO_BACKSTACK, DONT_REFRESH, DONT_HIDE_TOOLBAR);
+            changeFragment(new StepsFragment(), DONT_ADD_TO_BACKSTACK, DONT_REFRESH, DONT_HIDE_TOOLBAR);
         }else if(id == R.id.nav_donate){
-            changeFragment(new DonateFragment(), ADD_TO_BACKSTACK, DONT_REFRESH, DONT_HIDE_TOOLBAR);
+            if(!Settings.checkIfUserLogged()){
+                Toast.makeText(mainActivity, R.string.donate_first_register, Toast.LENGTH_LONG).show();
+                Log.d("mytag", "MainPresenter.changeFragmentWithInfo() donate is blocked");
+                return false;
+            }
+            changeFragment(new DonateFragment(), DONT_ADD_TO_BACKSTACK, DONT_REFRESH, DONT_HIDE_TOOLBAR);
         }
         return true;
     }

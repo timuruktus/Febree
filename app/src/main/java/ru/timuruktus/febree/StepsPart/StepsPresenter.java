@@ -1,4 +1,4 @@
-package ru.timuruktus.febree.ContentPart;
+package ru.timuruktus.febree.StepsPart;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ru.timuruktus.febree.ContentPart.Interfaces.BaseStepsFragment;
-import ru.timuruktus.febree.ContentPart.Interfaces.BaseStepsModel;
-import ru.timuruktus.febree.ContentPart.Interfaces.BaseStepsPresenter;
+import ru.timuruktus.febree.StepsPart.Interfaces.BaseStepsFragment;
+import ru.timuruktus.febree.StepsPart.Interfaces.BaseStepsModel;
+import ru.timuruktus.febree.StepsPart.Interfaces.BaseStepsPresenter;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.LocalPart.Step;
 import ru.timuruktus.febree.LocalPart.Task;
@@ -137,8 +137,6 @@ public class StepsPresenter implements BaseStepsPresenter {
             }
         };
     }
-
-
 
 
     public void buildDialogForFirstStep(HashMap<String, String> textForDialog,

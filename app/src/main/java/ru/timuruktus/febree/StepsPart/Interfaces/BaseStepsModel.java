@@ -1,4 +1,4 @@
-package ru.timuruktus.febree.ContentPart.Interfaces;
+package ru.timuruktus.febree.StepsPart.Interfaces;
 
 import java.util.HashMap;
 

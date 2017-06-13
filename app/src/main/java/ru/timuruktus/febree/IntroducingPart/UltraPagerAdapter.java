@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ru.timuruktus.febree.ContentPart.StepsFragment;
+import ru.timuruktus.febree.StepsPart.StepsFragment;
 import ru.timuruktus.febree.LocalPart.Settings;
 import ru.timuruktus.febree.MainPart.MainPresenter;
 import ru.timuruktus.febree.R;
@@ -56,7 +56,10 @@ public class UltraPagerAdapter extends PagerAdapter {
             contBut.startAnimation(animation);
             contBut.setEnabled(true);
             contBut.setOnClickListener(v -> {
-                MainPresenter.changeFragment(new StepsFragment(), false, true, false);
+                MainPresenter.changeFragment(new StepsFragment(),
+                        MainPresenter.DONT_ADD_TO_BACKSTACK,
+                        MainPresenter.REFRESH,
+                        MainPresenter.DONT_HIDE_TOOLBAR);
                 Settings.setFirstOpened(false);
                 Settings.setLevel(1);
             });

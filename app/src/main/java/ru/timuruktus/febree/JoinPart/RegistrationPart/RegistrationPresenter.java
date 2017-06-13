@@ -11,7 +11,7 @@ import com.backendless.exceptions.BackendlessFault;
 
 import java.util.HashMap;
 
-import ru.timuruktus.febree.ContentPart.StepsFragment;
+import ru.timuruktus.febree.StepsPart.StepsFragment;
 import ru.timuruktus.febree.JoinPart.RegistrationPart.Interfaces.BaseRegistrationModel;
 import ru.timuruktus.febree.JoinPart.RegistrationPart.Interfaces.BaseRegistrationPresenter;
 import ru.timuruktus.febree.JoinPart.RegistrationPart.Interfaces.BaseRegistrationView;

@@ -11,11 +11,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -26,7 +25,7 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.backendless.Backendless;
 
 
-import ru.timuruktus.febree.ContentPart.StepsFragment;
+import ru.timuruktus.febree.StepsPart.StepsFragment;
 import ru.timuruktus.febree.DonatePart.DonateFragment;
 import ru.timuruktus.febree.IntroducingPart.IntroducingFragment;
 import ru.timuruktus.febree.LocalPart.DataBase;
@@ -90,19 +89,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void loadFirstFragment(){
         if(Settings.isFirstOpened()){
             openIntroducingFragment();
-            //Log.d("mytag", "MainActivity.loadFirstFragment() introducingFragment opened");
+            Log.d("mytag", "MainActivity.loadFirstFragment() introducingFragment opened");
         }else{
             openHomeFragment();
-            //Log.d("mytag", "MainActivity.loadFirstFragment() homeFragment opened");
+            Log.d("mytag", "MainActivity.loadFirstFragment() homeFragment opened");
         }
     }
 
     private void openIntroducingFragment(){
-        changeFragment(new IntroducingFragment(), false, true, true);
+        changeFragment(new IntroducingFragment(), DONT_ADD_TO_BACKSTACK, REFRESH, HIDE_TOOLBAR);
     }
 
     private void openHomeFragment(){
-        changeFragment(new StepsFragment(), false, true, false);
+        changeFragment(new StepsFragment(), DONT_ADD_TO_BACKSTACK, REFRESH, DONT_HIDE_TOOLBAR);
     }
 
 
@@ -140,10 +139,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_donate){
-            changeFragment(new DonateFragment(), ADD_TO_BACKSTACK, DONT_REFRESH, DONT_HIDE_TOOLBAR);
+            changeFragment(new DonateFragment(), DONT_ADD_TO_BACKSTACK, DONT_REFRESH, DONT_HIDE_TOOLBAR);
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 

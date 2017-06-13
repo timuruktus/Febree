@@ -1,4 +1,4 @@
-package ru.timuruktus.febree.ContentPart;
+package ru.timuruktus.febree.StepsPart;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -15,8 +15,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import ru.timuruktus.febree.ContentPart.Interfaces.BaseStepsFragment;
-import ru.timuruktus.febree.ContentPart.Interfaces.BaseStepsPresenter;
+import ru.timuruktus.febree.StepsPart.Interfaces.BaseStepsFragment;
+import ru.timuruktus.febree.StepsPart.Interfaces.BaseStepsPresenter;
 import ru.timuruktus.febree.LocalPart.Step;
 import ru.timuruktus.febree.MainPart.MainPresenter;
 import ru.timuruktus.febree.R;

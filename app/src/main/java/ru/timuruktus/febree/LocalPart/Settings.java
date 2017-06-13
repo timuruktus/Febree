@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
+import com.backendless.UserService;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.local.UserTokenStorageFactory;
@@ -42,11 +43,19 @@ public class Settings implements BaseModel {
      */
 
     public static boolean checkIfUserLogged(){
-        return Backendless.UserService.CurrentUser() != null;
+        String userToken = UserTokenStorageFactory.instance().getStorage().get();
+        return Backendless.UserService.CurrentUser() != null || userToken != null && !userToken.equals("");
+    }
+
+    public static boolean checkUserLoginValid(){
+        return Backendless.UserService.isValidLogin();
     }
 
     public static void exitUser(){
         BackendlessUser user = Backendless.UserService.CurrentUser();
+        String userToken = UserTokenStorageFactory.instance().getStorage().get();
+        UserTokenStorageFactory.instance().getStorage().set(null);
+        userToken = null;
         if(user != null){
             Backendless.UserService.logout(getLogoutCallback());
         }else{

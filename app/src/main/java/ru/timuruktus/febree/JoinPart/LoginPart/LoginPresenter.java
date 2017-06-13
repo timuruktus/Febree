@@ -11,7 +11,7 @@ import com.backendless.exceptions.BackendlessFault;
 
 import java.util.HashMap;
 
-import ru.timuruktus.febree.ContentPart.StepsFragment;
+import ru.timuruktus.febree.StepsPart.StepsFragment;
 import ru.timuruktus.febree.JoinPart.LoginPart.Interfaces.BaseLoginFragment;
 import ru.timuruktus.febree.JoinPart.LoginPart.Interfaces.BaseLoginModel;
 import ru.timuruktus.febree.JoinPart.LoginPart.Interfaces.BaseLoginPresenter;

@@ -1,4 +1,4 @@
-package ru.timuruktus.febree.ContentPart;
+package ru.timuruktus.febree.StepsPart;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,7 +9,7 @@ import com.orm.query.Select;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ru.timuruktus.febree.ContentPart.Interfaces.BaseStepsModel;
+import ru.timuruktus.febree.StepsPart.Interfaces.BaseStepsModel;
 import ru.timuruktus.febree.LocalPart.Step;
 import ru.timuruktus.febree.MainPart.MainActivity;
 import ru.timuruktus.febree.R;

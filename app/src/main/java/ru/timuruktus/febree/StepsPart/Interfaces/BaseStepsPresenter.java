@@ -1,4 +1,4 @@
-package ru.timuruktus.febree.ContentPart.Interfaces;
+package ru.timuruktus.febree.StepsPart.Interfaces;
 
 import ru.timuruktus.febree.BasePresenter;
 import rx.subscriptions.CompositeSubscription;

@@ -1,7 +1,6 @@
-package ru.timuruktus.febree.ContentPart.Interfaces;
+package ru.timuruktus.febree.StepsPart.Interfaces;
 
 import ru.timuruktus.febree.LocalPart.Step;
-import rx.Subscription;
 
 public interface BaseStepsFragment {
 
